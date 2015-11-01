@@ -1,29 +1,29 @@
-# Foundation-strength.js
+# Foundation-player.js
 
-Dead simple password strength plugin for [Foundation](http://foundation.zurb.com/).
-Just. Show me. The [demo](http://qatsi.github.io/foundation-strength.js/index.htm).
+Dead simple player plugin for [Foundation](http://foundation.zurb.com/). The [demo](http://qatsi.github.io/foundation-player.js/index.htm).
 
-`Foundation-strength.js` featuring:
-- Password strength indicator with *colors*!
-- Simple yet enough `Caps lock` detection
+`Foundation-player.js` featuring:
+- Play/puase buttons!
+- All you looking from a player
+- Waveform generation
 
 ## Documentation
 
-Provides strength indicator to show how secure a users password is.
+Provides player indicator to show how secure a users password is.
 
 ## Install
 
 Make sure assets below added after `foundation.js`  and `foundation.css`.
 
 ```
-<script type='text/javascript' src='../src/foundation-strength.js'></script>
-<link href='../src/foundation-strength.css' rel='stylesheet' type='text/css'>
+<script type='text/javascript' src='../src/foundation-player.js'></script>
+<link href='../src/foundation-player.css' rel='stylesheet' type='text/css'>
 ```
 
 Create a `password` input field within `form`.
 
 ```
-<form class='strength strength-1'>
+<form class='player player-1'>
 ...
 <input class='radius' type='password' placeholder='Password'>
 ...
@@ -35,7 +35,7 @@ Initiate the plugin.
 ```
 <script>
   $(document).ready(function($) {
-    $('.strength-1').strength();
+    $('.player-1').player();
     $(document).foundation();
   });
 </script>
