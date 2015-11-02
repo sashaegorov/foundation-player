@@ -1,2 +1,10 @@
 # Mac crap
 .DS_Store
+
+# src/foundation-player.js
+# src/foundation-player.min.js
+# src/foundation-player.css
+# index.html
+.sass-cache
+# There is no reason to track this...
+Gemfile.lock
