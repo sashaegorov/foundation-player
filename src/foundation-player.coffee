@@ -9,10 +9,6 @@
       playOnLoad: false       # Play as soon as it's loaded
       skipSeconds: 10         # How many we want to skip
       dimmedVolume: 0.25      # Reduced volume i.e. while seeking
-      animate: false          # EXPERIMENTAL: Animate some actions
-      quickAnimation: 50      # Small delay preset
-      moderateAnimation: 150  # Faster delay preset
-      pauseOthersOnPlay: true # Pause other players if any
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -171,12 +167,7 @@
 
     updatePlayedProgress: ->
       @played = Math.round @audio.currentTime / @audio.duration * 100
-      # Animate property if necessary
-      if @options.animate
-        @$played.animate width: @played + '%',
-          (queue: false, duration: @options.quickAnimation)
-      else
-        @$played.css 'width', @played + '%'
+      @$played.css 'width', @played + '%'
     redrawBufferizationBars: ->
       # This function should be called after playerBeautifyProgressBar
       # Remove all current indicators
@@ -200,11 +191,7 @@
 
     # Volume ===================================================================
     setVolume: (vol) ->
-      # Animate property if necessary
-      if @options.animate
-        $(@audio).animate volume: vol, (duration: @options.moderateAnimation)
-      else
-        @audio.volume = vol
+      @audio.volume = vol
     toggleMute: ->
       @audio.muted = !@audio.muted
       @updateButtonVolume()

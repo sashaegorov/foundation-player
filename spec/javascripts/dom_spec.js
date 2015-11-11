@@ -76,7 +76,7 @@ describe("UI exists", function() {
 
   it("CSS", function() {
     expect($('.foundation-player')).toHaveClass("foundation-player")
-    expect($('.random-player')).toHaveClass("foundation-player")
+    expect($('.random-player')).not.toHaveClass("foundation-player")
   });
 
 });
