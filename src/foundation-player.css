@@ -1,4 +1,4 @@
-/* line 34, foundation-player.scss */
+/* line 29, foundation-player.scss */
 .noselect {
   -webkit-touch-callout: none;
   -moz-user-select: none;
@@ -6,92 +6,90 @@
   -webkit-user-select: none;
   user-select: none; }
 
-/* line 46, foundation-player.scss */
+/* line 41, foundation-player.scss */
 .foundation-player {
   display: table;
   margin: 0 auto; }
-  /* line 51, foundation-player.scss */
+  /* line 46, foundation-player.scss */
   .foundation-player .player {
     margin-left: 0;
     margin-right: 0; }
-  /* line 57, foundation-player.scss */
+  /* line 52, foundation-player.scss */
   .foundation-player .disabled .player-button,
   .foundation-player .disabled .player-status,
   .foundation-player .disabled .player-progress {
-    opacity: .5; }
-  /* line 64, foundation-player.scss */
+    opacity: .75; }
+  /* line 59, foundation-player.scss */
   .foundation-player .player-progress {
     cursor: col-resize; }
-    /* line 67, foundation-player.scss */
+    /* line 62, foundation-player.scss */
     .foundation-player .player-progress .meter.played {
-      background: linear-gradient(5deg, #d91e18, #f9690e); }
-    /* line 71, foundation-player.scss */
+      background: #008cba; }
+    /* line 66, foundation-player.scss */
     .foundation-player .player-progress .meter.buffered {
-      background: linear-gradient(5deg, #d91e18, #f9690e);
+      background: #008cba;
       opacity: .2;
       position: absolute; }
-  /* line 79, foundation-player.scss */
+  /* line 74, foundation-player.scss */
   .foundation-player .player-button,
   .foundation-player .player-status {
-    color: #f9690e;
+    color: #008cba;
+    font-weight: bold;
     text-align: center; }
-  /* line 85, foundation-player.scss */
+  /* line 81, foundation-player.scss */
   .foundation-player .player-button {
     cursor: pointer;
     margin-left: 0; }
-    /* line 89, foundation-player.scss */
+    /* line 85, foundation-player.scss */
     .foundation-player .player-button.rewind em {
       transform: scale(-1, 1); }
-    /* line 94, foundation-player.scss */
+    /* line 90, foundation-player.scss */
     .foundation-player .player-button em:before {
-      background: linear-gradient(5deg, #d91e18, #f9690e);
-      -webkit-background-clip: text;
-      color: transparent; }
-    /* line 101, foundation-player.scss */
+      color: #008cba; }
+    /* line 94, foundation-player.scss */
     .foundation-player .player-button em:hover:before {
-      background: linear-gradient(5deg, #d91e18, #db0a5b);
-      -webkit-background-clip: text; }
+      color: #008cba; }
 
-/* line 111, foundation-player.scss */
+/* line 102, foundation-player.scss */
 .foundation-player.normal .player-button,
 .foundation-player.normal .player-status,
 .foundation-player.normal .player-progress {
   font-size: 1.4375rem; }
-/* line 117, foundation-player.scss */
+/* line 108, foundation-player.scss */
 .foundation-player.normal .player-status,
 .foundation-player.normal .player-progress {
   margin-left: 0.35938rem; }
-/* line 122, foundation-player.scss */
+/* line 113, foundation-player.scss */
 .foundation-player.normal .player-button {
   width: 2.15625rem; }
-  /* line 125, foundation-player.scss */
+  /* line 116, foundation-player.scss */
   .foundation-player.normal .player-button.play {
     font-size: 2.4375rem;
     margin: -0.84559rem 0; }
-/* line 132, foundation-player.scss */
+/* line 123, foundation-player.scss */
 .foundation-player.normal .player-progress .progress {
   height: 1.5rem;
   position: relative;
   top: 0.32813rem;
   width: 200px; }
 
-/* line 142, foundation-player.scss */
+/* line 133, foundation-player.scss */
 .foundation-player.small .player-button,
 .foundation-player.small .player-status,
 .foundation-player.small .player-progress {
   font-size: 1.125rem; }
-/* line 148, foundation-player.scss */
+/* line 139, foundation-player.scss */
 .foundation-player.small .player-status,
 .foundation-player.small .player-progress {
   margin-left: 0.28125rem; }
-/* line 153, foundation-player.scss */
+/* line 144, foundation-player.scss */
 .foundation-player.small .player-button {
   width: 1.6875rem; }
-  /* line 156, foundation-player.scss */
+  /* line 147, foundation-player.scss */
   .foundation-player.small .player-button.play {
     font-size: 2.125rem;
     margin: -0.86538rem 0; }
-/* line 163, foundation-player.scss */
+/* line 154, foundation-player.scss */
 .foundation-player.small .player-progress .progress {
   height: 0.625rem;
   position: relative;

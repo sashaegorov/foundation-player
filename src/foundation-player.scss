@@ -12,13 +12,8 @@ $base-line-height: 1.5 !default;
 }
 
 // Main player colors
-$color-red: #d91e18 !default;
-$color-orange: #f9690e !default;
-$color-pink: #db0a5b !default;
-// Gradients
-$fp-gradient: linear-gradient(5deg, $color-red, $color-orange) !default;
-$fp-gradient-hover: linear-gradient(5deg, $color-red, $color-pink) !default;
-$fp-gradient-progess: $fp-gradient !default;
+$fp-color: #008cba !default;
+
 // Font sizes
 $fp-font-size-normal: rem-calc(23) !default;
 $fp-font-size-small: rem-calc(18) !default;
@@ -57,7 +52,7 @@ $fp-progress-height-small: rem-calc(10) !default;
       .player-button,
       .player-status,
       .player-progress {
-        opacity: .5;
+        opacity: .75;
       }
     }
 
@@ -65,11 +60,11 @@ $fp-progress-height-small: rem-calc(10) !default;
       cursor: col-resize;
 
       .meter.played {
-        background: $fp-gradient-progess;
+        background: $fp-color;
       }
 
       .meter.buffered {
-        background: $fp-gradient-progess;
+        background: $fp-color;
         opacity: .2;
         position: absolute;
       }
@@ -78,7 +73,8 @@ $fp-progress-height-small: rem-calc(10) !default;
     // Buttons and icons
     .player-button,
     .player-status {
-      color: $color-orange;
+      color: $fp-color;
+      font-weight: bold;
       text-align: center;
     }
 
@@ -92,16 +88,11 @@ $fp-progress-height-small: rem-calc(10) !default;
 
       // Foundation Icons with gradient font
       em:before {
-        background: $fp-gradient;
-        // Can't avoid -webkut http://caniuse.com/#search=background-clip
-        -webkit-background-clip: text;
-        color: transparent;
+        color: $fp-color;
       }
 
       em:hover:before {
-        background: $fp-gradient-hover;
-        // Can't avoid -webkut http://caniuse.com/#search=background-clip
-        -webkit-background-clip: text;
+        color: $fp-color;
       }
     }
   }
