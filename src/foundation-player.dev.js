@@ -319,6 +319,16 @@
       };
 
 
+      /*__TEST_API_STARTS__ */
+
+      FoundationPlayer.prototype.testingAPI = function() {
+        return {
+          isNumber: isNumber
+        };
+      };
+
+
+      /*__TEST_API_ENDS__ */
 
       return FoundationPlayer;
 

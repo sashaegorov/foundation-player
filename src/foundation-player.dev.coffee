@@ -260,6 +260,12 @@
     isNumber = (x) ->
       typeof x == 'number' and isFinite(x)
 
+    # API for testing private functions
+    ###__TEST_API_STARTS__###
+    testingAPI: () ->
+      isNumber: isNumber
+    ###__TEST_API_ENDS__###
+
   # Define the jQuery plugin
   $.fn.extend foundationPlayer: (option, args...) ->
     # Set up FoundationPlayers for documant
