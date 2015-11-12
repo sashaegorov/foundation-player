@@ -4,12 +4,12 @@
     <meta charset='utf-8'>
     <title>HTML5 Audio Player for Zurb Foundation!</title>
     <!-- http://foundation.zurb.com/forum/posts/1863-foundation-cdn -->
-    <link href='http://cdn.foundation5.zurb.com/foundation.css' rel='stylesheet' type='text/css'>
-    <link href='./src/foundation-player.css' rel='stylesheet' type='text/css'>
-    <link href='./src/foundation-icons/foundation-icons.css' rel='stylesheet' type='text/css'>
-    <script src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js' type='text/javascript'></script>
-    <script src='http://cdn.foundation5.zurb.com/foundation.js' type='text/javascript'></script>
-    <script src='./src/foundation-player.min.js' type='text/javascript'></script>
+    <link href='./lib/css/foundation.css' rel='stylesheet' type='text/css'>
+    <link href='./lib/css/foundation-icons.css' rel='stylesheet' type='text/css'>
+    <link href='./dist/foundation-player.css' rel='stylesheet' type='text/css'>
+    <script src='./lib/js/jquery.min.js' type='text/javascript'></script>
+    <script src='./lib/js/foundation.js' type='text/javascript'></script>
+    <script src='./dist/foundation-player.min.js' type='text/javascript'></script>
     <script>
       $(document).ready(function($) {
         $(document).foundation();
@@ -228,7 +228,7 @@
                 </li>
               </ul>
               <audio preload='none'>
-                <source src='./src/climbing.m4a'>
+                <source src='./lib/audio/climbing.m4a'>
               </audio>
             </div>
           </div>
@@ -261,7 +261,7 @@
                 </li>
               </ul>
               <audio preload='none'>
-                <source src='./src/ukulele.m4a'>
+                <source src='./lib/audio/ukulele.m4a'>
               </audio>
             </div>
           </div>

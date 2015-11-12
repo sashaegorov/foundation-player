@@ -1,13 +1,13 @@
 src_files:
-  - http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
-  - http://cdn.foundation5.zurb.com/foundation.js
+  - /lib/js/jquery.min.js
+  - /lib/js/foundation.js
   # Use development version of library, which has testing API:
-  - /src/foundation-player.dev.js
+  - /dist/foundation-player.dev.js
 
 stylesheets:
-  - http://cdn.foundation5.zurb.com/foundation.css
-  - /src/foundation-player.css
-  - /src/foundation-icons/foundation-icons.css
+  - /lib/css/foundation.css
+  - /lib/css/foundation-icons.css
+  - /dist/foundation-player.css
 
 helpers:
   - 'helpers/**/*.js'

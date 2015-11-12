@@ -5,13 +5,13 @@
     %title HTML5 Audio Player for Zurb Foundation!
     / http://foundation.zurb.com/forum/posts/1863-foundation-cdn
     -# Styles
-    %link{href: 'http://cdn.foundation5.zurb.com/foundation.css', rel: 'stylesheet', type: 'text/css'}/
-    %link{href: './src/foundation-player.css', rel: 'stylesheet', type: 'text/css'}/
-    %link{href: './src/foundation-icons/foundation-icons.css', rel: 'stylesheet', type: 'text/css'}/
+    %link{href: './lib/css/foundation.css', rel: 'stylesheet', type: 'text/css'}/
+    %link{href: './lib/css/foundation-icons.css', rel: 'stylesheet', type: 'text/css'}/
+    %link{href: './dist/foundation-player.css', rel: 'stylesheet', type: 'text/css'}/
     -# Scripts
-    %script{src: 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js', type: 'text/javascript'}
-    %script{src: 'http://cdn.foundation5.zurb.com/foundation.js', type: 'text/javascript'}
-    %script{src: './src/foundation-player.min.js', type: 'text/javascript'}
+    %script{src: './lib/js/jquery.min.js', type: 'text/javascript'}
+    %script{src: './lib/js/foundation.js', type: 'text/javascript'}
+    %script{src: './dist/foundation-player.min.js', type: 'text/javascript'}
     :javascript
       $(document).ready(function($) {
         $(document).foundation();
@@ -167,7 +167,7 @@
             .foundation-player.no-2
               = player
               %audio{ preload: 'none' }
-                %source{ src: './src/climbing.m4a' }
+                %source{ src: './lib/audio/climbing.m4a' }
 
           #small.content
             %p
@@ -176,7 +176,7 @@
             .foundation-player.no-3
               = player
               %audio{ preload: 'none' }
-                %source{ src: './src/ukulele.m4a' }
+                %source{ src: './lib/audio/ukulele.m4a' }
 
         %p.text-center
           %small
