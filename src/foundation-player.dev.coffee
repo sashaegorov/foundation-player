@@ -92,6 +92,7 @@
     # Setup current audio
     setUpCurrentAudio: ->
       @audio.preload = 'metadata' # Start preload of audio file
+      @audio.load() # TODO: Safari hack, see tests
       $audio = $(@audio)
       $audio.on 'timeupdate.fndtn.player', () => # While playing
         @updatePlayedProgress()
