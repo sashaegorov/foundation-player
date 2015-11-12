@@ -1,4 +1,4 @@
-#
+# Test Foundation Player private functions
 describe 'Private functions suite', ->
   obj = {}
   beforeEach ->
