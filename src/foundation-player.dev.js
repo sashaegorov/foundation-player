@@ -10,7 +10,8 @@
         size: 'normal',
         playOnLoad: false,
         skipSeconds: 10,
-        dimmedVolume: 0.25
+        dimmedVolume: 0.25,
+        pauseOthersOnPlay: true
       };
 
       function FoundationPlayer(el, opt) {
@@ -95,6 +96,7 @@
       FoundationPlayer.prototype.setUpCurrentAudio = function() {
         var $audio;
         this.audio.preload = 'metadata';
+        this.audio.load();
         $audio = $(this.audio);
         $audio.on('timeupdate.fndtn.player', (function(_this) {
           return function() {
@@ -323,7 +325,9 @@
 
       FoundationPlayer.prototype.testingAPI = function() {
         return {
-          isNumber: isNumber
+          isNumber: isNumber,
+          prettyTime: prettyTime,
+          stringPadLeft: stringPadLeft
         };
       };
 
