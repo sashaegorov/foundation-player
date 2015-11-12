@@ -10,11 +10,7 @@
         size: 'normal',
         playOnLoad: false,
         skipSeconds: 10,
-        dimmedVolume: 0.25,
-        animate: false,
-        quickAnimation: 50,
-        moderateAnimation: 150,
-        pauseOthersOnPlay: true
+        dimmedVolume: 0.25
       };
 
       function FoundationPlayer(el, opt) {
@@ -221,16 +217,7 @@
 
       FoundationPlayer.prototype.updatePlayedProgress = function() {
         this.played = Math.round(this.audio.currentTime / this.audio.duration * 100);
-        if (this.options.animate) {
-          return this.$played.animate({
-            width: this.played + '%'
-          }, {
-            queue: false,
-            duration: this.options.quickAnimation
-          });
-        } else {
-          return this.$played.css('width', this.played + '%');
-        }
+        return this.$played.css('width', this.played + '%');
       };
 
       FoundationPlayer.prototype.redrawBufferizationBars = function() {
@@ -254,15 +241,7 @@
       };
 
       FoundationPlayer.prototype.setVolume = function(vol) {
-        if (this.options.animate) {
-          return $(this.audio).animate({
-            volume: vol
-          }, {
-            duration: this.options.moderateAnimation
-          });
-        } else {
-          return this.audio.volume = vol;
-        }
+        return this.audio.volume = vol;
       };
 
       FoundationPlayer.prototype.toggleMute = function() {
