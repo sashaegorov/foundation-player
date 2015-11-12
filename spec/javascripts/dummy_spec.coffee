@@ -4,6 +4,6 @@ describe 'CoffeeScript suite', ->
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
 
-  it 'it has CoffeeScript suppot:)', ->
+  it 'it has CoffeeScript support:)', ->
     expect(true).toBe true
     expect(false).not.toBe true
