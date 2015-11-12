@@ -10,7 +10,8 @@
         size: 'normal',
         playOnLoad: false,
         skipSeconds: 10,
-        dimmedVolume: 0.25
+        dimmedVolume: 0.25,
+        pauseOthersOnPlay: true
       };
 
       function FoundationPlayer(el, opt) {

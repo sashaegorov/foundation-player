@@ -1,92 +1,59 @@
-//Player just created, non animate
-
-describe("Initialized player", function() {
+describe('CoffeeScript suite', function() {
+  var no1;
+  no1 = 0;
   beforeEach(function() {
-    jasmine.getFixtures().load('player.html')
-    $('.no-1').foundationPlayer()
-    player = $('.no-1').data('FoundationPlayer');
+    loadFixtures('player.html');
+    $('.no-1').foundationPlayer();
+    return no1 = $('.no-1').data('FoundationPlayer');
   });
-
-
-  it("Initialized player?", function() {
-    expect(player).toBeDefined();
+  afterEach(function() {
+    return no1 = 0;
   });
-
-  it("player has default size", function() {
-    expect(player.currentUISize).toEqual(player.options.size);
+  it('it has CoffeeScript support:)', function() {
+    expect(true).toBe(true);
+    return expect(false).not.toBe(true);
   });
-//API tests:
-//player.play()
-//player.pause()
-//player.playPause()
-  it("play() works", function() {
-    player.play()
-    expect(player.audio.paused).toEqual(false);
+  it('Initialized player?', function() {
+    return expect(no1).toBeDefined();
   });
-
-  it("paused() works", function() {
-    player.pause()
-    expect(player.audio.paused).toEqual(true);
+  it('player has default size', function() {
+    return expect(no1.currentUISize).toEqual(no1.options.size);
   });
-
-  it("playPause() works", function() {
-    player.pause()
-    player.playPause()
-    expect(player.audio.paused).toEqual(false);
-    player.playPause()
-    expect(player.audio.paused).toEqual(true);
+  it('play() works', function() {
+    no1.play();
+    return expect(no1.audio.paused).toEqual(false);
   });
-
-  it("setVolume() works", function() {
-    player.setVolume(0.5)
-    expect(player.audio.volume).toEqual(0.5);
+  it('paused() works', function() {
+    no1.pause();
+    return expect(no1.audio.paused).toEqual(true);
   });
-
-  it("setPlayerSize() works", function() {
-   player.setPlayerSize('small')
-   expect(player.currentUISize).toEqual('small');
+  it('playPause() works', function() {
+    no1.pause();
+    no1.playPause();
+    expect(no1.audio.paused).toEqual(false);
+    no1.playPause();
+    return expect(no1.audio.paused).toEqual(true);
   });
-
-  it("togglePlayerSize() works", function() {
-   player.setPlayerSize('small')
-   player.togglePlayerSize()
-   expect(player.currentUISize).toEqual('normal');
-   player.togglePlayerSize()
-   expect(player.currentUISize).toEqual('small');
+  it('setVolume() works', function() {
+    no1.setVolume(0.5);
+    return expect(no1.audio.volume).toEqual(0.5);
   });
-
-  it("toggleMute() works", function() {
-   player.audio.muted = false
-   player.toggleMute()
-   expect(player.audio.muted).toEqual(true);
-   player.toggleMute()
-   expect(player.audio.muted).toEqual(false);
+  it('setPlayerSize() works', function() {
+    no1.setPlayerSize('small');
+    return expect(no1.currentUISize).toEqual('small');
   });
-
-
+  it('togglePlayerSize() works', function() {
+    no1.setPlayerSize('small');
+    no1.togglePlayerSize();
+    expect(no1.currentUISize).toEqual('normal');
+    no1.togglePlayerSize();
+    return expect(no1.currentUISize).toEqual('small');
+  });
+  return it('toggleMute() works', function() {
+    no1.audio.muted = false;
+    no1.toggleMute();
+    expect(no1.audio.muted).toEqual(true);
+    no1.toggleMute();
+    return expect(no1.audio.muted).toEqual(false);
+  });
 });
-
-
-describe("UI exists", function() {
-  beforeEach(function() {
-    jasmine.getFixtures().load('player.html')
-    $('.no-1').foundationPlayer()
-    player1 = $('.no-1').data('FoundationPlayer');
-  });
-
-  it("CSS", function() {
-    expect($('.foundation-player')).toHaveClass("foundation-player")
-    expect($('.random-player')).not.toHaveClass("foundation-player")
-  });
-
-});
-//changes in defaults.
-
-
-
-// changes in animate @options.animate = true affects
-// updatePlayedProgress:
-// seekToTime, seekPercent, setUpCurrentAudio
-// setVolume:
-// @$progress.on 'mousedown.fndtn.player',  () =>
-//_stopDragHandler = () =>

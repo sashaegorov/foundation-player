@@ -9,6 +9,7 @@
       playOnLoad: false       # Play as soon as it's loaded
       skipSeconds: 10         # How many we want to skip
       dimmedVolume: 0.25      # Reduced volume i.e. while seeking
+      pauseOthersOnPlay: true
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -264,6 +265,8 @@
     ###__TEST_API_STARTS__###
     testingAPI: () ->
       isNumber: isNumber
+      prettyTime: prettyTime
+      stringPadLeft: stringPadLeft
     ###__TEST_API_ENDS__###
 
   # Define the jQuery plugin
