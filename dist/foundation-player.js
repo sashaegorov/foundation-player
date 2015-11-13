@@ -307,6 +307,9 @@
 
       prettyTime = function(s) {
         var minutes, seconds;
+        if (!isNumber(s)) {
+          return false;
+        }
         minutes = Math.floor(s / 60);
         seconds = Math.floor(s - minutes * 60);
         return (stringPadLeft(minutes, '0', 2)) + ':' + (stringPadLeft(seconds, '0', 2));

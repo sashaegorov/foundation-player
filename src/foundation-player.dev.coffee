@@ -247,6 +247,7 @@
 
     # Format second to human readable format
     prettyTime = (s) ->
+      return false unless isNumber s
       # As seen here: http://stackoverflow.com/questions/3733227
       minutes = Math.floor s / 60
       seconds = Math.floor s - minutes * 60
