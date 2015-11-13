@@ -147,10 +147,9 @@
       };
 
       FoundationPlayer.prototype.setUpButtonVolume = function() {
-        return this.$volume.bind('click', (function(_this) {
+        return this.$volume.bind('click.fndtn.player', (function(_this) {
           return function() {
-            _this.toggleMute();
-            return _this.updateButtonVolume();
+            return _this.buttonVolumeHandler();
           };
         })(this));
       };
@@ -161,6 +160,11 @@
         } else {
           return switchClass(this.$volume, 'fi-volume', 'fi-volume-strike');
         }
+      };
+
+      FoundationPlayer.prototype.buttonVolumeHandler = function() {
+        this.toggleMute();
+        return this.updateButtonVolume();
       };
 
       FoundationPlayer.prototype.setUpButtonRewind = function() {
@@ -241,8 +245,7 @@
       };
 
       FoundationPlayer.prototype.toggleMute = function() {
-        this.audio.muted = !this.audio.muted;
-        return this.updateButtonVolume();
+        return this.audio.muted = !this.audio.muted;
       };
 
       FoundationPlayer.prototype.updateTimeStatuses = function() {
