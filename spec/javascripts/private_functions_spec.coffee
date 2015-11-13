@@ -1,14 +1,16 @@
 # Test Foundation Player private functions
 describe 'Private functions suite', ->
-  obj = {}
+  obj = null
+
   beforeEach ->
-    loadFixtures 'player.html'
+    jasmine.getFixtures().fixturesPath = '.'
+    loadFixtures 'spec/javascripts/fixtures/player.html'
     $('.no-1').foundationPlayer()
     obj = $('.no-1').data('FoundationPlayer').testingAPI()
-  afterEach ->
-    obj = {}
-    $.removeData(document.body, 'FoundationPlayers')
 
+  afterEach ->
+    obj = null
+    $.removeData document.body, 'FoundationPlayers'
 
   it 'isNumber() detects correct numbers', ->
     expect(obj.isNumber(1)).toBe true
