@@ -3,8 +3,10 @@ describe 'Private functions suite', ->
   obj = null
 
   beforeEach ->
+    # Fixtures
     jasmine.getFixtures().fixturesPath = '.'
     loadFixtures 'spec/javascripts/fixtures/player.html'
+    # Setup
     $('.no-1').foundationPlayer()
     obj = $('.no-1').data('FoundationPlayer').testingAPI()
 
