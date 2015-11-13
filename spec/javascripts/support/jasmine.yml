@@ -4,11 +4,6 @@ src_files:
   # Use development version of library, which has testing API:
   - /dist/foundation-player.dev.js
 
-stylesheets:
-  - /lib/css/foundation.css
-  - /lib/css/foundation-icons.css
-  - /dist/foundation-player.css
-
 helpers:
   - 'helpers/**/*.js'
 
