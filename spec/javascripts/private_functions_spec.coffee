@@ -2,8 +2,8 @@
 describe 'Private functions suite', ->
   obj = {}
   beforeEach ->
-    jasmine.getFixtures().load 'player.html'
-    $('.foundation-player').foundationPlayer()
+    loadFixtures 'player.html'
+    $('.no-1').foundationPlayer()
     obj = $('.no-1').data('FoundationPlayer').testingAPI()
   afterEach ->
     obj = {}
