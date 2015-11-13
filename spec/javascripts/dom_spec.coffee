@@ -1,11 +1,16 @@
 describe 'One player', ->
-  no1 = {}
+  no1 = null
+
   beforeEach ->
-    loadFixtures 'player.html'
+    # Fixtures
+    jasmine.getFixtures().fixturesPath = '.'
+    loadFixtures 'spec/javascripts/fixtures/player.html'
+    # Setup
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
+
   afterEach ->
-    no1 =  {}
+    no1 = null
     $.removeData(document.body, 'FoundationPlayers')
 
   it 'it has CoffeeScript support:)', ->
@@ -62,12 +67,14 @@ describe 'One player', ->
 
 describe 'Two players', ->
   no1 = no2 = 0
+
   beforeEach ->
     loadFixtures 'player.html'
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
     $('.no-2').foundationPlayer()
     no2 = $('.no-2').data 'FoundationPlayer'
+
   afterEach ->
     no1 = no2 = 0
     $.removeData(document.body, 'FoundationPlayers')
@@ -77,7 +84,3 @@ describe 'Two players', ->
     no2.play()
     expect(no1.audio.paused).toEqual true
     expect(no2.audio.paused).toEqual false
-
- describe 'All cleaned up', ->
-   it 'All players cleanuped after test', ->
-     expect($.data(document.body, 'FoundationPlayers')).toEqual undefined

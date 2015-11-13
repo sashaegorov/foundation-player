@@ -1,9 +1,13 @@
 describe 'Elements for Initialization', ->
   no1 = null
   beforeEach ->
-    loadFixtures 'player.html'
+    # Fixtures
+    jasmine.getFixtures().fixturesPath = '.'
+    loadFixtures 'spec/javascripts/fixtures/player.html'
+    # Setup
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
+
   afterEach ->
     no1 = null
     $.removeData(document.body, 'FoundationPlayers')
@@ -15,7 +19,6 @@ describe 'Elements for Initialization', ->
     expect(no1.played).toEqual 0
 
   it 'Initial elements found in DOM', ->   #Fuck Sasha
-    console.log (no1)
     expect(no1.$player).toHaveClass('player')
     expect(no1.$sources).toContain('audio')
     expect(no1.$play.length).not.toEqual(0)
