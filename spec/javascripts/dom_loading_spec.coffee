@@ -2,7 +2,8 @@
 describe 'Audio loading tests suite', ->
   no1 = null
   beforeEach ->
-    loadFixtures 'player.html'
+    jasmine.getFixtures().fixturesPath = '.'
+    loadFixtures 'spec/javascripts/fixtures/html/player.html'
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
   afterEach ->

@@ -3,7 +3,7 @@ describe 'Elements for Initialization', ->
   beforeEach ->
     # Fixtures
     jasmine.getFixtures().fixturesPath = '.'
-    loadFixtures 'spec/javascripts/fixtures/player.html'
+    loadFixtures 'spec/javascripts/fixtures/html/player.html'
     # Setup
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'

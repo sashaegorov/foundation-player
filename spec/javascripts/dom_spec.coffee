@@ -4,7 +4,7 @@ describe 'One player', ->
   beforeEach ->
     # Fixtures
     jasmine.getFixtures().fixturesPath = '.'
-    loadFixtures 'spec/javascripts/fixtures/player.html'
+    loadFixtures 'spec/javascripts/fixtures/html/player.html'
     # Setup
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
@@ -13,15 +13,13 @@ describe 'One player', ->
     no1 = null
     $.removeData(document.body, 'FoundationPlayers')
 
-  it 'it has CoffeeScript support:)', ->
-    expect(true).toBe true
-    expect(false).not.toBe true
-
   it 'Initialized player?', ->
     expect(no1).toBeDefined()
 
   it 'player has default size', ->
     expect(no1.currentUISize).toEqual no1.options.size
+    expect(no1.options.size).toEqual 'normal'
+    expect(no1.options.size).not.toEqual 'small'
 
   it 'play() works', ->
     no1.play()
@@ -66,17 +64,20 @@ describe 'One player', ->
     expect(no1.audio.muted).toEqual false
 
 describe 'Two players', ->
-  no1 = no2 = 0
+  no1 = no2 = null
 
   beforeEach ->
-    loadFixtures 'player.html'
+    # Fixtures
+    jasmine.getFixtures().fixturesPath = '.'
+    loadFixtures 'spec/javascripts/fixtures/html/player.html'
+    # Setup
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
     $('.no-2').foundationPlayer()
     no2 = $('.no-2').data 'FoundationPlayer'
 
   afterEach ->
-    no1 = no2 = 0
+    no1 = no2 = null
     $.removeData(document.body, 'FoundationPlayers')
 
   it 'play()+pause() works', ->
