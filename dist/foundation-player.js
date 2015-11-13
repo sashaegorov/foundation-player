@@ -89,8 +89,7 @@
 
       FoundationPlayer.prototype.setUpCurrentAudio = function() {
         var $audio;
-        this.audio.preload = 'metadata';
-        this.audio.load();
+        this.audio.preload = 'auto';
         $audio = $(this.audio);
         $audio.on('timeupdate.fndtn.player', (function(_this) {
           return function() {

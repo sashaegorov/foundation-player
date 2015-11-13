@@ -41,7 +41,7 @@
       @setUpButtonRewind()    # Set up rewind button
       @setUpPlayedProgress()  # Set up played progress meter
 
-    # Playback =================================================================
+    # Playback control =========================================================
     playPause: ->
       if @audio.paused then @play() else @pause()
     play: ->
@@ -54,6 +54,7 @@
       @updateButtonPlay()
 
     seekToTime: (time) ->
+      # TODO: Split parse logic in private function, and cover
       @audio.currentTime = (
         if isNumber(time) # Numeric e.g. 42th second
           time
@@ -70,6 +71,7 @@
       @
 
     seekPercent: (p) ->
+      # TODO: Split percent logic in private function, and cover
       # Can use both 0.65 and 65
       @audio.currentTime = @audio.duration * (if p >= 1 then p/100 else p)
       @updatePlayedProgress()
@@ -86,8 +88,8 @@
 
     # Setup current audio
     setUpCurrentAudio: ->
-      @audio.preload = 'metadata' # Start preload of audio file
-      @audio.load() # TODO: Safari hack, see tests
+      @audio.preload = 'auto' # Start preload of audio file
+      # @audio.load() # TODO: Safari hack, see tests
       $audio = $(@audio)
       $audio.on 'timeupdate.fndtn.player', () => # While playing
         @updatePlayedProgress()
