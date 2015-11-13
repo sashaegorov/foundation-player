@@ -7,6 +7,8 @@ describe 'Private functions suite', ->
     obj = $('.no-1').data('FoundationPlayer').testingAPI()
   afterEach ->
     obj = {}
+    $.removeData(document.body, 'FoundationPlayers')
+
 
   it 'isNumber() detects correct numbers', ->
     expect(obj.isNumber(1)).toBe true
