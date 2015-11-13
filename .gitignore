@@ -1,10 +1,9 @@
 # Mac crap
 .DS_Store
 
-# src/foundation-player.js
-# src/foundation-player.min.js
-# src/foundation-player.css
-# index.html
+dist/foundation-player.dev.js
+spec/javascripts/*_spec.js
 .sass-cache
+
 # There is no reason to track this...
 Gemfile.lock

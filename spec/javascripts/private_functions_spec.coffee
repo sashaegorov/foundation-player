@@ -18,10 +18,11 @@ describe 'Private functions suite', ->
     expect(obj.isNumber('1')).toBe false
 
   it 'stringPadLeft() adds additional 00', ->
-    minutes = 5
-    expect(obj.stringPadLeft(minutes, '0', 3)).toBe '005'
+    expect(obj.stringPadLeft(5, '0', 3)).toBe '005'
+    expect(obj.stringPadLeft('x', '0', 2)).toBe '0x'
 
   it 'prettyTime(100) returns 01:40 ', ->
     expect(obj.prettyTime(10)).toBe  '00:10'
     expect(obj.prettyTime(0)).toBe '00:00'
     expect(obj.prettyTime(1000)).toBe '16:40'
+    expect(obj.prettyTime('10')).toBe false
