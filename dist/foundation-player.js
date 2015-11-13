@@ -10,7 +10,8 @@
         size: 'normal',
         playOnLoad: false,
         skipSeconds: 10,
-        dimmedVolume: 0.25
+        dimmedVolume: 0.25,
+        pauseOthersOnPlay: true
       };
 
       function FoundationPlayer(el, opt) {
@@ -95,6 +96,7 @@
       FoundationPlayer.prototype.setUpCurrentAudio = function() {
         var $audio;
         this.audio.preload = 'metadata';
+        this.audio.load();
         $audio = $(this.audio);
         $audio.on('timeupdate.fndtn.player', (function(_this) {
           return function() {
@@ -305,6 +307,9 @@
 
       prettyTime = function(s) {
         var minutes, seconds;
+        if (!isNumber(s)) {
+          return false;
+        }
         minutes = Math.floor(s / 60);
         seconds = Math.floor(s - minutes * 60);
         return (stringPadLeft(minutes, '0', 2)) + ':' + (stringPadLeft(seconds, '0', 2));
@@ -319,16 +324,6 @@
       };
 
 
-      /*__TEST_API_STARTS__ */
-
-      FoundationPlayer.prototype.testingAPI = function() {
-        return {
-          isNumber: isNumber
-        };
-      };
-
-
-      /*__TEST_API_ENDS__ */
 
       return FoundationPlayer;
 
