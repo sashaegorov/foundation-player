@@ -40,3 +40,14 @@ describe 'Private functions suite', ->
     expect(obj.prettyTime('10')).toBe false
     expect(obj.prettyTime(NaN)).toBe false
     expect(obj.prettyTime(null)).toBe false
+
+  it 'switchClass() switches classes', ->
+    setFixtures('<hr class="dummy foo" />')
+    $el = $('.dummy')
+    expect($el).toHaveClass 'dummy'
+    expect($el).toHaveClass 'foo'
+    expect($el).not.toHaveClass 'bar'
+    obj.switchClass($el, 'bar', 'foo')
+    expect($el).toHaveClass 'dummy'
+    expect($el).toHaveClass 'bar'
+    expect($el).not.toHaveClass 'foo'

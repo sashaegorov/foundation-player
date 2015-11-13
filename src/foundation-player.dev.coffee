@@ -268,6 +268,7 @@
       isNumber: isNumber
       prettyTime: prettyTime
       stringPadLeft: stringPadLeft
+      switchClass: switchClass
     ###__TEST_API_ENDS__###
 
   # Define the jQuery plugin
