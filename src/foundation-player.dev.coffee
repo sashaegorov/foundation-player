@@ -33,11 +33,7 @@
       @nowdragging = false
       @currentUISize = @options.size
       @canPlayCurrent = false
-      # Calls
-      @initialize()
-
-    # Init function
-    initialize: ->
+      # Init calls
       @resetClassAndStyle()   # Setup classes and styles
       @setUpCurrentAudio()    # Set up Play/Pause
       @setUpButtonPlayPause() # Set up Play/Pause
@@ -50,8 +46,7 @@
       if @audio.paused then @play() else @pause()
     play: ->
       if @options.pauseOthersOnPlay
-        players = $.data(document.body, 'FoundationPlayers')
-        players.map (p) => p.pause() if @ != p
+        @getPlayerInstances().map (p) => p.pause() if @ != p
       @audio.play()
       @updateButtonPlay()
     pause: ->
@@ -240,6 +235,10 @@
         # TODO: Make it better
         @$played.css 'padding', '0 ' + semiHeight + 'px'
         @$progress.find('.buffered').css 'padding', '0 ' + semiHeight + 'px'
+
+    getPlayerInstances: ->
+      $.data(document.body, 'FoundationPlayers')
+
     # Helpers ==================================================================
     # Some really internal stuff goes here
     switchClass = (element, p, n) ->

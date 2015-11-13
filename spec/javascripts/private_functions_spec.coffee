@@ -5,7 +5,7 @@ describe 'Private functions suite', ->
   beforeEach ->
     # Fixtures
     jasmine.getFixtures().fixturesPath = '.'
-    loadFixtures 'spec/javascripts/fixtures/html/player.html'
+    loadFixtures 'spec/javascripts/fixtures/html/player-1.html'
     # Setup
     $('.no-1').foundationPlayer()
     obj = $('.no-1').data('FoundationPlayer').testingAPI()

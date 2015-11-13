@@ -4,7 +4,7 @@ describe 'One player', ->
   beforeEach ->
     # Fixtures
     jasmine.getFixtures().fixturesPath = '.'
-    loadFixtures 'spec/javascripts/fixtures/html/player.html'
+    loadFixtures 'spec/javascripts/fixtures/html/player-1.html'
     # Setup
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
@@ -62,26 +62,3 @@ describe 'One player', ->
     expect(no1.audio.muted).toEqual true
     no1.toggleMute()
     expect(no1.audio.muted).toEqual false
-
-describe 'Two players', ->
-  no1 = no2 = null
-
-  beforeEach ->
-    # Fixtures
-    jasmine.getFixtures().fixturesPath = '.'
-    loadFixtures 'spec/javascripts/fixtures/html/player.html'
-    # Setup
-    $('.no-1').foundationPlayer()
-    no1 = $('.no-1').data 'FoundationPlayer'
-    $('.no-2').foundationPlayer()
-    no2 = $('.no-2').data 'FoundationPlayer'
-
-  afterEach ->
-    no1 = no2 = null
-    $.removeData(document.body, 'FoundationPlayers')
-
-  it 'play()+pause() works', ->
-    no1.play()
-    no2.play()
-    expect(no1.audio.paused).toEqual true
-    expect(no2.audio.paused).toEqual false
