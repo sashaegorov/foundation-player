@@ -9,7 +9,7 @@
       playOnLoad: false       # Play as soon as it's loaded
       skipSeconds: 10         # How many we want to skip
       dimmedVolume: 0.25      # Reduced volume i.e. while seeking
-      pauseOthersOnPlay: true
+      pauseOthersOnPlay: true # Pause other player instances
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -28,16 +28,11 @@
       # TODO: Manage current audio object more carefully
       @audio =     @$sources.get(0)
       # State
-      @timer =     null
       @played =    0
       @nowdragging = false
       @currentUISize = @options.size
       @canPlayCurrent = false
-      # Calls
-      @initialize()
-
-    # Init function
-    initialize: ->
+      # Init calls
       @resetClassAndStyle()   # Setup classes and styles
       @setUpCurrentAudio()    # Set up Play/Pause
       @setUpButtonPlayPause() # Set up Play/Pause
@@ -45,13 +40,12 @@
       @setUpButtonRewind()    # Set up rewind button
       @setUpPlayedProgress()  # Set up played progress meter
 
-    # Playback =================================================================
+    # Playback control =========================================================
     playPause: ->
       if @audio.paused then @play() else @pause()
     play: ->
       if @options.pauseOthersOnPlay
-        players = $.data(document.body, 'FoundationPlayers')
-        players.map (p) => p.pause() if @ != p
+        @getPlayerInstances().map (p) => p.pause() if @ != p
       @audio.play()
       @updateButtonPlay()
     pause: ->
@@ -59,6 +53,7 @@
       @updateButtonPlay()
 
     seekToTime: (time) ->
+      # TODO: Split parse logic in private function, and cover
       @audio.currentTime = (
         if isNumber(time) # Numeric e.g. 42th second
           time
@@ -75,6 +70,7 @@
       @
 
     seekPercent: (p) ->
+      # TODO: Split percent logic in private function, and cover
       # Can use both 0.65 and 65
       @audio.currentTime = @audio.duration * (if p >= 1 then p/100 else p)
       @updatePlayedProgress()
@@ -91,23 +87,23 @@
 
     # Setup current audio
     setUpCurrentAudio: ->
-      @audio.preload = 'metadata' # Start preload of audio file
-      @audio.load() # TODO: Safari hack, see tests
+      # Start preload of audio file
+      @audio.load()
       $audio = $(@audio)
-      $audio.on 'timeupdate.fndtn.player', () => # While playing
+      $audio.on 'timeupdate.fndtn.player', => # While playing
         @updatePlayedProgress()
         @updateTimeStatuses()
       # Bunch of <audio> events
-      $audio.on 'loadstart.fndtn.player', () => # Loading is started
+      $audio.on 'loadstart.fndtn.player', => # Loading is started
         @canPlayCurrent = false
         @updateDisabledStatus()
         @updateButtonPlay()
-      $audio.on 'durationchange.fndtn.player', () => # 'NaN' to loaded
+      $audio.on 'durationchange.fndtn.player', => # 'NaN' to loaded
         @updateTimeStatuses()   # Update both time statuses
-      $audio.on 'progress.fndtn.player', () =>
+      $audio.on 'progress.fndtn.player', =>
         @redrawBufferizationBars()
         @updateDisabledStatus()
-      $audio.on 'canplay.fndtn.player', () => # Can be played
+      $audio.on 'canplay.fndtn.player', => # Can be played
         @canPlayCurrent = true
         @play() if @options.playOnLoad
         @redrawBufferizationBars()
@@ -117,7 +113,7 @@
     # Buttons ==================================================================
     # Set up Play/Pause
     setUpButtonPlayPause: ->
-      @$play.bind 'click', () =>
+      @$play.bind 'click', =>
         @playPause() if @canPlayCurrent
     # Update Play/Pause
     updateButtonPlay: ->
@@ -127,18 +123,22 @@
       @
     # Set up volume button
     setUpButtonVolume: ->
-      @$volume.bind 'click', () =>
-        @toggleMute()
-        @updateButtonVolume()
+      @$volume.bind 'click.fndtn.player', =>
+        @buttonVolumeHandler()
     # Update volume button
     updateButtonVolume: ->
       if @audio.muted
         switchClass @$volume, 'fi-volume-strike', 'fi-volume'
       else
         switchClass @$volume, 'fi-volume', 'fi-volume-strike'
+    # Volume button handler
+    buttonVolumeHandler: ->
+      @toggleMute()
+      @updateButtonVolume()
+
     # Set up rewind button
     setUpButtonRewind: ->
-      @$rewind.on 'click', () =>
+      @$rewind.on 'click', =>
         @seekToTime(@audio.currentTime - @options.skipSeconds)
 
     # Progress =================================================================
@@ -196,7 +196,6 @@
       @audio.volume = vol
     toggleMute: ->
       @audio.muted = !@audio.muted
-      @updateButtonVolume()
 
     # Status ===================================================================
     # Update all statuses
@@ -240,6 +239,10 @@
         # TODO: Make it better
         @$played.css 'padding', '0 ' + semiHeight + 'px'
         @$progress.find('.buffered').css 'padding', '0 ' + semiHeight + 'px'
+
+    getPlayerInstances: ->
+      $.data(document.body, 'FoundationPlayers')
+
     # Helpers ==================================================================
     # Some really internal stuff goes here
     switchClass = (element, p, n) ->
@@ -269,6 +272,7 @@
       isNumber: isNumber
       prettyTime: prettyTime
       stringPadLeft: stringPadLeft
+      switchClass: switchClass
     ###__TEST_API_ENDS__###
 
   # Define the jQuery plugin
