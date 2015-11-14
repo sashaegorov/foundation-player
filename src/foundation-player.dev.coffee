@@ -28,7 +28,6 @@
       # TODO: Manage current audio object more carefully
       @audio =     @$sources.get(0)
       # State
-      @timer =     null
       @played =    0
       @nowdragging = false
       @currentUISize = @options.size
@@ -88,23 +87,23 @@
 
     # Setup current audio
     setUpCurrentAudio: ->
-      @audio.preload = 'auto' # Start preload of audio file
-      # @audio.load() # TODO: Safari hack, see tests
+      # Start preload of audio file
+      @audio.load()
       $audio = $(@audio)
-      $audio.on 'timeupdate.fndtn.player', () => # While playing
+      $audio.on 'timeupdate.fndtn.player', => # While playing
         @updatePlayedProgress()
         @updateTimeStatuses()
       # Bunch of <audio> events
-      $audio.on 'loadstart.fndtn.player', () => # Loading is started
+      $audio.on 'loadstart.fndtn.player', => # Loading is started
         @canPlayCurrent = false
         @updateDisabledStatus()
         @updateButtonPlay()
-      $audio.on 'durationchange.fndtn.player', () => # 'NaN' to loaded
+      $audio.on 'durationchange.fndtn.player', => # 'NaN' to loaded
         @updateTimeStatuses()   # Update both time statuses
-      $audio.on 'progress.fndtn.player', () =>
+      $audio.on 'progress.fndtn.player', =>
         @redrawBufferizationBars()
         @updateDisabledStatus()
-      $audio.on 'canplay.fndtn.player', () => # Can be played
+      $audio.on 'canplay.fndtn.player', => # Can be played
         @canPlayCurrent = true
         @play() if @options.playOnLoad
         @redrawBufferizationBars()
@@ -114,7 +113,7 @@
     # Buttons ==================================================================
     # Set up Play/Pause
     setUpButtonPlayPause: ->
-      @$play.bind 'click', () =>
+      @$play.bind 'click', =>
         @playPause() if @canPlayCurrent
     # Update Play/Pause
     updateButtonPlay: ->
@@ -124,7 +123,7 @@
       @
     # Set up volume button
     setUpButtonVolume: ->
-      @$volume.bind 'click.fndtn.player', () =>
+      @$volume.bind 'click.fndtn.player', =>
         @buttonVolumeHandler()
     # Update volume button
     updateButtonVolume: ->
@@ -139,7 +138,7 @@
 
     # Set up rewind button
     setUpButtonRewind: ->
-      @$rewind.on 'click', () =>
+      @$rewind.on 'click', =>
         @seekToTime(@audio.currentTime - @options.skipSeconds)
 
     # Progress =================================================================

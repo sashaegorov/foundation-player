@@ -27,7 +27,6 @@
         this.$played = this.$progress.find('.meter.played');
         this.$sources = this.$wrapper.children('audio');
         this.audio = this.$sources.get(0);
-        this.timer = null;
         this.played = 0;
         this.nowdragging = false;
         this.currentUISize = this.options.size;
@@ -89,7 +88,7 @@
 
       FoundationPlayer.prototype.setUpCurrentAudio = function() {
         var $audio;
-        this.audio.preload = 'auto';
+        this.audio.load();
         $audio = $(this.audio);
         $audio.on('timeupdate.fndtn.player', (function(_this) {
           return function() {
