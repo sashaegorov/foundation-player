@@ -12,7 +12,9 @@
         playOnLoad: false,
         skipSeconds: 10,
         dimmedVolume: 0.25,
-        pauseOthersOnPlay: true
+        pauseOthersOnPlay: true,
+        useSeekData: false,
+        seekDataClass: 'seek-to'
       };
 
       function FoundationPlayer(el, opt) {
@@ -38,6 +40,9 @@
         this.setUpButtonVolume();
         this.setUpButtonRewind();
         this.setUpPlayedProgress();
+        if (this.options.useSeekData) {
+          this.parseDataLinks();
+        }
       }
 
       FoundationPlayer.prototype.playPause = function() {
@@ -300,6 +305,10 @@
         return $.data(document.body, 'FoundationPlayers');
       };
 
+      FoundationPlayer.prototype.parseDataLinks = function() {
+        return false;
+      };
+
       switchClass = function(element, p, n) {
         return $(element).addClass(p).removeClass(n);
       };
@@ -340,6 +349,7 @@
       return FoundationPlayer;
 
     })();
+
     return $.fn.extend({
       foundationPlayer: function() {
         var args, option;

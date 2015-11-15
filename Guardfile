@@ -25,12 +25,12 @@ group :all_the_stuff, halt_on_fail: true do
   end
 
   # Strip testing API i.e. JavaScript code between lines:
-  # /*__TEST_API_STARTS__ */ and /*__TEST_API_ENDS__ */
+  # /*__TEST_ONLY_SECTION_STARTS__ */ and /*__TEST_ONLY_SECTION_ENDS__ */
   # and write it to file without `.dev` suffix
   guard :shell do
     watch(%r{^dist/.*\.dev\.js}) do |m|
       out = m[0].sub '.dev.js', '.js'
-      `sed '/__TEST_API_STARTS__/,/__TEST_API_ENDS__/d' #{m[0]} > #{out}`
+      `sed '/__TEST_ONLY_SECTION_STARTS__/,/__TEST_ONLY_SECTION_ENDS__/d' #{m[0]} > #{out}`
     end
   end
 

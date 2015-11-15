@@ -11,6 +11,8 @@
       skipSeconds: 10         # How many we want to skip
       dimmedVolume: 0.25      # Reduced volume i.e. while seeking
       pauseOthersOnPlay: true # Pause other player instances
+      useSeekData: false      # Don't parse seek date from links by default
+      seekDataClass: 'seek-to' # Filter only links with this class
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -40,6 +42,7 @@
       @setUpButtonVolume()    # Set up volume button
       @setUpButtonRewind()    # Set up rewind button
       @setUpPlayedProgress()  # Set up played progress meter
+      @parseDataLinks() if @options.useSeekData
 
     # Playback control =========================================================
     playPause: ->
@@ -235,6 +238,10 @@
     getPlayerInstances: ->
       $.data(document.body, 'FoundationPlayers')
 
+    # Data links ===============================================================
+    parseDataLinks: ->
+      false
+
     # Helpers ==================================================================
     # Some really internal stuff goes here
     switchClass = (element, p, n) ->
@@ -269,14 +276,20 @@
         false
 
     # API for testing private functions
-    ###__TEST_API_STARTS__###
+    # This comment section passed in compiled JavaScript
+    ###__TEST_ONLY_SECTION_STARTS__###
     testingAPI: () ->
       isNumber: isNumber
       prettyTime: prettyTime
       stringPadLeft: stringPadLeft
       switchClass: switchClass
       parseSeekTime: parseSeekTime
-    ###__TEST_API_ENDS__###
+    ###__TEST_ONLY_SECTION_ENDS__###
+
+  # Global variable for testing prototype functions
+  ###__TEST_ONLY_SECTION_STARTS__###
+  window.FoundationPlayer = FoundationPlayer
+  ###__TEST_ONLY_SECTION_ENDS__###
 
   # Define the jQuery plugin
   $.fn.extend foundationPlayer: (option, args...) ->
@@ -288,4 +301,5 @@
         fplayer = new FoundationPlayer(this, option)
         $.data this, 'FoundationPlayer', fplayer
         $.data(document.body, 'FoundationPlayers').push(fplayer)
+
 ) window.jQuery, window
