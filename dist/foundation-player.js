@@ -27,22 +27,17 @@
         this.$played = this.$progress.find('.meter.played');
         this.$sources = this.$wrapper.children('audio');
         this.audio = this.$sources.get(0);
-        this.timer = null;
         this.played = 0;
         this.nowdragging = false;
         this.currentUISize = this.options.size;
         this.canPlayCurrent = false;
-        this.initialize();
-      }
-
-      FoundationPlayer.prototype.initialize = function() {
         this.resetClassAndStyle();
         this.setUpCurrentAudio();
         this.setUpButtonPlayPause();
         this.setUpButtonVolume();
         this.setUpButtonRewind();
-        return this.setUpPlayedProgress();
-      };
+        this.setUpPlayedProgress();
+      }
 
       FoundationPlayer.prototype.playPause = function() {
         if (this.audio.paused) {
@@ -53,10 +48,8 @@
       };
 
       FoundationPlayer.prototype.play = function() {
-        var players;
         if (this.options.pauseOthersOnPlay) {
-          players = $.data(document.body, 'FoundationPlayers');
-          players.map((function(_this) {
+          this.getPlayerInstances().map((function(_this) {
             return function(p) {
               if (_this !== p) {
                 return p.pause();
@@ -95,7 +88,6 @@
 
       FoundationPlayer.prototype.setUpCurrentAudio = function() {
         var $audio;
-        this.audio.preload = 'metadata';
         this.audio.load();
         $audio = $(this.audio);
         $audio.on('timeupdate.fndtn.player', (function(_this) {
@@ -153,10 +145,9 @@
       };
 
       FoundationPlayer.prototype.setUpButtonVolume = function() {
-        return this.$volume.bind('click', (function(_this) {
+        return this.$volume.bind('click.fndtn.player', (function(_this) {
           return function() {
-            _this.toggleMute();
-            return _this.updateButtonVolume();
+            return _this.buttonVolumeHandler();
           };
         })(this));
       };
@@ -167,6 +158,11 @@
         } else {
           return switchClass(this.$volume, 'fi-volume', 'fi-volume-strike');
         }
+      };
+
+      FoundationPlayer.prototype.buttonVolumeHandler = function() {
+        this.toggleMute();
+        return this.updateButtonVolume();
       };
 
       FoundationPlayer.prototype.setUpButtonRewind = function() {
@@ -247,8 +243,7 @@
       };
 
       FoundationPlayer.prototype.toggleMute = function() {
-        this.audio.muted = !this.audio.muted;
-        return this.updateButtonVolume();
+        return this.audio.muted = !this.audio.muted;
       };
 
       FoundationPlayer.prototype.updateTimeStatuses = function() {
@@ -299,6 +294,10 @@
           this.$played.css('padding', '0 ' + semiHeight + 'px');
           return this.$progress.find('.buffered').css('padding', '0 ' + semiHeight + 'px');
         }
+      };
+
+      FoundationPlayer.prototype.getPlayerInstances = function() {
+        return $.data(document.body, 'FoundationPlayers');
       };
 
       switchClass = function(element, p, n) {
