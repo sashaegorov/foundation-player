@@ -2,9 +2,10 @@
   var slice = [].slice;
 
   (function($, window) {
+    'use strict';
     var FoundationPlayer;
     FoundationPlayer = (function() {
-      var isNumber, prettyTime, stringPadLeft, switchClass;
+      var isNumber, parseSeekTime, prettyTime, stringPadLeft, switchClass;
 
       FoundationPlayer.prototype.defaults = {
         size: 'normal',
@@ -67,8 +68,7 @@
       };
 
       FoundationPlayer.prototype.seekToTime = function(time) {
-        var m;
-        this.audio.currentTime = (isNumber(time) ? time : (m = time.match(/^(\d{0,3})$/)) ? m[1] : (m = time.match(/^(\d?\d):(\d\d)$/)) ? (parseInt(m[1], 10)) * 60 + (parseInt(m[2], 10)) : console.error('seekToTime(time), invalid argument: ' + time));
+        this.audio.currentTime = parseSeekTime(time);
         this.updatePlayedProgress();
         this.updateTimeStatuses();
         return this;
@@ -320,6 +320,19 @@
 
       isNumber = function(x) {
         return typeof x === 'number' && isFinite(x);
+      };
+
+      parseSeekTime = function(time) {
+        var m;
+        if (isNumber(time)) {
+          return time;
+        } else if (m = time.match(/^(\d{1,})$/)) {
+          return m[1];
+        } else if (m = time.match(/^(\d?\d):(\d\d)$/)) {
+          return (parseInt(m[1], 10)) * 60 + (parseInt(m[2], 10));
+        } else {
+          return false;
+        }
       };
 
 

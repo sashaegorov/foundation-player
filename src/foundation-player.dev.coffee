@@ -2,6 +2,7 @@
 # Authors: Alexander Egorov, Rita Kondratyeva
 
 (($, window) ->
+  'use strict'
   # Define the plugin class
   class FoundationPlayer
     defaults:
@@ -54,16 +55,7 @@
 
     seekToTime: (time) ->
       # TODO: Split parse logic in private function, and cover
-      @audio.currentTime = (
-        if isNumber(time) # Numeric e.g. 42th second
-          time
-        else if m = time.match /^(\d{0,3})$/  # String e.g. '15', '42'...
-          m[1]
-        else if m = time.match /^(\d?\d):(\d\d)$/ # String e.g. '00:15', '1:42'...
-          (parseInt m[1], 10) * 60 + (parseInt m[2], 10)
-        else
-          console.error 'seekToTime(time), invalid argument: ' + time
-      )
+      @audio.currentTime = parseSeekTime(time)
       # Common part, update UI and return
       @updatePlayedProgress()
       @updateTimeStatuses()
@@ -266,6 +258,16 @@
     isNumber = (x) ->
       typeof x == 'number' and isFinite(x)
 
+    parseSeekTime = (time) ->
+      if isNumber(time) # Numeric e.g. 42th second
+        time
+      else if m = time.match /^(\d{1,})$/ # String e.g. '15', '42'...
+        m[1]
+      else if m = time.match /^(\d?\d):(\d\d)$/ # String e.g. '00:15', '1:42'...
+        (parseInt m[1], 10) * 60 + (parseInt m[2], 10)
+      else
+        false
+
     # API for testing private functions
     ###__TEST_API_STARTS__###
     testingAPI: () ->
@@ -273,6 +275,7 @@
       prettyTime: prettyTime
       stringPadLeft: stringPadLeft
       switchClass: switchClass
+      parseSeekTime: parseSeekTime
     ###__TEST_API_ENDS__###
 
   # Define the jQuery plugin
