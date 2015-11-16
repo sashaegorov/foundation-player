@@ -22,7 +22,7 @@ describe 'Playback API tests', ->
     expect(player.play).toHaveBeenCalledWith()
     expect(player.pause).not.toHaveBeenCalledWith()
 
-  it 'pause() and play() returns player object', ->
+  it 'pause() and play() return values', -> # Lets check this in chain mode
     expect(player.playPause().pause()).toBe player
     expect(player.playPause().play()).toBe player
 
@@ -44,7 +44,21 @@ describe 'Playback API tests', ->
     expect(player.audio.pause).toHaveBeenCalledWith()
     expect(player.audio.play).not.toHaveBeenCalledWith()
 
-  xit 'TODO: seekToTime', ->
-    return
-  xit 'TODO: seekPercent', ->
-    return
+  it 'seekToTime() calls and return', ->
+    spyOn player, 'updatePlayedProgress'
+    spyOn player, 'updateTimeStatuses'
+    player.seekToTime('00:01').seekToTime '00:01'
+    expect(player.updatePlayedProgress).toHaveBeenCalledWith()
+    expect(player.updateTimeStatuses).toHaveBeenCalledWith()
+    # Lets check this in chain mode
+    expect(player.seekToTime('00:01').seekToTime '00:02').toBe player
+
+  it 'seekPercent() calls and return', ->
+    spyOn player, 'updatePlayedProgress'
+    spyOn player, 'updateTimeStatuses'
+    player.seekPercent 0.1
+    player.seekPercent 20
+    expect(player.updatePlayedProgress).toHaveBeenCalledWith()
+    expect(player.updateTimeStatuses).toHaveBeenCalledWith()
+    # Lets check this in chain mode
+    expect(player.seekPercent(0.1).seekPercent 20).toBe player

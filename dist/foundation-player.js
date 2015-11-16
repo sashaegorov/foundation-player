@@ -80,7 +80,9 @@
       };
 
       FoundationPlayer.prototype.seekPercent = function(p) {
-        this.audio.currentTime = this.audio.duration * (p >= 1 ? p / 100 : p);
+        var timeToGo;
+        timeToGo = this.audio.duration * (p >= 1 ? p / 100 : p) || 0;
+        this.audio.currentTime = timeToGo;
         this.updatePlayedProgress();
         this.updateTimeStatuses();
         return this;

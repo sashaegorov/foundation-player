@@ -57,17 +57,15 @@
       @updateButtonPlay()
 
     seekToTime: (time) ->
-      # TODO: Split parse logic in private function, and cover
       @audio.currentTime = parseSeekTime(time)
-      # Common part, update UI and return
       @updatePlayedProgress()
       @updateTimeStatuses()
       @
 
     seekPercent: (p) ->
-      # TODO: Split percent logic in private function, and cover
       # Can use both 0.65 and 65
-      @audio.currentTime = @audio.duration * (if p >= 1 then p/100 else p)
+      timeToGo = @audio.duration * ( if p >= 1 then  p / 100 else p) or 0
+      @audio.currentTime = timeToGo
       @updatePlayedProgress()
       @updateTimeStatuses()
       @
