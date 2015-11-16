@@ -20,8 +20,8 @@ describe 'Audio element tests suite', ->
   # TODO: Test handlers calls
   it 'audio element has all handlers', ->
     $audio = $(no1.audio)
-    expect($audio).toHandle('loadstart')
-    expect($audio).toHandle('timeupdate')
-    expect($audio).toHandle('durationchange')
-    expect($audio).toHandle('progress')
-    expect($audio).toHandle('canplay')
+    expect($audio).toHandle 'loadstart'
+    expect($audio).toHandle 'timeupdate'
+    expect($audio).toHandle 'durationchange'
+    expect($audio).toHandle 'progress'
+    expect($audio).toHandle 'canplay'
