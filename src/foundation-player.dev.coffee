@@ -44,7 +44,7 @@
       @setUpPlayedProgress()  # Set up played progress meter
       @parseDataLinks() if @options.useSeekData
 
-    # Playback control =========================================================
+    # Playback API =============================================================
     playPause: ->
       if @audio.paused then @play() else @pause()
     play: ->
