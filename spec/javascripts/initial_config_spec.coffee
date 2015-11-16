@@ -19,12 +19,12 @@ describe 'Elements for Initialization', ->
     expect(no1.played).toEqual 0
 
   it 'Initial elements found in DOM', ->   #Fuck Sasha
-    expect(no1.$player).toHaveClass('player')
-    expect(no1.$sources).toContain('audio')
-    expect(no1.$play.length).not.toEqual(0)
-    expect(no1.$rewind.length).not.toEqual(0)
-    expect(no1.$volume.length).not.toEqual(0)
-    expect(no1.$elapsed.length).not.toEqual(0)
-    expect(no1.$remains.length).not.toEqual(0)
-    expect(no1.$progress.length).not.toEqual(0)
-    expect(no1.$played.length).not.toEqual(0)
+    expect(no1.$player).toHaveClass 'player'
+    expect(no1.$sources).toContain 'audio'
+    expect(no1.$play.length).not.toEqual 0
+    expect(no1.$rewind.length).not.toEqual 0
+    expect(no1.$volume.length).not.toEqual 0
+    expect(no1.$elapsed.length).not.toEqual 0
+    expect(no1.$remains.length).not.toEqual 0
+    expect(no1.$progress.length).not.toEqual 0
+    expect(no1.$played.length).not.toEqual 0
