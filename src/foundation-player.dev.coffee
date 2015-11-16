@@ -141,7 +141,7 @@
       @$played.css 'width', @played + '%'
       # Click and drag progress
       @$progress.on 'click.fndtn.player', (e) =>
-        @seekPercent(Math.floor e.offsetX / @$progress.outerWidth() * 100)
+        @seekPercent 100 * e.offsetX // @$progress.outerWidth()
       # Drag section is tricky
       # TODO: Mobile actions
 
@@ -160,7 +160,7 @@
       # Update player position
       @$progress.on 'mousemove.fndtn.player', (e) =>
         if @nowdragging
-          @seekPercent(Math.floor e.offsetX / @$progress.outerWidth() * 100)
+          @seekPercent 100 * e.offsetX // @$progress.outerWidth()
 
     updatePlayedProgress: ->
       @played = Math.round @audio.currentTime / @audio.duration * 100
@@ -182,8 +182,8 @@
           b = @audio.buffered.start(range) # Segment start second
           e = @audio.buffered.end(range) # Segment end second
           switchClass(@$played.clone(), 'buffered', 'played')
-          .css('left', l + (Math.floor w * (b / @audio.duration)) + 'px')
-          .css('top', t).height(h).width(Math.floor(w*(e-b)/@audio.duration))
+          .css('left', l + (w * (b // @audio.duration)) + 'px')
+          .css('top', t).height(h).width(w*(e-b)//@audio.duration)
           .appendTo(@$progress)
 
     # Volume ===================================================================
@@ -251,8 +251,8 @@
     prettyTime = (s) ->
       return false unless isNumber s
       # As seen here: http://stackoverflow.com/questions/3733227
-      minutes = Math.floor s / 60
-      seconds = Math.floor s - minutes * 60
+      minutes = s // 60
+      seconds = s - minutes * 60
       (stringPadLeft minutes, '0', 2) + ':' + (stringPadLeft seconds, '0', 2)
 
     # Small helper to padd time correctly

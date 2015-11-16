@@ -183,7 +183,7 @@
         this.$played.css('width', this.played + '%');
         this.$progress.on('click.fndtn.player', (function(_this) {
           return function(e) {
-            return _this.seekPercent(Math.floor(e.offsetX / _this.$progress.outerWidth() * 100));
+            return _this.seekPercent(Math.floor(100 * e.offsetX / _this.$progress.outerWidth()));
           };
         })(this));
         this.$progress.on('mousedown.fndtn.player', (function(_this) {
@@ -212,7 +212,7 @@
         return this.$progress.on('mousemove.fndtn.player', (function(_this) {
           return function(e) {
             if (_this.nowdragging) {
-              return _this.seekPercent(Math.floor(e.offsetX / _this.$progress.outerWidth() * 100));
+              return _this.seekPercent(Math.floor(100 * e.offsetX / _this.$progress.outerWidth()));
             }
           };
         })(this));
@@ -237,7 +237,7 @@
           for (range = i = 0, ref = segments; 0 <= ref ? i < ref : i > ref; range = 0 <= ref ? ++i : --i) {
             b = this.audio.buffered.start(range);
             e = this.audio.buffered.end(range);
-            results.push(switchClass(this.$played.clone(), 'buffered', 'played').css('left', l + (Math.floor(w * (b / this.audio.duration))) + 'px').css('top', t).height(h).width(Math.floor(w * (e - b) / this.audio.duration)).appendTo(this.$progress));
+            results.push(switchClass(this.$played.clone(), 'buffered', 'played').css('left', l + (w * (Math.floor(b / this.audio.duration))) + 'px').css('top', t).height(h).width(Math.floor(w * (e - b) / this.audio.duration)).appendTo(this.$progress));
           }
           return results;
         }
@@ -319,7 +319,7 @@
           return false;
         }
         minutes = Math.floor(s / 60);
-        seconds = Math.floor(s - minutes * 60);
+        seconds = s - minutes * 60;
         return (stringPadLeft(minutes, '0', 2)) + ':' + (stringPadLeft(seconds, '0', 2));
       };
 

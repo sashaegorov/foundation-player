@@ -43,7 +43,7 @@ describe 'Audio async tests', ->
 
   it 'has correct audio duration', (done) ->
     setTimeout ->
-      expect(Math.floor no1.audio.duration).toBe 60
+      expect(no1.audio.duration // 1).toBe 60
       done()
     , LOADING_TIMEOUT
   , TEST_TIMEOUT
@@ -51,13 +51,13 @@ describe 'Audio async tests', ->
   it 'seekPercent() works', (done) ->
     setTimeout ->
       no1.seekPercent 0
-      expect(Math.floor no1.audio.currentTime).toBe 0
+      expect(no1.audio.currentTime // 1).toBe 0
       no1.seekPercent 50
-      expect(Math.floor no1.audio.currentTime).toBe 30
+      expect(no1.audio.currentTime // 1).toBe 30
       no1.seekPercent 100
-      expect(Math.floor no1.audio.currentTime).toBe 60
+      expect(no1.audio.currentTime // 1).toBe 60
       no1.seekPercent 150
-      expect(Math.floor no1.audio.currentTime).toBe 60
+      expect(no1.audio.currentTime // 1).toBe 60
       done()
     , LOADING_TIMEOUT
   , TEST_TIMEOUT
@@ -65,15 +65,15 @@ describe 'Audio async tests', ->
   it 'seekToTime() works', (done) ->
     setTimeout ->
       no1.seekToTime 0
-      expect(Math.floor no1.audio.currentTime).toBe 0
+      expect(no1.audio.currentTime // 1).toBe 0
       no1.seekToTime 50
-      expect(Math.floor no1.audio.currentTime).toBe 50
+      expect(no1.audio.currentTime // 1).toBe 50
       no1.seekToTime '0'
-      expect(Math.floor no1.audio.currentTime).toBe 0
+      expect(no1.audio.currentTime // 1).toBe 0
       no1.seekToTime '1:00'
-      expect(Math.floor no1.audio.currentTime).toBe 60
+      expect(no1.audio.currentTime // 1).toBe 60
       no1.seekToTime '1:10'
-      expect(Math.floor no1.audio.currentTime).toBe 60
+      expect(no1.audio.currentTime // 1).toBe 60
       done()
     , LOADING_TIMEOUT
   , TEST_TIMEOUT
