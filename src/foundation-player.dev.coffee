@@ -251,9 +251,9 @@
     prettyTime = (s) ->
       return false unless isNumber s
       # As seen here: http://stackoverflow.com/questions/3733227
-      minutes = s // 60
-      seconds = s - minutes * 60
-      (stringPadLeft minutes, '0', 2) + ':' + (stringPadLeft seconds, '0', 2)
+      min = s // 60
+      sec = s - min * 60
+      (stringPadLeft min, '0', 2) + ':' + (stringPadLeft sec // 1, '0', 2)
 
     # Small helper to padd time correctly
     stringPadLeft = (string,pad,length) ->

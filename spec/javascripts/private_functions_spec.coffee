@@ -36,6 +36,11 @@ describe 'Private functions suite', ->
     expect(obj.prettyTime 120).toBe  '02:00'
     expect(obj.prettyTime 122).toBe  '02:02'
     expect(obj.prettyTime 1000).toBe '16:40'
+    expect(obj.prettyTime 4.424242, '0', 3).toBe '00:04'
+    expect(obj.prettyTime 4.424242, '0', 3).not.toBe '00:42'
+    expect(obj.prettyTime 12.34567, '0', 3).toBe '00:12'
+    expect(obj.prettyTime 12.34567, '0', 3).not.toBe '00:67'
+
 
   it 'prettyTime() rejects non-numeric arguments', ->
     expect(obj.prettyTime '10').toBe false

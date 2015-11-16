@@ -314,13 +314,13 @@
       };
 
       prettyTime = function(s) {
-        var minutes, seconds;
+        var min, sec;
         if (!isNumber(s)) {
           return false;
         }
-        minutes = Math.floor(s / 60);
-        seconds = s - minutes * 60;
-        return (stringPadLeft(minutes, '0', 2)) + ':' + (stringPadLeft(seconds, '0', 2));
+        min = Math.floor(s / 60);
+        sec = s - min * 60;
+        return (stringPadLeft(min, '0', 2)) + ':' + (stringPadLeft(Math.floor(sec / 1), '0', 2));
       };
 
       stringPadLeft = function(string, pad, length) {
