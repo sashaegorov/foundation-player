@@ -53,7 +53,7 @@ group :all_the_stuff, halt_on_fail: true do
   guard 'livereload' do
     watch(%r{^spec/javascripts/(.*)\.js})
     watch(%r{^spec/javascripts/(.*)\.html})
-    watch(%r{^dist/(.*)\.js})
+    watch(%r{^dist/(.*)\.dev\.js})
     watch(%r{^dist/(.*)\.css})
     watch(/^index\.html/)
   end
