@@ -139,13 +139,25 @@
                       </tr>
                       <tr>
                         <td>
-                          <code>seekToTime('MM:SS')</code>
+                          <code>seekToTime()</code>
                         </td>
                         <td>
                           Seeks to position you want. For example this code
                           <code>player.seekToTime('00:42')</code>
                           will move playback to
                           <a onclick="player.seekToTime('00:42')">00:42</a>.
+                          <br>
+                          Is's also possible to use
+                          <code>data-seek-to-time</code>
+                          attibute with links. This snippet:
+                          <br>
+                            <code>&lt;a data-seek-to-time='00:32'&gt;00:32&lt;/a&gt;</code>
+                          </br>
+                          will create link which moves playhead to
+                          <a data-seek-to-time='00:32'>00:32</a>
+                          position after clicking on it. Please note default
+                          <code>click</code>
+                          action for links will be prevented.
                         </td>
                         <td>
                           player object

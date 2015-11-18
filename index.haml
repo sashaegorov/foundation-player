@@ -117,13 +117,24 @@
                           player object
                       %tr
                         %td
-                          %code seekToTime('MM:SS')
+                          %code seekToTime()
                         %td
                           Seeks to position you want. For example this code
                           %code player.seekToTime('00:42')
                           will move playback to
                           = succeed '.' do
                             %a{onclick: 'player.seekToTime(\'00:42\')'} 00:42
+                          %br
+                          Is's also possible to use
+                          %code data-seek-to-time
+                          attibute with links. This snippet:
+                          %br
+                            %code&= '<a data-seek-to-time=\'00:32\'>00:32</a>'
+                          will create link which moves playhead to
+                          %a{ 'data-seek-to-time' => '00:32' } 00:32
+                          position after clicking on it. Please note default
+                          %code click
+                          action for links will be prevented.
                         %td
                           player object
               %dd.accordion-navigation
