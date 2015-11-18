@@ -11,8 +11,7 @@
       skipSeconds: 10         # How many we want to skip
       dimmedVolume: 0.25      # Reduced volume i.e. while seeking
       pauseOthersOnPlay: true # Pause other player instances
-      useSeekData: false      # Don't parse seek date from links by default
-      seekDataClass: 'seek-to' # Filter only links with this class
+      useSeekData: true       # Parse seek data from links by default
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -57,9 +56,10 @@
       @updateButtonPlay()
 
     seekToTime: (time) ->
-      @audio.currentTime = parseSeekTime(time)
-      @updatePlayedProgress()
-      @updateTimeStatuses()
+      if @canPlayCurrent
+        @audio.currentTime = parseSeekTime(time)
+        @updatePlayedProgress()
+        @updateTimeStatuses()
       @
 
     seekPercent: (p) ->
@@ -206,7 +206,6 @@
     # Look and feel ============================================================
     # This method toggles player size
     togglePlayerSize: ->
-      # TODO: rename @currentUISize and switchToSize
       toSize = if @currentUISize == 'normal' then 'small' else 'normal'
       @currentUISize = toSize if @setPlayerSize toSize
 
@@ -238,7 +237,11 @@
 
     # Data links ===============================================================
     parseDataLinks: ->
-      false
+      seekItems = $('[data-seek-to-time]')
+      seekItems.off 'click.fndtn.player.seek' # Remove any existin handlers
+      seekItems.on 'click.fndtn.player.seek', @, (e) ->
+        e.preventDefault() # Prevent default action
+        e.data.seekToTime($(this).data 'seek-to-time')
 
     # Helpers ==================================================================
     # Some really internal stuff goes here

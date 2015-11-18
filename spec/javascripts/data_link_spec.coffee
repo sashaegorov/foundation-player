@@ -1,4 +1,4 @@
-describe 'Data links tests', ->
+describe 'Data links', ->
 
   beforeEach ->
     jasmine.getFixtures().fixturesPath = '.'
@@ -8,30 +8,23 @@ describe 'Data links tests', ->
     player = null
     $.removeData document.body, 'FoundationPlayers'
 
-  it 'has default options', ->
+  it 'enabled by default', ->
+    spyOn FoundationPlayer.prototype, 'parseDataLinks'
     $('.links').foundationPlayer()
     player = $('.links').data('FoundationPlayer')
-    expect(player.options.useSeekData).toBe false
-    expect(player.options.seekDataClass).toBe 'seek-to'
-
-  it 'works with non-default options', ->
-    $('.links').foundationPlayer(useSeekData: true, seekDataClass: 'time-to-go')
-    player = $('.links').data('FoundationPlayer')
-    expect(player.options.useSeekData).not.toBe false
     expect(player.options.useSeekData).toBe true
-    expect(player.options.seekDataClass).not.toBe 'seek-to'
-    expect(player.options.seekDataClass).toBe 'time-to-go'
-
-  it 'make parseDataLinks call if necessary', ->
-    spyOn FoundationPlayer.prototype, 'parseDataLinks'
-    $('.links').foundationPlayer(useSeekData: true)
     expect(FoundationPlayer.prototype.parseDataLinks).toHaveBeenCalledWith()
 
-  it 'skip parseDataLinks call by default', ->
+  it 'have working parseDataLinks option', ->
     spyOn FoundationPlayer.prototype, 'parseDataLinks'
-    $('.links').foundationPlayer()
+    $('.links').foundationPlayer(useSeekData: false)
+    player = $('.links').data('FoundationPlayer')
+    expect(player.options.useSeekData).toBe false
     expect(FoundationPlayer.prototype.parseDataLinks).not.toHaveBeenCalledWith()
 
-  # TODO: Profile jQuery selector speed [data] vs .class[data]
-  # http://jsfiddle.net/cse_tushar/NT7jf/
-  # http://stackoverflow.com/questions/2487747/
+  it 'elements have handler', ->
+    $dataLinks = $('[data-seek-to-time]')
+    expect($dataLinks).not.toHandle 'click'
+
+  xit 'produce correct amount of parsed links', ->
+    false

@@ -48,9 +48,13 @@ describe 'Playback API tests', ->
     spyOn player, 'updatePlayedProgress'
     spyOn player, 'updateTimeStatuses'
     player.seekToTime('00:01').seekToTime '00:01'
+    expect(player.updatePlayedProgress).not.toHaveBeenCalledWith()
+    expect(player.updateTimeStatuses).not.toHaveBeenCalledWith()
+    player.canPlayCurrent = true
+    player.seekToTime('00:01').seekToTime '00:01'
     expect(player.updatePlayedProgress).toHaveBeenCalledWith()
     expect(player.updateTimeStatuses).toHaveBeenCalledWith()
-    # Lets check this in chain mode
+    # Return value doesn't depend on canPlayCurrent
     expect(player.seekToTime('00:01').seekToTime '00:02').toBe player
 
   it 'seekPercent() calls and return', ->

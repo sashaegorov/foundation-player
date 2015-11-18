@@ -13,8 +13,7 @@
         skipSeconds: 10,
         dimmedVolume: 0.25,
         pauseOthersOnPlay: true,
-        useSeekData: false,
-        seekDataClass: 'seek-to'
+        useSeekData: true
       };
 
       function FoundationPlayer(el, opt) {
@@ -73,9 +72,11 @@
       };
 
       FoundationPlayer.prototype.seekToTime = function(time) {
-        this.audio.currentTime = parseSeekTime(time);
-        this.updatePlayedProgress();
-        this.updateTimeStatuses();
+        if (this.canPlayCurrent) {
+          this.audio.currentTime = parseSeekTime(time);
+          this.updatePlayedProgress();
+          this.updateTimeStatuses();
+        }
         return this;
       };
 
@@ -308,7 +309,13 @@
       };
 
       FoundationPlayer.prototype.parseDataLinks = function() {
-        return false;
+        var seekItems;
+        seekItems = $('[data-seek-to-time]');
+        seekItems.off('click.fndtn.player.seek');
+        return seekItems.on('click.fndtn.player.seek', this, function(e) {
+          e.preventDefault();
+          return e.data.seekToTime($(this).data('seek-to-time'));
+        });
       };
 
       switchClass = function(element, p, n) {
