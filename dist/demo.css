@@ -1,0 +1,9 @@
+/* line 3, ../src/demo.scss */
+.foundation-player-demo hr {
+  margin: 0 0 1.1875rem; }
+/* line 7, ../src/demo.scss */
+.foundation-player-demo .tab-title {
+  margin-right: 1px; }
+  /* line 10, ../src/demo.scss */
+  .foundation-player-demo .tab-title a {
+    border-radius: 4px 4px 0 0; }
