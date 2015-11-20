@@ -10,7 +10,7 @@ Dead simple player plugin for [Foundation](http://foundation.zurb.com/) framewor
 
 ## Using plugin on your page
 
-Make sure assets listed below are added **after** `foundation.js`  and `foundation.css`:
+Make sure assets listed below are added **after** `foundation.js` and `foundation.css`:
 
 ```
 <script type='text/javascript' src='../src/foundation-player.min.js'></script>
