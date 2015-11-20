@@ -2,7 +2,7 @@
 # Settings for Foundation Player script:
 coffee_options_src = {
   input: 'src', output: 'dist',
-  patterns: [%r{^src/(.+\.dev\.(?:coffee|coffee\.md|litcoffee))$}],
+  patterns: [%r{^src/(.+\.(?:coffee|coffee\.md|litcoffee))$}],
   all_on_start: true
 }
 # Settings for specs:
