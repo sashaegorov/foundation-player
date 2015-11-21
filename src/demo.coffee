@@ -4,6 +4,16 @@ do (document, window) ->
     $(document).foundation()
     $('.foundation-player.no-1').foundationPlayer()
     window.player = $('.foundation-player.no-1').data 'FoundationPlayer'
+    # Scroll handler
+    # TODO: Make it more smooth...
+    playerOffset = $('.foundation-player.no-1').offset()['top']
+    $player = $('.foundation-player.no-1')
+    $(window).scroll ->
+      scroll = $(document).scrollTop()
+      if scroll >= playerOffset
+        $player.addClass 'sticky'
+      if scroll < playerOffset
+        $player.removeClass 'sticky'
     # Load when tab active
     $('.foundation-player-tab').on 'toggled', (event, tab) ->
       if tab.hasClass('foundation-player-normal')

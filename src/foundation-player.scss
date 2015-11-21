@@ -39,9 +39,6 @@ $fp-progress-height-small: rem-calc(10) !default;
 @include exports('foundation-player') {
   // Common styles for player parts
   .foundation-player {
-    display: table;
-    margin: 0 auto;
-
     // Override Foundation .inline-list values
     .player {
       margin-left: 0;

@@ -7,3 +7,9 @@
   /* line 10, ../src/demo.scss */
   .foundation-player-demo .tab-title a {
     border-radius: 4px 4px 0 0; }
+/* line 15, ../src/demo.scss */
+.foundation-player-demo .foundation-player.sticky {
+  position: fixed;
+  top: 0;
+  position: fixed;
+  width: 100%; }
