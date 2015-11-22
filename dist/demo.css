@@ -1,15 +1,3 @@
-/* line 3, ../src/demo.scss */
-.foundation-player-demo hr {
-  margin: 0 0 1.1875rem; }
-/* line 7, ../src/demo.scss */
-.foundation-player-demo .tab-title {
-  margin-right: 1px; }
-  /* line 10, ../src/demo.scss */
-  .foundation-player-demo .tab-title a {
-    border-radius: 4px 4px 0 0; }
-/* line 15, ../src/demo.scss */
-.foundation-player-demo .foundation-player.sticky {
-  position: fixed;
-  top: 0;
-  position: fixed;
-  width: 100%; }
+/* line 2, ../src/demo.scss */
+.player-wrapper {
+  height: 64px; }

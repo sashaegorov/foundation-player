@@ -15,8 +15,6 @@ do (document, window) ->
       if scroll < playerOffset
         $player.removeClass 'sticky'
     # Load when tab active
-    $('.foundation-player-tab').on 'toggled', (event, tab) ->
-      if tab.hasClass('foundation-player-normal')
-        $('.foundation-player.no-2').foundationPlayer()
-      if tab.hasClass 'foundation-player-small'
-        $('.foundation-player.no-3').foundationPlayer size: 'small'
+    # TODO: Make it acvite when tab is active
+    $('.foundation-player.no-2').foundationPlayer()
+    $('.foundation-player.no-3').foundationPlayer size: 'small'

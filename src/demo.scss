@@ -1,23 +1,4 @@
 // This demo specific styles
-.foundation-player-demo {
-  hr {
-    margin: 0 0 1.1875rem;
-  }
-
-  .tab-title {
-    margin-right: 1px;
-
-    a {
-      border-radius: 4px 4px 0 0;
-    }
-  }
-  .foundation-player {
-    &.sticky {
-      position: fixed;
-      top: 0;
-      position: fixed;
-      width: 100%;
-      // z-index: 99
-    }
-  }
+.player-wrapper {
+  height: 64px;
 }

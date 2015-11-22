@@ -1,18 +1,14 @@
 @import 'foundation/functions';
-
+// TODO: Total refactor to F6
 // Redefinition of some Foundation defaults
-$global-rounded: 1000px !default;
 $base-line-height: 1.5 !default;
 
-// Monkey path of radius mixin
-@mixin radius($radius:$global-radius) {
-  @if $radius {
-    border-radius: $radius;
-  }
+@mixin round {
+  border-radius: 1000px;
 }
 
 // Main player colors
-$fp-color: #008cba !default;
+$fp-color: #2199e8 !default;
 
 // Font sizes
 $fp-font-size-normal: rem-calc(23) !default;
@@ -21,8 +17,8 @@ $fp-font-size-small: rem-calc(18) !default;
 $fp-progress-width-normal: 200px !default;
 $fp-progress-width-small: 125px !default;
 // These numbers should be more or less reasonable
-$fp-progress-height-normal: rem-calc(24) !default;
-$fp-progress-height-small: rem-calc(10) !default;
+$fp-progress-height-normal: $fp-font-size-normal * .8 !default;
+$fp-progress-height-small: $fp-font-size-small * .8 !default;
 
 // Auxillary styles
 // Disable selection. Seen here http://stackoverflow.com/questions/826782/
@@ -34,15 +30,22 @@ $fp-progress-height-small: rem-calc(10) !default;
   user-select: none;
 }
 
-
 // Foundation player styles
 @include exports('foundation-player') {
   // Common styles for player parts
   .foundation-player {
-    // Override Foundation .inline-list values
-    .player {
-      margin-left: 0;
-      margin-right: 0;
+
+    $sticky-bg: rgb(255, 255, 255);
+    background-color: $sticky-bg;
+    text-align: center;
+
+    &.sticky {
+      border-bottom: scale-color($fp-color, $alpha: -90%) 1px solid;
+      left: 0;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 42;
     }
 
     .disabled {
@@ -53,16 +56,27 @@ $fp-progress-height-small: rem-calc(10) !default;
       }
     }
 
+    .round {
+      @include round;
+      .progress-meter {
+        @include round;
+      }
+    }
+
+    .player {
+      display: inline-block;
+    }
+
     .player-progress {
       cursor: col-resize;
 
-      .meter.played {
+      .progress-meter.played {
         background: $fp-color;
       }
 
-      .meter.buffered {
+      .progress-meter.buffered {
         background: $fp-color;
-        opacity: .2;
+        opacity: .25;
         position: absolute;
       }
     }
@@ -71,7 +85,6 @@ $fp-progress-height-small: rem-calc(10) !default;
     .player-button,
     .player-status {
       color: $fp-color;
-      font-weight: bold;
       text-align: center;
     }
 
@@ -100,6 +113,7 @@ $fp-progress-height-small: rem-calc(10) !default;
     .player-status,
     .player-progress {
       font-size: $fp-font-size-normal;
+      padding: 0 .25rem;
     }
 
     .player-status,
@@ -109,7 +123,6 @@ $fp-progress-height-small: rem-calc(10) !default;
 
     .player-button {
       width: $fp-font-size-normal * $base-line-height;
-
       &.play { // Override Play iconsize
         font-size: $fp-font-size-normal + 1;
         // -1.7 is pretty magic here
@@ -131,6 +144,7 @@ $fp-progress-height-small: rem-calc(10) !default;
     .player-status,
     .player-progress {
       font-size: $fp-font-size-small;
+      padding: 0 .125rem;
     }
 
     .player-status,

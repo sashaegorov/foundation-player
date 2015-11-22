@@ -26,7 +26,7 @@
         this.$elapsed = this.$wrapper.find('.player-status.time .elapsed');
         this.$remains = this.$wrapper.find('.player-status.time .remains');
         this.$progress = this.$wrapper.find('.player-progress .progress');
-        this.$played = this.$progress.find('.meter.played');
+        this.$played = this.$progress.find('.progress-meter.played');
         this.$sources = this.$wrapper.children('audio');
         this.audio = this.$sources.get(0);
         this.played = 0;
@@ -298,7 +298,7 @@
       FoundationPlayer.prototype.playerBeautifyProgressBar = function() {
         var semiHeight;
         if (this.$progress.hasClass('round')) {
-          semiHeight = this.$played.height() / 2;
+          semiHeight = this.$progress.height() / 2;
           this.$played.css('padding', '0 ' + semiHeight + 'px');
           return this.$progress.find('.buffered').css('padding', '0 ' + semiHeight + 'px');
         }
@@ -311,8 +311,9 @@
       FoundationPlayer.prototype.parseDataLinks = function() {
         var seekItems;
         seekItems = $('[data-seek-to-time]');
-        seekItems.off('click.fndtn.player.seek');
-        return seekItems.on('click.fndtn.player.seek', this, function(e) {
+        seekItems.off('click.player.seek');
+        return seekItems.on('click.player.seek', this, function(e) {
+          console.log(e);
           e.preventDefault();
           return e.data.seekToTime($(this).data('seek-to-time'));
         });

@@ -3,12 +3,12 @@
   <head>
     <meta charset='utf-8'>
     <title>HTML5 Audio Player for Zurb Foundation!</title>
-    <link href='./lib/css/foundation.css' rel='stylesheet' type='text/css'>
+    <link href='./lib/css/foundation.min.css' rel='stylesheet' type='text/css'>
     <link href='./lib/css/foundation-icons.css' rel='stylesheet' type='text/css'>
     <link href='./dist/foundation-player.css' rel='stylesheet' type='text/css'>
     <link href='./dist/demo.css' rel='stylesheet' type='text/css'>
     <script src='./lib/js/jquery.min.js' type='text/javascript'></script>
-    <script src='./lib/js/foundation.js' type='text/javascript'></script>
+    <script src='./lib/js/foundation.min.js' type='text/javascript'></script>
     <script src='./dist/foundation-player.js' type='text/javascript'></script>
     <script src='./dist/demo.js' type='text/javascript'></script>
   </head>
@@ -16,67 +16,70 @@
     <div class='row'>
       <div class='large-offset-2 large-8 columns'>
         <h1 class='text-center'>Foundation-player.js</h1>
-        <ul class='tabs foundation-player-tab' data-tab=''>
-          <li class='tab-title active'>
+        <ul class='tabs foundation-player-tab' data-tabs='' id='players'>
+          <li class='tabs-title is-active'>
             <a href='#sandbox'>API Sandbox</a>
           </li>
-          <li class='tab-title foundation-player-normal'>
+          <li class='tabs-title foundation-player-normal'>
             <a href='#normal'>Normal</a>
           </li>
-          <li class='tab-title foundation-player-small'>
+          <li class='tabs-title foundation-player-small'>
             <a href='#small'>Small</a>
           </li>
         </ul>
-        <hr>
-        <div class='tabs-content'>
-          <div class='content active' id='sandbox'>
-            <div class='foundation-player no-1'>
-              <ul class='player inline-list noselect'>
-                <li class='player-button play'>
-                  <em class='fi-music'></em>
-                </li>
-                <li class='player-button rewind'>
-                  <em class='fi-refresh'></em>
-                </li>
-                <li class='player-button volume'>
-                  <em class='fi-volume'></em>
-                </li>
-                <li class='player-status time'>
-                  <span class='elapsed'>00:00</span>
-                </li>
-                <li class='player-progress'>
-                  <div class='progress round'>
-                    <span class='meter played'></span>
-                  </div>
-                </li>
-                <li class='player-status time'>
-                  <span class='remains'>-00:00</span>
-                </li>
-              </ul>
-              <audio>
-                <source src='http://kolber.github.io/audiojs/demos/mp3/juicy.mp3'>
-              </audio>
+        <div class='tabs-content' data-tabs-content='players'>
+          <div class='tabs-panel is-active' id='sandbox'>
+            <div class='player-wrapper'>
+              <div class='foundation-player no-1'>
+                <ul class='player menu simple noselect'>
+                  <li class='player-button play'>
+                    <em class='fi-music'></em>
+                  </li>
+                  <li class='player-button rewind'>
+                    <em class='fi-refresh'></em>
+                  </li>
+                  <li class='player-button volume'>
+                    <em class='fi-volume'></em>
+                  </li>
+                  <li class='player-status time'>
+                    <span class='elapsed'>00:00</span>
+                  </li>
+                  <li class='player-progress'>
+                    <div class='progress round' role='progressbar'>
+                      <div class='progress-meter played'></div>
+                    </div>
+                  </li>
+                  <li class='player-status time'>
+                    <span class='remains'>-00:00</span>
+                  </li>
+                </ul>
+                <audio>
+                  <source src='http://kolber.github.io/audiojs/demos/mp3/juicy.mp3'>
+                </audio>
+              </div>
             </div>
-            <!-- I know this is not good -->
             <br>
-            <dl class='accordion' data-accordion=''>
-              <dd class='accordion-navigation'>
-                <a href='#info'>Intro</a>
-                <div class='content active' id='info'>
+            <ul class='accordion' data-accordion='' data-multi-expand='true' role='tablist'>
+              <li class='accordion-item is-active'>
+                <a aria-controls='info' class='accordion-title' href='#info' id='info' role='tab'>Intro</a>
+                <div aria-labelledby='info' class='accordion-content' data-tab-content='' id='info' role='tabpanel'>
                   <p>
-                    This is super easy way to bring HTML5 audio player to your Foundation based project. Take a look to
-                    <a href='https://github.com/qatsi/foundation-player.js/blob/master/README.md'>README</a>
+                    This is super easy way to bring HTML5 audio player
+                    to your Foundation based project. Take a look to
+                    <a href='https://github.com/sashaegorov/foundation-player/blob/master/README.md'>README</a>
                     and the
-                    <a href='https://github.com/qatsi/foundation-player.js/blob/master/index.html'>source of this page</a>.
-                    This tab is also sandbox for Foundation Player API. There is the
+                    <a href='https://github.com/sashaegorov/foundation-player/blob/master/index.html'>source of this page</a>.
+                    This tab is also sandbox for Foundation Player API.
+                    There is the
                     <code>player</code>
-                    global variable. Fill free to experiment in your browser's JavaScript console.
+                    global variable. Fill free to experiment in your browser's
+                    JavaScript console.
                   </p>
                 </div>
-              </dd>
-              <dd class='accordion-navigation'>
-                <a href='#playback'>Playback control</a>
-                <div class='content' id='playback'>
+              </li>
+              <li class='accordion-item'>
+                <a aria-controls='playback' class='accordion-title' href='#playback' id='playback' role='tab'>Playback control</a>
+                <div aria-labelledby='info' class='accordion-content' data-tab-content='' id='playback' role='tabpanel'>
                   <table>
                     <thead>
                       <tr>
@@ -152,16 +155,17 @@
                     </tbody>
                   </table>
                 </div>
-              </dd>
-              <dd class='accordion-navigation'>
-                <a href='#volume'>Volume control</a>
-                <div class='content' id='volume'>
+              </li>
+              <li class='accordion-item'>
+                <a aria-controls='volume' class='accordion-title' href='#volume' id='volume' role='tab'>Volume control</a>
+                <div aria-labelledby='volume' class='accordion-content' data-tab-content='' id='volume' role='tabpanel'>
+                  <strong:>TODO:</strong:>
                   Table with API...
                 </div>
-              </dd>
-              <dd class='accordion-navigation'>
-                <a href='#look'>Look and feel</a>
-                <div class='content' id='look'>
+              </li>
+              <li class='accordion-item'>
+                <a aria-controls='look' class='accordion-title' href='#look' id='look' role='tab'>Look and feel</a>
+                <div aria-labelledby='look' class='accordion-content' data-tab-content='' id='volume' role='tabpanel'>
                   <table>
                     <thead>
                       <tr>
@@ -178,7 +182,8 @@
                         <td>
                           This method
                           <a onclick='player.togglePlayerSize()'>toggles</a>
-                          player size. Method returns current size of player which was set.
+                          player size. Method returns current size of
+                          player which was set.
                         </td>
                         <td>
                           <code>'small'</code>
@@ -207,17 +212,17 @@
                     </tbody>
                   </table>
                 </div>
-              </dd>
-            </dl>
+              </li>
+            </ul>
           </div>
-          <div class='content' id='normal'>
+          <div class='tabs-panel' id='normal'>
             <p>
               Regular player setup. There is no options here.
               <br>
               <code>$('.foundation-player.no-2').foundationPlayer();</code>
             </p>
             <div class='foundation-player no-2'>
-              <ul class='player inline-list noselect'>
+              <ul class='player menu simple noselect'>
                 <li class='player-button play'>
                   <em class='fi-music'></em>
                 </li>
@@ -231,8 +236,8 @@
                   <span class='elapsed'>00:00</span>
                 </li>
                 <li class='player-progress'>
-                  <div class='progress round'>
-                    <span class='meter played'></span>
+                  <div class='progress round' role='progressbar'>
+                    <div class='progress-meter played'></div>
                   </div>
                 </li>
                 <li class='player-status time'>
@@ -244,13 +249,13 @@
               </audio>
             </div>
           </div>
-          <div class='content' id='small'>
+          <div class='tabs-panel' id='small'>
             <p>
               Small player setup:
               <code>{ size: 'small' }</code>
             </p>
             <div class='foundation-player no-3'>
-              <ul class='player inline-list noselect'>
+              <ul class='player menu simple noselect'>
                 <li class='player-button play'>
                   <em class='fi-music'></em>
                 </li>
@@ -264,8 +269,8 @@
                   <span class='elapsed'>00:00</span>
                 </li>
                 <li class='player-progress'>
-                  <div class='progress round'>
-                    <span class='meter played'></span>
+                  <div class='progress round' role='progressbar'>
+                    <div class='progress-meter played'></div>
                   </div>
                 </li>
                 <li class='player-status time'>

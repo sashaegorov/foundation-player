@@ -24,7 +24,7 @@
       @$elapsed =  @$wrapper.find('.player-status.time .elapsed')
       @$remains =  @$wrapper.find('.player-status.time .remains')
       @$progress = @$wrapper.find('.player-progress .progress')
-      @$played =   @$progress.find('.meter.played')
+      @$played =   @$progress.find('.progress-meter.played')
       @$sources =  @$wrapper.children('audio')
       # DOM Elements
       # TODO: Manage current audio object more carefully
@@ -227,7 +227,7 @@
     # Deuglification of round progress bar when it 0% width
     playerBeautifyProgressBar: ->
       if @$progress.hasClass('round')
-        semiHeight = @$played.height()/2
+        semiHeight = @$progress.height()/2
         # TODO: Make it better
         @$played.css 'padding', '0 ' + semiHeight + 'px'
         @$progress.find('.buffered').css 'padding', '0 ' + semiHeight + 'px'
@@ -238,8 +238,9 @@
     # Data links ===============================================================
     parseDataLinks: ->
       seekItems = $('[data-seek-to-time]')
-      seekItems.off 'click.fndtn.player.seek' # Remove any existin handlers
-      seekItems.on 'click.fndtn.player.seek', @, (e) ->
+      seekItems.off 'click.player.seek' # Remove any existin handlers
+      seekItems.on 'click.player.seek', @, (e) ->
+        console.log e
         e.preventDefault() # Prevent default action
         e.data.seekToTime($(this).data 'seek-to-time')
 

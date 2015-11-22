@@ -1,4 +1,4 @@
-/* line 29, ../src/foundation-player.scss */
+/* line 25, ../src/foundation-player.scss */
 .noselect {
   -webkit-touch-callout: none;
   -moz-user-select: none;
@@ -6,88 +6,106 @@
   -webkit-user-select: none;
   user-select: none; }
 
-/* line 43, ../src/foundation-player.scss */
-.foundation-player .player {
-  margin-left: 0;
-  margin-right: 0; }
-/* line 49, ../src/foundation-player.scss */
-.foundation-player .disabled .player-button,
-.foundation-player .disabled .player-status,
-.foundation-player .disabled .player-progress {
-  opacity: .75; }
-/* line 56, ../src/foundation-player.scss */
-.foundation-player .player-progress {
-  cursor: col-resize; }
-  /* line 59, ../src/foundation-player.scss */
-  .foundation-player .player-progress .meter.played {
-    background: #008cba; }
-  /* line 63, ../src/foundation-player.scss */
-  .foundation-player .player-progress .meter.buffered {
-    background: #008cba;
-    opacity: .2;
-    position: absolute; }
-/* line 71, ../src/foundation-player.scss */
-.foundation-player .player-button,
-.foundation-player .player-status {
-  color: #008cba;
-  font-weight: bold;
+/* line 36, ../src/foundation-player.scss */
+.foundation-player {
+  background-color: white;
   text-align: center; }
-/* line 78, ../src/foundation-player.scss */
-.foundation-player .player-button {
-  cursor: pointer;
-  margin-left: 0; }
-  /* line 82, ../src/foundation-player.scss */
-  .foundation-player .player-button.rewind em {
-    transform: scale(-1, 1); }
-  /* line 87, ../src/foundation-player.scss */
-  .foundation-player .player-button em:before {
-    color: #008cba; }
+  /* line 42, ../src/foundation-player.scss */
+  .foundation-player.sticky {
+    border-bottom: rgba(33, 153, 232, 0.1) 1px solid;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 42; }
+  /* line 52, ../src/foundation-player.scss */
+  .foundation-player .disabled .player-button,
+  .foundation-player .disabled .player-status,
+  .foundation-player .disabled .player-progress {
+    opacity: .75; }
+  /* line 59, ../src/foundation-player.scss */
+  .foundation-player .round {
+    border-radius: 1000px; }
+    /* line 61, ../src/foundation-player.scss */
+    .foundation-player .round .progress-meter {
+      border-radius: 1000px; }
+  /* line 66, ../src/foundation-player.scss */
+  .foundation-player .player {
+    display: inline-block; }
+  /* line 70, ../src/foundation-player.scss */
+  .foundation-player .player-progress {
+    cursor: col-resize; }
+    /* line 73, ../src/foundation-player.scss */
+    .foundation-player .player-progress .progress-meter.played {
+      background: #2199e8; }
+    /* line 77, ../src/foundation-player.scss */
+    .foundation-player .player-progress .progress-meter.buffered {
+      background: #2199e8;
+      opacity: .25;
+      position: absolute; }
+  /* line 85, ../src/foundation-player.scss */
+  .foundation-player .player-button,
+  .foundation-player .player-status {
+    color: #2199e8;
+    text-align: center; }
   /* line 91, ../src/foundation-player.scss */
-  .foundation-player .player-button em:hover:before {
-    color: #008cba; }
+  .foundation-player .player-button {
+    cursor: pointer;
+    margin-left: 0; }
+    /* line 95, ../src/foundation-player.scss */
+    .foundation-player .player-button.rewind em {
+      transform: scale(-1, 1); }
+    /* line 100, ../src/foundation-player.scss */
+    .foundation-player .player-button em:before {
+      color: #2199e8; }
+    /* line 104, ../src/foundation-player.scss */
+    .foundation-player .player-button em:hover:before {
+      color: #2199e8; }
 
-/* line 99, ../src/foundation-player.scss */
+/* line 112, ../src/foundation-player.scss */
 .foundation-player.normal .player-button,
 .foundation-player.normal .player-status,
 .foundation-player.normal .player-progress {
-  font-size: 1.4375rem; }
-/* line 105, ../src/foundation-player.scss */
+  font-size: 1.4375rem;
+  padding: 0 .25rem; }
+/* line 119, ../src/foundation-player.scss */
 .foundation-player.normal .player-status,
 .foundation-player.normal .player-progress {
   margin-left: 0.35938rem; }
-/* line 110, ../src/foundation-player.scss */
+/* line 124, ../src/foundation-player.scss */
 .foundation-player.normal .player-button {
   width: 2.15625rem; }
-  /* line 113, ../src/foundation-player.scss */
+  /* line 126, ../src/foundation-player.scss */
   .foundation-player.normal .player-button.play {
     font-size: 2.4375rem;
     margin: -0.84559rem 0; }
-/* line 120, ../src/foundation-player.scss */
+/* line 133, ../src/foundation-player.scss */
 .foundation-player.normal .player-progress .progress {
-  height: 1.5rem;
+  height: 1.15rem;
   position: relative;
-  top: 0.32813rem;
+  top: 0.50312rem;
   width: 200px; }
 
-/* line 130, ../src/foundation-player.scss */
+/* line 143, ../src/foundation-player.scss */
 .foundation-player.small .player-button,
 .foundation-player.small .player-status,
 .foundation-player.small .player-progress {
-  font-size: 1.125rem; }
-/* line 136, ../src/foundation-player.scss */
+  font-size: 1.125rem;
+  padding: 0 .125rem; }
+/* line 150, ../src/foundation-player.scss */
 .foundation-player.small .player-status,
 .foundation-player.small .player-progress {
   margin-left: 0.28125rem; }
-/* line 141, ../src/foundation-player.scss */
+/* line 155, ../src/foundation-player.scss */
 .foundation-player.small .player-button {
   width: 1.6875rem; }
-  /* line 144, ../src/foundation-player.scss */
+  /* line 158, ../src/foundation-player.scss */
   .foundation-player.small .player-button.play {
     font-size: 2.125rem;
     margin: -0.86538rem 0; }
-/* line 151, ../src/foundation-player.scss */
+/* line 165, ../src/foundation-player.scss */
 .foundation-player.small .player-progress .progress {
-  height: 0.625rem;
+  height: 0.9rem;
   position: relative;
-  top: 0.53125rem;
+  top: 0.39375rem;
   width: 125px; }

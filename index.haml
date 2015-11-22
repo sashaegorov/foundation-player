@@ -1,20 +1,29 @@
 !!!
 %html
   %head
-    %meta{charset: 'utf-8'}/
+    %meta{ charset: 'utf-8' }/
     %title HTML5 Audio Player for Zurb Foundation!
-    %link{href: './lib/css/foundation.css', rel: 'stylesheet', type: 'text/css'}/
-    %link{href: './lib/css/foundation-icons.css', rel: 'stylesheet', type: 'text/css'}/
-    %link{href: './dist/foundation-player.css', rel: 'stylesheet', type: 'text/css'}/
-    %link{href: './dist/demo.css', rel: 'stylesheet', type: 'text/css'}/
+    %link{ href: './lib/css/foundation.min.css',
+      rel: 'stylesheet', type: 'text/css' }/
+    %link{ href: './lib/css/foundation-icons.css',
+      rel: 'stylesheet', type: 'text/css' }/
+    %link{ href: './dist/foundation-player.css',
+      rel: 'stylesheet', type: 'text/css' }/
+    %link{ href: './dist/demo.css', rel: 'stylesheet', type: 'text/css' }/
     -# Scripts
-    %script{src: './lib/js/jquery.min.js', type: 'text/javascript'}
-    %script{src: './lib/js/foundation.js', type: 'text/javascript'}
-    %script{src: './dist/foundation-player.js', type: 'text/javascript'}
-    %script{src: './dist/demo.js', type: 'text/javascript'}
-  -# Prerender player
+    %script{ src: './lib/js/jquery.min.js', type: 'text/javascript' }
+    %script{ src: './lib/js/foundation.min.js', type: 'text/javascript' }
+    %script{ src: './dist/foundation-player.js', type: 'text/javascript' }
+    %script{ src: './dist/demo.js', type: 'text/javascript' }
+
+  -# Long ULRs stored as local variables
+  - project_url = 'https://github.com/sashaegorov/foundation-player'
+  - read_me = '/blob/master/README.md'
+  - index = '/blob/master/index.html'
+
+  -# Prerender Player markup
   - player = capture_haml do
-    %ul.player.inline-list.noselect
+    %ul.player.menu.simple.noselect
       %li.player-button.play
         %em.fi-music
       %li.player-button.rewind
@@ -24,150 +33,176 @@
       %li.player-status.time
         %span.elapsed 00:00
       %li.player-progress
-        .progress.round
-          %span.meter.played
+        .progress.round{ role: 'progressbar' }
+          .progress-meter.played
       %li.player-status.time
         %span.remains -00:00
+
+  -# Prerender accordion with Player features description
+  - sandbox = capture_haml do
+    %ul.accordion{ 'data-accordion' => '',
+      role: 'tablist', 'data-multi-expand' => 'true' }
+
+      -# General info
+      %li.accordion-item.is-active
+        %a.accordion-title#info{ href: '#info', role: 'tab',
+          'aria-controls' => 'info' } Intro
+        .accordion-content#info{ 'aria-labelledby' => 'info',
+          'data-tab-content' => '', role: 'tabpanel' }
+          %p
+            This is super easy way to bring HTML5 audio player
+            to your Foundation based project. Take a look to
+            %a{ href: project_url + read_me } README
+            and the
+            = succeed '.' do
+              %a{ href: project_url + index } source of this page
+            This tab is also sandbox for Foundation Player API.
+            There is the
+            %code player
+            global variable. Fill free to experiment in your browser's
+            JavaScript console.
+
+      -# Playback info and methods
+      %li.accordion-item
+        %a.accordion-title#playback{ href: '#playback', role: 'tab',
+          'aria-controls' => 'playback' } Playback control
+        .accordion-content#playback{ 'aria-labelledby' => 'info',
+          'data-tab-content' => '', role: 'tabpanel' }
+          %table
+            %thead
+              %tr
+                %th Method
+                %th Description
+                %th Returns
+            %tbody
+              %tr
+                %td
+                  %code playPause()
+                %td
+                  This method
+                  %a{ onclick: 'player.playPause()' } toggles
+                  play or pause state of player.
+                %td
+                  player object
+              %tr
+                %td
+                  %code play()
+                %td
+                  %a{ onclick: 'player.play()' } Starts
+                  player instance.
+                %td
+                  player object
+              %tr
+                %td
+                  %code pause()
+                %td
+                  %a{ onclick: 'player.pause()' } Pauses
+                  player.
+                %td
+                  player object
+              %tr
+                %td
+                  %code seekToTime()
+                %td
+                  Seeks to position you want. For example this code
+                  %code player.seekToTime('00:42')
+                  will move playback to
+                  = succeed '.' do
+                    %a{ onclick: 'player.seekToTime(\'00:42\')' } 00:42
+                  %br
+                  Is's also possible to use
+                  %code data-seek-to-time
+                  attibute with links. This snippet:
+                  %br
+                    %code&= '<a data-seek-to-time=\'00:32\'>00:32</a>'
+                  will create link which moves playhead to
+                  %a{ 'data-seek-to-time' => '00:32' } 00:32
+                  position after clicking on it. Please note default
+                  %code click
+                  action for links will be prevented.
+                %td
+                  player object
+
+      -# Volume control and methods
+      %li.accordion-item
+        %a.accordion-title#volume{ href: '#volume', role: 'tab',
+          'aria-controls' => 'volume' } Volume control
+        .accordion-content#volume{ 'aria-labelledby' => 'volume',
+          'data-tab-content' => '', role: 'tabpanel' }
+          -# TODO: Table with API
+          %strong: TODO:
+          Table with API...
+
+      -# Look and feel section
+      %li.accordion-item
+        %a.accordion-title#look{ href: '#look', role: 'tab',
+          'aria-controls' => 'look' } Look and feel
+        .accordion-content#volume{ 'aria-labelledby' => 'look',
+          'data-tab-content' => '', role: 'tabpanel' }
+          %table
+            %thead
+              %tr
+                %th Method
+                %th Description
+                %th Returns
+            %tbody
+              %tr
+                %td
+                  %code togglePlayerSize()
+                %td
+                  This method
+                  %a{ onclick: 'player.togglePlayerSize()' } toggles
+                  player size. Method returns current size of
+                  player which was set.
+                %td
+                  %code 'small'
+                  |
+                  %code 'normal'
+              %tr
+                %td
+                  %code setPlayerSize(size)
+                %td
+                  This method sets player size to one of possible values:
+                  %code
+                    = surround '\'' do
+                      %a{ onclick: 'player.setPlayerSize(\'small\')' } small
+                  or
+                  %code
+                    = surround '\'' do
+                      %a{ onclick: 'player.setPlayerSize(\'normal\')' } normal
+                  = '.'
+                  Player has
+                  %code 'normal'
+                  size by default.
+                %td
+                  player object
 
   %body.foundation-player-demo
     .row
       .large-offset-2.large-8.columns
         %h1.text-center Foundation-player.js
-        %ul.tabs.foundation-player-tab{'data-tab' => ''}
-          %li.tab-title.active
-            %a{href: '#sandbox'} API Sandbox
-          %li.tab-title.foundation-player-normal
-            %a{href: '#normal'} Normal
-          %li.tab-title.foundation-player-small
-            %a{href: '#small'} Small
-
-        %hr/
+        %ul.tabs.foundation-player-tab#players{ 'data-tabs' => '' }
+          %li.tabs-title.is-active
+            %a{ href: '#sandbox' } API Sandbox
+          %li.tabs-title.foundation-player-normal
+            %a{ href: '#normal' } Normal
+          %li.tabs-title.foundation-player-small
+            %a{ href: '#small' } Small
         -# Tabs
-        .tabs-content
-          #sandbox.content.active
-            .foundation-player.no-1
-              = player
-              %audio
-                %source{src: 'http://kolber.github.io/audiojs/demos/mp3/juicy.mp3'}
+        .tabs-content{ 'data-tabs-content' => 'players' }
+          .tabs-panel.is-active#sandbox
+            .player-wrapper
+              .foundation-player.no-1
+                = player
+                %audio
+                  - url = 'http://kolber.github.io/audiojs/demos/mp3/juicy.mp3'
+                  %source{ src: url }
 
-            / I know this is not good
+            -# I know this is not good
             %br/
-            %dl.accordion{'data-accordion' => ''}
-              %dd.accordion-navigation
-                %a{href: '#info'} Intro
-                #info.content.active
-                  %p
-                    This is super easy way to bring HTML5 audio player to your Foundation based project. Take a look to
-                    %a{ href: 'https://github.com/qatsi/foundation-player.js/blob/master/README.md' } README
-                    and the
-                    = succeed '.' do
-                      %a{href: 'https://github.com/qatsi/foundation-player.js/blob/master/index.html'} source of this page
-                    This tab is also sandbox for Foundation Player API. There is the
-                    %code player
-                    global variable. Fill free to experiment in your browser's JavaScript console.
+            = sandbox
 
-              %dd.accordion-navigation
-                %a{ href: '#playback' } Playback control
-                #playback.content
-                  %table
-                    %thead
-                      %tr
-                        %th Method
-                        %th Description
-                        %th Returns
-                    %tbody
-                      %tr
-                        %td
-                          %code playPause()
-                        %td
-                          This method
-                          %a{onclick: 'player.playPause()'} toggles
-                          play or pause state of player.
-                        %td
-                          player object
-                      %tr
-                        %td
-                          %code play()
-                        %td
-                          %a{onclick: 'player.play()'} Starts
-                          player instance.
-                        %td
-                          player object
-                      %tr
-                        %td
-                          %code pause()
-                        %td
-                          %a{onclick: 'player.pause()'} Pauses
-                          player.
-                        %td
-                          player object
-                      %tr
-                        %td
-                          %code seekToTime()
-                        %td
-                          Seeks to position you want. For example this code
-                          %code player.seekToTime('00:42')
-                          will move playback to
-                          = succeed '.' do
-                            %a{onclick: 'player.seekToTime(\'00:42\')'} 00:42
-                          %br
-                          Is's also possible to use
-                          %code data-seek-to-time
-                          attibute with links. This snippet:
-                          %br
-                            %code&= '<a data-seek-to-time=\'00:32\'>00:32</a>'
-                          will create link which moves playhead to
-                          %a{ 'data-seek-to-time' => '00:32' } 00:32
-                          position after clicking on it. Please note default
-                          %code click
-                          action for links will be prevented.
-                        %td
-                          player object
-              %dd.accordion-navigation
-                %a{ href: '#volume' } Volume control
-                #volume.content
-                  Table with API...
-              %dd.accordion-navigation
-                %a{ href: '#look' } Look and feel
-                #look.content
-                  %table
-                    %thead
-                      %tr
-                        %th Method
-                        %th Description
-                        %th Returns
-                    %tbody
-                      %tr
-                        %td
-                          %code togglePlayerSize()
-                        %td
-                          This method
-                          %a{onclick: 'player.togglePlayerSize()'} toggles
-                          player size. Method returns current size of player which was set.
-                        %td
-                          %code 'small'
-                          |
-                          %code 'normal'
-                      %tr
-                        %td
-                          %code setPlayerSize(size)
-                        %td
-                          This method sets player size to one of possible values:
-                          %code
-                            = surround '\'' do
-                              %a{onclick: 'player.setPlayerSize(\'small\')'}  small
-                          or
-                          %code
-                            = surround '\'' do
-                              %a{onclick: 'player.setPlayerSize(\'normal\')'} normal
-                          = '.'
-                          Player has
-                          %code 'normal'
-                          size by default.
-                        %td
-                          player object
-
-          #normal.content
+          .tabs-panel#normal
             %p
               Regular player setup. There is no options here.
               %br/
@@ -177,7 +212,7 @@
               %audio{ preload: 'none' }
                 %source{ src: './lib/audio/climbing.m4a' }
 
-          #small.content
+          .tabs-panel#small
             %p
               Small player setup:
               %code { size: 'small' }
