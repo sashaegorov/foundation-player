@@ -12,8 +12,10 @@ do (document, window) ->
       scroll = $(document).scrollTop()
       if scroll >= playerOffset
         $player.addClass 'sticky'
+        player.setPlayerSize 'small'
       if scroll < playerOffset
         $player.removeClass 'sticky'
+        player.setPlayerSize 'normal'
     # Load when tab active
     # TODO: Make it acvite when tab is active
     $('.foundation-player.no-2').foundationPlayer()

@@ -280,7 +280,7 @@
       };
 
       FoundationPlayer.prototype.setPlayerSize = function(size) {
-        if (('normal' === size || 'small' === size) && size !== this.currentUISize) {
+        if (size !== this.currentUISize && ('normal' === size || 'small' === size)) {
           switchClass(this.$wrapper, size, this.currentUISize);
           this.setPlayerSizeHandler();
           return this.currentUISize = size;

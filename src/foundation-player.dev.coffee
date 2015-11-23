@@ -211,7 +211,7 @@
 
     # Set particalar player size
     setPlayerSize: (size) ->
-      if ('normal' == size or 'small' == size) and size != @currentUISize
+      if size != @currentUISize and ('normal' == size or 'small' == size)
           switchClass @$wrapper, size, @currentUISize
           @setPlayerSizeHandler()
           return @currentUISize = size

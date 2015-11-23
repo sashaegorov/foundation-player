@@ -12,9 +12,11 @@
         scroll = $(document).scrollTop();
         if (scroll >= playerOffset) {
           $player.addClass('sticky');
+          player.setPlayerSize('small');
         }
         if (scroll < playerOffset) {
-          return $player.removeClass('sticky');
+          $player.removeClass('sticky');
+          return player.setPlayerSize('normal');
         }
       });
       $('.foundation-player.no-2').foundationPlayer();
