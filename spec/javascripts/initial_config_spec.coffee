@@ -18,7 +18,7 @@ describe 'Elements for Initialization', ->
     expect(no1.currentUISize).toEqual no1.options.size
     expect(no1.played).toEqual 0
 
-  it 'Initial elements found in DOM', ->   #Fuck Sasha
+  it 'Initial elements found in DOM', ->
     expect(no1.$player).toHaveClass 'player'
     expect(no1.$sources).toContain 'audio'
     expect(no1.$play.length).not.toEqual 0

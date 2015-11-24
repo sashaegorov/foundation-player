@@ -57,15 +57,16 @@
 
     seekToTime: (time) ->
       if @canPlayCurrent
-        @audio.currentTime = parseSeekTime(time)
+        time = parseSeekTime time
+        if time > @audio.duration then time = @audio.duration # Needs for Sarari
+        @audio.currentTime = time
         @updatePlayedProgress()
         @updateTimeStatuses()
       @
 
     seekPercent: (p) ->
-      # Can use both 0.65 and 65
-      timeToGo = @audio.duration * ( if p >= 1 then  p / 100 else p) or 0
-      @audio.currentTime = timeToGo
+      timeToGo = @audio.duration * parseSeekPercent p
+      @audio.currentTime = timeToGo or 0
       @updatePlayedProgress()
       @updateTimeStatuses()
       @
@@ -211,13 +212,14 @@
 
     # Set particalar player size
     setPlayerSize: (size) ->
-      if size != @currentUISize and ('normal' == size or 'small' == size)
-          switchClass @$wrapper, size, @currentUISize
-          @setPlayerSizeHandler()
-          return @currentUISize = size
-      else
-        console.error 'setPlayerSize: incorrect size argument'
-        return false
+      if size != @currentUISize
+        if ('normal' == size or 'small' == size)
+            switchClass @$wrapper, size, @currentUISize
+            @setPlayerSizeHandler()
+            return @currentUISize = size
+        else
+          console.error 'setPlayerSize: incorrect size argument'
+          return false
 
     # Player resize handler
     setPlayerSizeHandler: ->
@@ -277,6 +279,12 @@
       else
         false
 
+    parseSeekPercent = (p) ->
+      return isNumber p unless isNumber p # Can't use both '0.65' and '65'
+      return 0 if p < 0
+      return 1 if p > 100
+      return if p > 1 then p / 100 else p
+
     # API for testing private functions
     # This comment section passed in compiled JavaScript
     ###__TEST_ONLY_SECTION_STARTS__###
@@ -286,6 +294,7 @@
       stringPadLeft: stringPadLeft
       switchClass: switchClass
       parseSeekTime: parseSeekTime
+      parseSeekPercent: parseSeekPercent
     ###__TEST_ONLY_SECTION_ENDS__###
 
   # Global variable for testing prototype functions

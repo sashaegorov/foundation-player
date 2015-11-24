@@ -1,6 +1,6 @@
 src_files:
   - /lib/js/jquery.min.js
-  - /lib/js/foundation.js
+  - /lib/js/foundation.min.js
   # Use development version of library, which has testing API:
   - /dist/foundation-player.dev.js
 

@@ -5,7 +5,7 @@
     'use strict';
     var FoundationPlayer;
     FoundationPlayer = (function() {
-      var isNumber, parseSeekTime, prettyTime, stringPadLeft, switchClass;
+      var isNumber, parseSeekPercent, parseSeekTime, prettyTime, stringPadLeft, switchClass;
 
       FoundationPlayer.prototype.defaults = {
         size: 'normal',
@@ -73,7 +73,11 @@
 
       FoundationPlayer.prototype.seekToTime = function(time) {
         if (this.canPlayCurrent) {
-          this.audio.currentTime = parseSeekTime(time);
+          time = parseSeekTime(time);
+          if (time > this.audio.duration) {
+            time = this.audio.duration;
+          }
+          this.audio.currentTime = time;
           this.updatePlayedProgress();
           this.updateTimeStatuses();
         }
@@ -82,8 +86,8 @@
 
       FoundationPlayer.prototype.seekPercent = function(p) {
         var timeToGo;
-        timeToGo = this.audio.duration * (p >= 1 ? p / 100 : p) || 0;
-        this.audio.currentTime = timeToGo;
+        timeToGo = this.audio.duration * parseSeekPercent(p);
+        this.audio.currentTime = timeToGo || 0;
         this.updatePlayedProgress();
         this.updateTimeStatuses();
         return this;
@@ -280,13 +284,15 @@
       };
 
       FoundationPlayer.prototype.setPlayerSize = function(size) {
-        if (size !== this.currentUISize && ('normal' === size || 'small' === size)) {
-          switchClass(this.$wrapper, size, this.currentUISize);
-          this.setPlayerSizeHandler();
-          return this.currentUISize = size;
-        } else {
-          console.error('setPlayerSize: incorrect size argument');
-          return false;
+        if (size !== this.currentUISize) {
+          if ('normal' === size || 'small' === size) {
+            switchClass(this.$wrapper, size, this.currentUISize);
+            this.setPlayerSizeHandler();
+            return this.currentUISize = size;
+          } else {
+            console.error('setPlayerSize: incorrect size argument');
+            return false;
+          }
         }
       };
 
@@ -351,6 +357,23 @@
           return (parseInt(m[1], 10)) * 60 + (parseInt(m[2], 10));
         } else {
           return false;
+        }
+      };
+
+      parseSeekPercent = function(p) {
+        if (!isNumber(p)) {
+          return isNumber(p);
+        }
+        if (p < 0) {
+          return 0;
+        }
+        if (p > 100) {
+          return 1;
+        }
+        if (p > 1) {
+          return p / 100;
+        } else {
+          return p;
         }
       };
 

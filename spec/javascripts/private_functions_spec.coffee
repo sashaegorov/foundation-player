@@ -58,20 +58,20 @@ describe 'Private functions suite', ->
     expect($el).toHaveClass 'bar'
     expect($el).not.toHaveClass 'foo'
 
-  it 'parseSeekTime() parse numeric', ->
+  it 'parseSeekTime() parses numeric', ->
     expect(obj.parseSeekTime 0).toBe 0
     expect(obj.parseSeekTime 1).toBe 1
     expect(obj.parseSeekTime 42).toBe 42
     expect(obj.parseSeekTime 4242).toBe 4242
 
-  it 'parseSeekTime() parse numbers as a string', ->
+  it 'parseSeekTime() parses numbers as a string', ->
     expect(obj.parseSeekTime '1').toBe '1'
     expect(obj.parseSeekTime '42').toBe '42'
     expect(obj.parseSeekTime '042').toBe '042'
     expect(obj.parseSeekTime '4242').toBe '4242'
     expect(obj.parseSeekTime '42424242').toBe '42424242'
 
-  it 'parseSeekTime() parse timestamp', ->
+  it 'parseSeekTime() parses timestamp', ->
     expect(obj.parseSeekTime '00:00').toBe 0
     expect(obj.parseSeekTime '00:10').toBe 10
     expect(obj.parseSeekTime '01:00').toBe 60
@@ -84,10 +84,33 @@ describe 'Private functions suite', ->
     expect(obj.parseSeekTime '2:02').toBe 122
     expect(obj.parseSeekTime '16:40').toBe 1000
 
-  it 'parseSeekTime() return false for invalid statements', ->
+  it 'parseSeekTime() returns false for invalid statements', ->
     expect(obj.parseSeekTime '12f').toBe false
     expect(obj.parseSeekTime '0xFF').toBe false
     expect(obj.parseSeekTime '02:2').toBe false
     expect(obj.parseSeekTime '6:4').toBe false
     expect(obj.parseSeekTime '126:24').toBe false
     expect(obj.parseSeekTime '26:124').toBe false
+
+  it 'parseSeekPercent() parses both percentage and float', ->
+    # Range from 0.0 to 1.0
+    expect(obj.parseSeekPercent 0).toBe 0
+    expect(obj.parseSeekPercent 0.5).toBe 0.5
+    expect(obj.parseSeekPercent 1).toBe 1
+    # Range from > 1.0 to 100
+    expect(obj.parseSeekPercent 2).toBe 0.02
+    expect(obj.parseSeekPercent 50).toBe 0.5
+    expect(obj.parseSeekPercent 100).toBe 1
+    # Range from > 100
+    expect(obj.parseSeekPercent 150).toBe 1
+    # Negative values
+    expect(obj.parseSeekPercent -10).toBe 0
+    expect(obj.parseSeekPercent -0.1).toBe 0
+
+  it 'parseSeekPercent() rejects any kind strings', ->
+    expect(obj.parseSeekPercent '50').toBe false
+    expect(obj.parseSeekPercent '-50').toBe false
+    expect(obj.parseSeekPercent '0.1').toBe false
+    expect(obj.parseSeekPercent '0,1').toBe false
+    expect(obj.parseSeekPercent '-0.1').toBe false
+    expect(obj.parseSeekPercent '-0,1').toBe false
