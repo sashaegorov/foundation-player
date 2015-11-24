@@ -84,20 +84,20 @@
       # Start preload of audio file
       @audio.load()
       $audio = $(@audio)
-      $audio.on 'timeupdate.fndtn.player', => # While playing
+      $audio.on 'timeupdate.zf.player`', => # While playing
         @updatePlayedProgress()
         @updateTimeStatuses()
       # Bunch of <audio> events
-      $audio.on 'loadstart.fndtn.player', => # Loading is started
+      $audio.on 'loadstart.zf.player`', => # Loading is started
         @canPlayCurrent = false
         @updateDisabledStatus()
         @updateButtonPlay()
-      $audio.on 'durationchange.fndtn.player', => # 'NaN' to loaded
+      $audio.on 'durationchange.zf.player`', => # 'NaN' to loaded
         @updateTimeStatuses()   # Update both time statuses
-      $audio.on 'progress.fndtn.player', =>
+      $audio.on 'progress.zf.player`', =>
         @redrawBufferizationBars()
         @updateDisabledStatus()
-      $audio.on 'canplay.fndtn.player', => # Can be played
+      $audio.on 'canplay.zf.player`', => # Can be played
         @canPlayCurrent = true
         @play() if @options.playOnLoad
         @redrawBufferizationBars()
@@ -117,7 +117,7 @@
       @
     # Set up volume button
     setUpButtonVolume: ->
-      @$volume.bind 'click.fndtn.player', =>
+      @$volume.bind 'click.zf.player`', =>
         @buttonVolumeHandler()
     # Update volume button
     updateButtonVolume: ->
@@ -139,12 +139,12 @@
     setUpPlayedProgress: ->
       @$played.css 'width', @played + '%'
       # Click and drag progress
-      @$progress.on 'click.fndtn.player', (e) =>
+      @$progress.on 'click.zf.player`', (e) =>
         @seekPercent 100 * e.offsetX // @$progress.outerWidth()
       # Drag section is tricky
       # TODO: Mobile actions
 
-      @$progress.on 'mousedown.fndtn.player',  () =>
+      @$progress.on 'mousedown.zf.player`',  () =>
         @nowdragging = true
         @setVolume(@options.dimmedVolume)
 
@@ -153,11 +153,11 @@
         if @nowdragging
           @nowdragging = false
           @setVolume(1)
-      @$player.on 'mouseleave.fndtn.player', () -> _stopDragHandler()
-      $(document).on 'mouseup.fndtn.player', () -> _stopDragHandler()
-      $(window).on 'blur.fndtn.player', () -> _stopDragHandler()
+      @$player.on 'mouseleave.zf.player`', () -> _stopDragHandler()
+      $(document).on 'mouseup.zf.player`', () -> _stopDragHandler()
+      $(window).on 'blur.zf.player`', () -> _stopDragHandler()
       # Update player position
-      @$progress.on 'mousemove.fndtn.player', (e) =>
+      @$progress.on 'mousemove.zf.player`', (e) =>
         if @nowdragging
           @seekPercent 100 * e.offsetX // @$progress.outerWidth()
 

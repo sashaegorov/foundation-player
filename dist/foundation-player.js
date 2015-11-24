@@ -102,31 +102,31 @@
         var $audio;
         this.audio.load();
         $audio = $(this.audio);
-        $audio.on('timeupdate.fndtn.player', (function(_this) {
+        $audio.on('timeupdate.zf.player`', (function(_this) {
           return function() {
             _this.updatePlayedProgress();
             return _this.updateTimeStatuses();
           };
         })(this));
-        $audio.on('loadstart.fndtn.player', (function(_this) {
+        $audio.on('loadstart.zf.player`', (function(_this) {
           return function() {
             _this.canPlayCurrent = false;
             _this.updateDisabledStatus();
             return _this.updateButtonPlay();
           };
         })(this));
-        $audio.on('durationchange.fndtn.player', (function(_this) {
+        $audio.on('durationchange.zf.player`', (function(_this) {
           return function() {
             return _this.updateTimeStatuses();
           };
         })(this));
-        $audio.on('progress.fndtn.player', (function(_this) {
+        $audio.on('progress.zf.player`', (function(_this) {
           return function() {
             _this.redrawBufferizationBars();
             return _this.updateDisabledStatus();
           };
         })(this));
-        return $audio.on('canplay.fndtn.player', (function(_this) {
+        return $audio.on('canplay.zf.player`', (function(_this) {
           return function() {
             _this.canPlayCurrent = true;
             if (_this.options.playOnLoad) {
@@ -157,7 +157,7 @@
       };
 
       FoundationPlayer.prototype.setUpButtonVolume = function() {
-        return this.$volume.bind('click.fndtn.player', (function(_this) {
+        return this.$volume.bind('click.zf.player`', (function(_this) {
           return function() {
             return _this.buttonVolumeHandler();
           };
@@ -188,12 +188,12 @@
       FoundationPlayer.prototype.setUpPlayedProgress = function() {
         var _stopDragHandler;
         this.$played.css('width', this.played + '%');
-        this.$progress.on('click.fndtn.player', (function(_this) {
+        this.$progress.on('click.zf.player`', (function(_this) {
           return function(e) {
             return _this.seekPercent(Math.floor(100 * e.offsetX / _this.$progress.outerWidth()));
           };
         })(this));
-        this.$progress.on('mousedown.fndtn.player', (function(_this) {
+        this.$progress.on('mousedown.zf.player`', (function(_this) {
           return function() {
             _this.nowdragging = true;
             return _this.setVolume(_this.options.dimmedVolume);
@@ -207,16 +207,16 @@
             }
           };
         })(this);
-        this.$player.on('mouseleave.fndtn.player', function() {
+        this.$player.on('mouseleave.zf.player`', function() {
           return _stopDragHandler();
         });
-        $(document).on('mouseup.fndtn.player', function() {
+        $(document).on('mouseup.zf.player`', function() {
           return _stopDragHandler();
         });
-        $(window).on('blur.fndtn.player', function() {
+        $(window).on('blur.zf.player`', function() {
           return _stopDragHandler();
         });
-        return this.$progress.on('mousemove.fndtn.player', (function(_this) {
+        return this.$progress.on('mousemove.zf.player`', (function(_this) {
           return function(e) {
             if (_this.nowdragging) {
               return _this.seekPercent(Math.floor(100 * e.offsetX / _this.$progress.outerWidth()));
