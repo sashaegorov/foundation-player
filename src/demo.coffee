@@ -4,8 +4,8 @@ do (document, window) ->
     $(document).foundation()
     $('.foundation-player.no-1').foundationPlayer()
     window.player = $('.foundation-player.no-1').data 'FoundationPlayer'
+
     # Scroll handler
-    # TODO: Make it more smooth...
     playerOffset = $('.foundation-player.no-1').offset()['top']
     $player = $('.foundation-player.no-1')
     $(window).scroll ->
@@ -16,7 +16,11 @@ do (document, window) ->
       if scroll < playerOffset
         $player.removeClass 'sticky'
         player.setPlayerSize 'normal'
+
     # Load when tab active
-    # TODO: Make it acvite when tab is active
-    $('.foundation-player.no-2').foundationPlayer()
-    $('.foundation-player.no-3').foundationPlayer size: 'small'
+    $('#players').on 'change.zf.tabs', ->
+      activeTab = $(this).find('.is-active a').attr('href')
+      if activeTab == '#normal'
+        $('.foundation-player.no-2').foundationPlayer()
+      if activeTab == '#small'
+        $('.foundation-player.no-3').foundationPlayer size: 'small'

@@ -19,9 +19,17 @@
           return player.setPlayerSize('normal');
         }
       });
-      $('.foundation-player.no-2').foundationPlayer();
-      return $('.foundation-player.no-3').foundationPlayer({
-        size: 'small'
+      return $('#players').on('change.zf.tabs', function() {
+        var activeTab;
+        activeTab = $(this).find('.is-active a').attr('href');
+        if (activeTab === '#normal') {
+          $('.foundation-player.no-2').foundationPlayer();
+        }
+        if (activeTab === '#small') {
+          return $('.foundation-player.no-3').foundationPlayer({
+            size: 'small'
+          });
+        }
       });
     });
   })(document, window);
