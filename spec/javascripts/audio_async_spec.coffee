@@ -6,7 +6,6 @@
 #
 # TODO: Decrease timeouts if possible
 # TODO: Replace audio with shorter one
-# TODO: Add style fixtures
 
 describe 'Audio async tests', ->
   no1 = null
@@ -16,12 +15,18 @@ describe 'Audio async tests', ->
   beforeAll ->
     jasmine.getFixtures().fixturesPath = '.'
     jasmine.getFixtures().preload 'spec/javascripts/fixtures/html/player-1.html'
+    jasmine.getStyleFixtures().fixturesPath = '.'
+    jasmine.getStyleFixtures().preload 'lib/css/foundation.min.css',
+      'dist/foundation-player.css'
 
   afterAll ->
     jasmine.getFixtures().clearCache()
 
   beforeEach (done) ->
     jasmine.getFixtures().load 'spec/javascripts/fixtures/html/player-1.html'
+    jasmine.getStyleFixtures().load 'lib/css/foundation.min.css',
+      'dist/foundation-player.css'
+
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
     no1.audio.muted = true # Mute audio
