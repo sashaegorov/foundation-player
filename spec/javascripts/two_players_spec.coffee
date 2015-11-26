@@ -24,7 +24,7 @@ describe 'Two players', ->
     expect(no2.audio.paused).toEqual false
 
   it 'getPlayerInstances() updates after each new instance', ->
-    # TODO: Improve this pre-clean step
+    # Full preclean for this step only
     no1 = no2 = null
     $.removeData(document.body, 'FoundationPlayers')
     # Load markup
