@@ -76,8 +76,10 @@ $fp-progress-height-small: $fp-font-size-small * .8 !default;
 
       .progress-meter.buffered {
         background: $fp-color;
+        height: 100%;
         opacity: .25;
         position: absolute;
+        top: 0;
       }
     }
 
@@ -92,17 +94,13 @@ $fp-progress-height-small: $fp-font-size-small * .8 !default;
       cursor: pointer;
       margin-left: 0; // No margin for buttons
 
-      &.rewind em {
+      &.rewind em:before {
+        color: $fp-color;
         transform: scale(-1, 1); // Transform button, i.e. flip horizontal
       }
 
-      // Foundation Icons with gradient font
-      em:before {
-        color: $fp-color;
-      }
-
       em:hover:before {
-        color: $fp-color;
+        color: scale-color($fp-color, $lightness: -25%);
       }
     }
   }

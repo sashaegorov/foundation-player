@@ -231,20 +231,16 @@
       };
 
       FoundationPlayer.prototype.redrawBufferizationBars = function() {
-        var b, e, h, i, l, range, ref, results, segments, t, w, widthDelta;
+        var b, e, i, range, ref, results, segments, w;
         this.$progress.find('.buffered').remove();
         segments = this.audio.buffered.length;
         if (segments > 0) {
-          t = parseInt(this.$progress.css('padding-top'), 10);
-          l = parseInt(this.$progress.css('padding-left'), 10);
           w = this.$progress.width();
-          h = this.$progress.height();
-          widthDelta = 2 * parseInt(this.$played.css('padding-left'), 10);
           results = [];
           for (range = i = 0, ref = segments; 0 <= ref ? i < ref : i > ref; range = 0 <= ref ? ++i : --i) {
             b = this.audio.buffered.start(range);
             e = this.audio.buffered.end(range);
-            results.push(switchClass(this.$played.clone(), 'buffered', 'played').css('left', l + (w * (Math.floor(b / this.audio.duration))) + 'px').css('top', t).height(h).width(Math.floor(w * (e - b) / this.audio.duration)).appendTo(this.$progress));
+            results.push(switchClass(this.$played.clone(), 'buffered', 'played').css('left', (w * (Math.floor(b / this.audio.duration))) + 'px').width(Math.floor(w * (e - b) / this.audio.duration)).appendTo(this.$progress));
           }
           return results;
         }
@@ -305,8 +301,8 @@
         var semiHeight;
         if (this.$progress.hasClass('round')) {
           semiHeight = this.$progress.height() / 2;
-          this.$played.css('padding', '0 ' + semiHeight + 'px');
-          return this.$progress.find('.buffered').css('padding', '0 ' + semiHeight + 'px');
+          this.$played.css('padding', "0 " + semiHeight + "px");
+          return this.$progress.find('.buffered').css('padding', "0 " + semiHeight + "px");
         }
       };
 

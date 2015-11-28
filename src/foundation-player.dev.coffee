@@ -166,24 +166,16 @@
       @$played.css 'width', @played + '%'
     redrawBufferizationBars: ->
       # This function should be called after playerBeautifyProgressBar
-      # Remove all current indicators
-      @$progress.find('.buffered').remove()
+      @$progress.find('.buffered').remove() # remove all current indicators
       segments = @audio.buffered.length
-      # If there is at least one segment...
-      if segments > 0
-        # Some of $progress styles are used for buffer indicators
-        t =  parseInt @$progress.css('padding-top'), 10
-        l = parseInt @$progress.css('padding-left'), 10
-        w = @$progress.width()
-        h = @$progress.height()
-        widthDelta = 2 * parseInt @$played.css('padding-left'), 10
+      if segments > 0 # If there is at least one segment...
+        w = @$progress.width() # $progress width used for buffer indicators
         for range in [0...segments]
           b = @audio.buffered.start(range) # Segment start second
           e = @audio.buffered.end(range) # Segment end second
           switchClass(@$played.clone(), 'buffered', 'played')
-          .css('left', l + (w * (b // @audio.duration)) + 'px')
-          .css('top', t).height(h).width(w*(e-b)//@audio.duration)
-          .appendTo(@$progress)
+          .css('left', (w * (b // @audio.duration)) + 'px')
+          .width(w*(e-b)//@audio.duration).appendTo(@$progress)
 
     # Volume ===================================================================
     setVolume: (vol) ->
@@ -230,9 +222,8 @@
     playerBeautifyProgressBar: ->
       if @$progress.hasClass('round')
         semiHeight = @$progress.height()/2
-        # TODO: Make it better
-        @$played.css 'padding', '0 ' + semiHeight + 'px'
-        @$progress.find('.buffered').css 'padding', '0 ' + semiHeight + 'px'
+        @$played.css 'padding', "0 #{semiHeight}px"
+        @$progress.find('.buffered').css 'padding', "0 #{semiHeight}px"
 
     getPlayerInstances: ->
       $.data(document.body, 'FoundationPlayers')
