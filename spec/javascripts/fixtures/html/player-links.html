@@ -27,11 +27,21 @@
 </div>
 <ul>
   <p>Correct fixtures for exact time seeking</p>
-  <li><a href="#" data-seek-to-time='00:01'>Go</a> here.</li>
-  <li><a href="#" data-seek-to-time='0:02'>Go</a> there.</li>
+  <li><a href="#" class='valid' data-seek-to-time='00:01'>Go</a> here.</li>
+  <li><a href="#" class='valid' data-seek-to-time='0:02'>Go</a> there.</li>
 </ul>
 <ul>
   <p>Incorrect fixtures for exact time seeking</p>
-  <li><a href="#" data-seek-to-time='00:1'>Go</a> here.</li>
-  <li><a href="#" data-seek-to-time='end'>Go</a> there.</li>
+  <li><a href="#" class='invalid' data-seek-to-time='00:1'>Go</a> here.</li>
+  <li><a href="#" class='invalid' data-seek-to-time='end'>Go</a> there.</li>
+</ul>
+<ul>
+  <p>Correct fixtures for percentage seeking</p>
+  <li><a href="#" class='valid' data-seek-to-percentage='0.1'>Go</a> %10.</li>
+  <li><a href="#" class='valid' data-seek-to-percentage='20'>Go</a> %20.</li>
+</ul>
+<ul>
+  <p>Incorrect fixtures for percentage seeking</p>
+  <li><a href="#" class='invalid' data-seek-to-percentage='--'>Go</a> %10.</li>
+  <li><a href="#" class='invalid' data-seek-to-percentage='20%'>Go</a> %20.</li>
 </ul>

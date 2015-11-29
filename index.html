@@ -131,22 +131,24 @@
                           <code>seekToTime()</code>
                         </td>
                         <td>
-                          Seeks to position you want. For example this code
+                          Seeks to exact position. Call
                           <code>player.seekToTime('00:42')</code>
-                          will move playback to
+                          to move to
                           <a onclick="player.seekToTime('00:42')">00:42</a>.
-                          <br>
-                          Is's also possible to use
-                          <code>data-seek-to-time</code>
-                          attibute with links. This snippet:
-                          <br>
-                            <code>&lt;a data-seek-to-time='00:32'&gt;00:32&lt;/a&gt;</code>
-                          </br>
-                          will create link which moves playhead to
-                          <a data-seek-to-time='00:32'>00:32</a>
-                          position after clicking on it. Please note default
-                          <code>click</code>
-                          action for links will be prevented.
+                        </td>
+                        <td>
+                          player object
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code>seekPercent()</code>
+                        </td>
+                        <td>
+                          Seeks to percentage. This code
+                          <code>player.seekPercent(0.5)</code>
+                          moves to
+                          <a onclick='player.seekPercent(0.5)'>50%</a>.
                         </td>
                         <td>
                           player object
@@ -154,6 +156,33 @@
                       </tr>
                     </tbody>
                   </table>
+                  <p>
+                    Is's possible to use
+                    <code>data-seek-to-percentage</code>
+                    and
+                    <code>data-seek-to-time</code>
+                    attibutes with links.
+                    In order to enable feature just passed
+                    <code>{useSeekData: true}</code>
+                    option to player. Player instance which was initialized lastest will handle links in document.
+                  </p>
+                  <p>
+                    <code>&lt;a data-seek-to-percentage='0.5'&gt;50%&lt;/a&gt;</code>
+                    will create link which moves playhead to
+                    <a data-seek-to-percentage='0.5'>half</a>
+                    position after clicking on it.
+                  </p>
+                  <p>
+                    <code>&lt;a data-seek-to-time='00:42'&gt;00:42&lt;/a&gt;</code>
+                    will create link which moves playhead to
+                    <a data-seek-to-time='00:42'>00:42</a>
+                    position after clicking.
+                  </p>
+                  <p>
+                    Please note default
+                    <code>click</code>
+                    action for links will be prevented.
+                  </p>
                 </div>
               </li>
               <li class='accordion-item'>

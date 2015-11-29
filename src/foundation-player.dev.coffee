@@ -11,7 +11,7 @@
       skipSeconds: 10         # How many we want to skip
       dimmedVolume: 0.25      # Reduced volume i.e. while seeking
       pauseOthersOnPlay: true # Pause other player instances
-      useSeekData: true       # Parse seek data from links by default
+      useSeekData: false      # Parse seek data from links by default
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -34,6 +34,7 @@
       @nowdragging = false
       @currentUISize = @options.size
       @canPlayCurrent = false
+      @dataLinks = []
       # Init calls
       @resetClassAndStyle()   # Setup classes and styles
       @setUpCurrentAudio()    # Set up Play/Pause
@@ -230,12 +231,21 @@
 
     # Data links ===============================================================
     parseDataLinks: ->
-      seekItems = $('[data-seek-to-time]')
-      seekItems.off 'click.player.seek' # Remove any existin handlers
-      seekItems.on 'click.player.seek', @, (e) ->
-        console.log e
+      @dataLinks = []
+      # Seek to time section
+      timeLinks = $('[data-seek-to-time]')
+      timeLinks.off 'click.zf.player.seektime' # Remove any existin handlers
+      timeLinks.on 'click.zf.player.seektime', @, (e) ->
         e.preventDefault() # Prevent default action
         e.data.seekToTime($(this).data 'seek-to-time')
+      # Seek to percentage section
+      percentLinks = $('[data-seek-to-percentage]')
+      percentLinks.off 'click.zf.player.seekperc' # Remove any existin handlers
+      percentLinks.on 'click.zf.player.seekperc', @, (e) ->
+        e.preventDefault() # Prevent default action
+        e.data.seekPercent $(this).data 'seek-to-percentage'
+      # Update data links
+      @dataLinks = $.merge(timeLinks, percentLinks)
 
     # Helpers ==================================================================
     # Some really internal stuff goes here

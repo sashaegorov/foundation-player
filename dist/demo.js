@@ -3,7 +3,9 @@
     return $(document).ready(function($) {
       var $player, playerOffset;
       $(document).foundation();
-      $('.foundation-player.no-1').foundationPlayer();
+      $('.foundation-player.no-1').foundationPlayer({
+        useSeekData: true
+      });
       window.player = $('.foundation-player.no-1').data('FoundationPlayer');
       playerOffset = $('.foundation-player.no-1').offset()['top'];
       $player = $('.foundation-player.no-1');

@@ -104,25 +104,47 @@
                 %td
                   %code seekToTime()
                 %td
-                  Seeks to position you want. For example this code
+                  Seeks to exact position. Call
                   %code player.seekToTime('00:42')
-                  will move playback to
+                  to move to
                   = succeed '.' do
                     %a{ onclick: 'player.seekToTime(\'00:42\')' } 00:42
-                  %br
-                  Is's also possible to use
-                  %code data-seek-to-time
-                  attibute with links. This snippet:
-                  %br
-                    %code&= '<a data-seek-to-time=\'00:32\'>00:32</a>'
-                  will create link which moves playhead to
-                  %a{ 'data-seek-to-time' => '00:32' } 00:32
-                  position after clicking on it. Please note default
-                  %code click
-                  action for links will be prevented.
                 %td
                   player object
-
+              %tr
+                %td
+                  %code seekPercent()
+                %td
+                  Seeks to percentage. This code
+                  %code player.seekPercent(0.5)
+                  moves to
+                  = succeed '.' do
+                    %a{ onclick: 'player.seekPercent(0.5)' } 50%
+                %td
+                  player object
+          %p
+            Is's possible to use
+            %code data-seek-to-percentage
+            and
+            %code data-seek-to-time
+            attibutes with links.
+            In order to enable feature just passed
+            %code {useSeekData: true}
+            option to player. Player instance which was initialized lastest will handle links in document.
+          %p
+            %code&= '<a data-seek-to-percentage=\'0.5\'>50%</a>'
+            will create link which moves playhead to
+            %a{ 'data-seek-to-percentage' => '0.5' } half
+            position after clicking on it.
+          %p
+            %code&= '<a data-seek-to-time=\'00:42\'>00:42</a>'
+            will create link which moves playhead to
+            %a{ 'data-seek-to-time' => '00:42' } 00:42
+            position after clicking.
+          %p
+            Please note default
+            %code click
+            action for links will be prevented.
       -# Volume control and methods
       %li.accordion-item
         %a.accordion-title#volume{ href: '#volume', role: 'tab',

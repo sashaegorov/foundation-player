@@ -2,7 +2,7 @@ do (document, window) ->
   # Load on DOM ready
   $(document).ready ($) ->
     $(document).foundation()
-    $('.foundation-player.no-1').foundationPlayer()
+    $('.foundation-player.no-1').foundationPlayer useSeekData: true
     window.player = $('.foundation-player.no-1').data 'FoundationPlayer'
 
     # Scroll handler

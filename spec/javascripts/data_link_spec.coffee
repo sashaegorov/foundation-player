@@ -8,23 +8,37 @@ describe 'Data links', ->
     player = null
     $.removeData document.body, 'FoundationPlayers'
 
-  it 'enabled by default', ->
+  it 'are disabled by default', ->
     spyOn FoundationPlayer.prototype, 'parseDataLinks'
     $('.links').foundationPlayer()
-    player = $('.links').data('FoundationPlayer')
-    expect(player.options.useSeekData).toBe true
-    expect(FoundationPlayer.prototype.parseDataLinks).toHaveBeenCalledWith()
-
-  it 'have working parseDataLinks option', ->
-    spyOn FoundationPlayer.prototype, 'parseDataLinks'
-    $('.links').foundationPlayer(useSeekData: false)
-    player = $('.links').data('FoundationPlayer')
+    player = $('.links').data 'FoundationPlayer'
     expect(player.options.useSeekData).toBe false
     expect(FoundationPlayer.prototype.parseDataLinks).not.toHaveBeenCalledWith()
 
-  it 'elements have handler', ->
-    $dataLinks = $('[data-seek-to-time]')
-    expect($dataLinks).not.toHandle 'click'
+  it 'have working parseDataLinks option', ->
+    spyOn FoundationPlayer.prototype, 'parseDataLinks'
+    $('.links').foundationPlayer useSeekData: true
+    player = $('.links').data 'FoundationPlayer'
+    expect(player.options.useSeekData).toBe true
+    expect(FoundationPlayer.prototype.parseDataLinks).toHaveBeenCalledWith()
 
-  xit 'produce correct amount of parsed links', ->
+  it 'elements have click handler', ->
+    $dataTimeLinks = $('[data-seek-to-time]')
+    expect($dataTimeLinks).not.toHandle 'click'
+    $('.links').foundationPlayer useSeekData: true
+    expect($dataTimeLinks).toHandle 'click'
+
+  xit 'TODO: are in correct amount', ->
+    false
+
+  xit 'TODO: produce correct seek to time actions', ->
+    false
+
+  xit 'TODO: produce correct percentage seek actions', ->
+    false
+
+  xit 'TODO: are in dataLinks property', ->
+    false
+
+  xit 'TODO: handled by latest initilized player', ->
     false

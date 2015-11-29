@@ -13,7 +13,7 @@
         skipSeconds: 10,
         dimmedVolume: 0.25,
         pauseOthersOnPlay: true,
-        useSeekData: true
+        useSeekData: false
       };
 
       function FoundationPlayer(el, opt) {
@@ -33,6 +33,7 @@
         this.nowdragging = false;
         this.currentUISize = this.options.size;
         this.canPlayCurrent = false;
+        this.dataLinks = [];
         this.resetClassAndStyle();
         this.setUpCurrentAudio();
         this.setUpButtonPlayPause();
@@ -311,14 +312,21 @@
       };
 
       FoundationPlayer.prototype.parseDataLinks = function() {
-        var seekItems;
-        seekItems = $('[data-seek-to-time]');
-        seekItems.off('click.player.seek');
-        return seekItems.on('click.player.seek', this, function(e) {
-          console.log(e);
+        var percentLinks, timeLinks;
+        this.dataLinks = [];
+        timeLinks = $('[data-seek-to-time]');
+        timeLinks.off('click.zf.player.seektime');
+        timeLinks.on('click.zf.player.seektime', this, function(e) {
           e.preventDefault();
           return e.data.seekToTime($(this).data('seek-to-time'));
         });
+        percentLinks = $('[data-seek-to-percentage]');
+        percentLinks.off('click.zf.player.seekperc');
+        percentLinks.on('click.zf.player.seekperc', this, function(e) {
+          e.preventDefault();
+          return e.data.seekPercent($(this).data('seek-to-percentage'));
+        });
+        return this.dataLinks = $.merge(timeLinks, percentLinks);
       };
 
       switchClass = function(element, p, n) {
