@@ -312,21 +312,35 @@
       };
 
       FoundationPlayer.prototype.parseDataLinks = function() {
-        var percentLinks, timeLinks;
+        var clсk, percentLinks, timeLinks;
         this.dataLinks = [];
         timeLinks = $('[data-seek-to-time]');
-        timeLinks.off('click.zf.player.seektime');
-        timeLinks.on('click.zf.player.seektime', this, function(e) {
-          e.preventDefault();
-          return e.data.seekToTime($(this).data('seek-to-time'));
-        });
         percentLinks = $('[data-seek-to-percentage]');
-        percentLinks.off('click.zf.player.seekperc');
-        percentLinks.on('click.zf.player.seekperc', this, function(e) {
-          e.preventDefault();
-          return e.data.seekPercent($(this).data('seek-to-percentage'));
-        });
-        return this.dataLinks = $.merge(timeLinks, percentLinks);
+        clсk = 'click.zf.player.seek';
+        $.each(timeLinks, (function(_this) {
+          return function(index, el) {
+            var parsedData;
+            if (parsedData = parseSeekTime($(el).data('seek-to-time'))) {
+              _this.dataLinks.push(el);
+              return $(el).off(clсk).on(clсk, _this, function(e) {
+                e.preventDefault();
+                return e.data.seekToTime(parsedData);
+              });
+            }
+          };
+        })(this));
+        return $.each(percentLinks, (function(_this) {
+          return function(index, el) {
+            var parsedData;
+            if (parsedData = parseSeekPercent($(el).data('seek-to-percentage'))) {
+              _this.dataLinks.push(el);
+              return $(el).off(clсk).on(clсk, _this, function(e) {
+                e.preventDefault();
+                return e.data.seekPercent(parsedData);
+              });
+            }
+          };
+        })(this));
       };
 
       switchClass = function(element, p, n) {

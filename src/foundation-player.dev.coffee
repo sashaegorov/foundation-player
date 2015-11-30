@@ -231,21 +231,23 @@
 
     # Data links ===============================================================
     parseDataLinks: ->
-      @dataLinks = []
-      # Seek to time section
+      @dataLinks = [] # Reset dataLinks before parsing
       timeLinks = $('[data-seek-to-time]')
-      timeLinks.off 'click.zf.player.seektime' # Remove any existin handlers
-      timeLinks.on 'click.zf.player.seektime', @, (e) ->
-        e.preventDefault() # Prevent default action
-        e.data.seekToTime($(this).data 'seek-to-time')
-      # Seek to percentage section
       percentLinks = $('[data-seek-to-percentage]')
-      percentLinks.off 'click.zf.player.seekperc' # Remove any existin handlers
-      percentLinks.on 'click.zf.player.seekperc', @, (e) ->
-        e.preventDefault() # Prevent default action
-        e.data.seekPercent $(this).data 'seek-to-percentage'
-      # Update data links
-      @dataLinks = $.merge(timeLinks, percentLinks)
+      clсk = 'click.zf.player.seek'
+      #  TODO: DRY this up
+      $.each timeLinks, (index, el) =>
+        if parsedData = parseSeekTime $(el).data 'seek-to-time'
+          @dataLinks.push el
+          $(el).off(clсk).on clсk, @, (e) ->
+            e.preventDefault() # Prevent default action
+            e.data.seekToTime parsedData
+      $.each percentLinks, (index, el) =>
+        if parsedData = parseSeekPercent $(el).data 'seek-to-percentage'
+          @dataLinks.push el
+          $(el).off(clсk).on clсk, @, (e) ->
+            e.preventDefault() # Prevent default action
+            e.data.seekPercent parsedData
 
     # Helpers ==================================================================
     # Some really internal stuff goes here
