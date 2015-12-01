@@ -145,18 +145,18 @@
       # Drag section is tricky
       # TODO: Mobile actions
 
-      @$progress.on 'mousedown.zf.player`',  () =>
+      @$progress.on 'mousedown.zf.player`',  =>
         @nowdragging = true
         @setVolume(@options.dimmedVolume)
 
       # Stop dragging common handler
-      _stopDragHandler = () =>
+      _stopDragHandler = =>
         if @nowdragging
           @nowdragging = false
           @setVolume(1)
-      @$player.on 'mouseleave.zf.player`', () -> _stopDragHandler()
-      $(document).on 'mouseup.zf.player`', () -> _stopDragHandler()
-      $(window).on 'blur.zf.player`', () -> _stopDragHandler()
+      @$player.on 'mouseleave.zf.player`', -> _stopDragHandler()
+      $(document).on 'mouseup.zf.player`', -> _stopDragHandler()
+      $(window).on 'blur.zf.player`', -> _stopDragHandler()
       # Update player position
       @$progress.on 'mousemove.zf.player`', (e) =>
         if @nowdragging
@@ -176,7 +176,7 @@
           e = @audio.buffered.end(range) # Segment end second
           switchClass(@$played.clone(), 'buffered', 'played')
           .css('left', (w * (b // @audio.duration)) + 'px')
-          .width(w*(e-b)//@audio.duration).appendTo(@$progress)
+          .width(w * (e - b) // @audio.duration).appendTo @$progress
 
     # Volume ===================================================================
     setVolume: (vol) ->
@@ -192,7 +192,7 @@
     updateStatusElapsed: -> # Update $elapsed time status
       @$elapsed.text prettyTime @audio.currentTime
     updateStatusRemains: -> # Update $remains time status
-      @$remains.text '-' + prettyTime @audio.duration-@audio.currentTime
+      @$remains.text '-' + prettyTime @audio.duration - @audio.currentTime
     updateDisabledStatus: -> # Update $remains time status
       @$player.toggleClass('disabled', !@canPlayCurrent)
 
@@ -207,9 +207,9 @@
     setPlayerSize: (size) ->
       if size != @currentUISize
         if ('normal' == size or 'small' == size)
-            switchClass @$wrapper, size, @currentUISize
-            @setPlayerSizeHandler()
-            return @currentUISize = size
+          switchClass @$wrapper, size, @currentUISize
+          @setPlayerSizeHandler()
+          return @currentUISize = size
         else
           console.error 'setPlayerSize: incorrect size argument'
           return false
@@ -222,7 +222,7 @@
     # Deuglification of round progress bar when it 0% width
     playerBeautifyProgressBar: ->
       if @$progress.hasClass('round')
-        semiHeight = @$progress.height()/2
+        semiHeight = @$progress.height() / 2
         @$played.css 'padding', "0 #{semiHeight}px"
         @$progress.find('.buffered').css 'padding', "0 #{semiHeight}px"
 
@@ -266,7 +266,7 @@
     stringPadLeft = (string,pad,length) ->
       # Quick and dirty
       # As seen here: http://stackoverflow.com/questions/3733227
-      (new Array(length+1).join(pad)+string).slice(-length)
+      (new Array(length + 1).join(pad) + string).slice(-length)
 
     # Check number http://stackoverflow.com/a/1280236/228067
     isNumber = (x) ->
@@ -291,7 +291,7 @@
     # API for testing private functions
     # This comment section passed in compiled JavaScript
     ###__TEST_ONLY_SECTION_STARTS__###
-    testingAPI: () ->
+    testingAPI: ->
       isNumber: isNumber
       prettyTime: prettyTime
       stringPadLeft: stringPadLeft
