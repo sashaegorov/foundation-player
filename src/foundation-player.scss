@@ -9,6 +9,7 @@ $base-line-height: 1.5 !default;
 
 // Main player colors
 $fp-color: #2199e8 !default;
+$fp-color-hover: scale-color($fp-color, $lightness: 25%) !default;
 
 // Font sizes
 $fp-font-size-normal: rem-calc(23) !default;
@@ -100,7 +101,7 @@ $fp-progress-height-small: $fp-font-size-small * .8 !default;
       }
 
       em:hover:before {
-        color: scale-color($fp-color, $lightness: -25%);
+        color: $fp-color-hover;
       }
     }
   }
