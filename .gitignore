@@ -7,3 +7,6 @@ spec/javascripts/*_spec.js
 
 # There is no reason to track this...
 Gemfile.lock
+
+# Ctags
+.tags*
