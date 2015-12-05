@@ -2,3 +2,29 @@
 .player-wrapper {
   height: 62px;
 }
+
+$ligth-grey: rgba(0, 0, 0, 0.05);
+$dark-grey: rgba(0, 0, 0, 0.1);
+
+.foundation-player-demo {
+  code {
+    font-size: 0.75rem;
+    font-family: Monaco,Consolas,'Liberation Mono',Courier,monospace;
+    background-color: $ligth-grey;
+    border-radius: 3px;
+  }
+
+  .accordion-item.is-active {
+    .accordion-title {
+      background-color: $dark-grey;
+    }
+  }
+
+  .accordion-title {
+    font-size: 1.75rem;
+
+    &::before {
+      content: '';
+    }
+  }
+}
