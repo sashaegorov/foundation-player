@@ -200,6 +200,21 @@
                 %td
                   player object
 
+      -# Sources
+      %li.accordion-item
+        %a.accordion-title#sources{ href: '#sources', role: 'tab',
+          'aria-controls' => 'sources' } Audio sources
+        .accordion-content#volume{ 'aria-labelledby' => 'sources',
+          'data-tab-content' => '', role: 'tabpanel' }
+          %h4 Source via attribute
+          %code
+            :escaped
+              <audio src="http://.../podcast.m4a"></audio>
+          %h4 Source via source
+          %code
+            :escaped
+              <audio><source src="http://.../podcast.m4a"></audio>
+
   %body.foundation-player-demo
     .row
       .large-offset-2.large-8.columns
