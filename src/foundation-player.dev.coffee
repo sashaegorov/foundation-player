@@ -12,6 +12,8 @@
       dimmedVolume: 0.25      # Reduced volume i.e. while seeking
       pauseOthersOnPlay: true # Pause other player instances
       useSeekData: false      # Parse seek data from links by default
+      # TODO: Refactor all classes
+      buttonPlayDefaultClass: 'fi-music'
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -35,6 +37,7 @@
       @currentUISize = @options.size
       @canPlayCurrent = false
       @dataLinks = []
+      @audioError = null      # Audio error state
       # Init calls
       @resetClassAndStyle()   # Setup classes and styles
       @setUpCurrentAudio()    # Set up Play/Pause
@@ -104,6 +107,10 @@
         @redrawBufferizationBars()
         @updateDisabledStatus()
         @updateButtonPlay()
+      $audio.children('source').on 'error', (e) => # For <source>'s errors
+        @handleAudioError()
+      $audio.on 'error', (e) => # For <audio src='...'> errors
+        @handleAudioError()
 
     # Buttons ==================================================================
     # Set up Play/Pause
@@ -112,9 +119,12 @@
         @playPause() if @canPlayCurrent
     # Update Play/Pause
     updateButtonPlay: ->
-      @$play.toggleClass('fi-music', !@canPlayCurrent)
+      # TODO: Refactor to switch/when
+      @$play.toggleClass('fi-clock', !@canPlayCurrent && !@audioError)
       @$play.toggleClass('fi-pause', @audio.paused && @canPlayCurrent)
       @$play.toggleClass('fi-play', !@audio.paused)
+      @$play.toggleClass('fi-alert', @audioError)
+      @$play.removeClass @options.buttonPlayDefaultClass
       @
     # Set up volume button
     setUpButtonVolume: ->
@@ -122,6 +132,7 @@
         @buttonVolumeHandler()
     # Update volume button
     updateButtonVolume: ->
+      # TODO: Refactor to toggleClass
       if @audio.muted
         switchClass @$volume, 'fi-volume-strike', 'fi-volume'
       else
@@ -248,6 +259,12 @@
           $(el).off(clсk).on clсk, @, (e) ->
             e.preventDefault() # Prevent default action
             e.data.seekPercent parsedData
+
+    # Errors' handling  ========================================================
+    handleAudioError: ->
+      # Some error is happend ¯\_(ツ)_/¯
+      @audioError = true
+      @updateButtonPlay()
 
     # Helpers ==================================================================
     # Some really internal stuff goes here

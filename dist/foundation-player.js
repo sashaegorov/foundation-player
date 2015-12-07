@@ -13,7 +13,8 @@
         skipSeconds: 10,
         dimmedVolume: 0.25,
         pauseOthersOnPlay: true,
-        useSeekData: false
+        useSeekData: false,
+        buttonPlayDefaultClass: 'fi-music'
       };
 
       function FoundationPlayer(el, opt) {
@@ -34,6 +35,7 @@
         this.currentUISize = this.options.size;
         this.canPlayCurrent = false;
         this.dataLinks = [];
+        this.audioError = null;
         this.resetClassAndStyle();
         this.setUpCurrentAudio();
         this.setUpButtonPlayPause();
@@ -127,7 +129,7 @@
             return _this.updateDisabledStatus();
           };
         })(this));
-        return $audio.on('canplay.zf.player', (function(_this) {
+        $audio.on('canplay.zf.player', (function(_this) {
           return function() {
             _this.canPlayCurrent = true;
             if (_this.options.playOnLoad) {
@@ -136,6 +138,16 @@
             _this.redrawBufferizationBars();
             _this.updateDisabledStatus();
             return _this.updateButtonPlay();
+          };
+        })(this));
+        $audio.children('source').on('error', (function(_this) {
+          return function(e) {
+            return _this.handleAudioError();
+          };
+        })(this));
+        return $audio.on('error', (function(_this) {
+          return function(e) {
+            return _this.handleAudioError();
           };
         })(this));
       };
@@ -151,9 +163,11 @@
       };
 
       FoundationPlayer.prototype.updateButtonPlay = function() {
-        this.$play.toggleClass('fi-music', !this.canPlayCurrent);
+        this.$play.toggleClass('fi-clock', !this.canPlayCurrent && !this.audioError);
         this.$play.toggleClass('fi-pause', this.audio.paused && this.canPlayCurrent);
         this.$play.toggleClass('fi-play', !this.audio.paused);
+        this.$play.toggleClass('fi-alert', this.audioError);
+        this.$play.removeClass(this.options.buttonPlayDefaultClass);
         return this;
       };
 
@@ -341,6 +355,11 @@
             }
           };
         })(this));
+      };
+
+      FoundationPlayer.prototype.handleAudioError = function() {
+        this.audioError = true;
+        return this.updateButtonPlay();
       };
 
       switchClass = function(element, p, n) {
