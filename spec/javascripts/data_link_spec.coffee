@@ -22,11 +22,29 @@ describe 'Data links', ->
     expect(player.options.useSeekData).toBe true
     expect(FoundationPlayer.prototype.parseDataLinks).toHaveBeenCalledWith()
 
-  it 'elements have click handler', ->
-    $dataTimeLinks = $('[data-seek-to-time]')
-    expect($dataTimeLinks).not.toHandle 'click'
+  it 'for time have click handler if valid', ->
+    $dataTimeLinksValid = $('.valid[data-seek-to-time]')
+    expect($dataTimeLinksValid).not.toHandle 'click'
     $('.links').foundationPlayer useSeekData: true
-    expect($dataTimeLinks).toHandle 'click'
+    expect($dataTimeLinksValid).toHandle 'click'
+
+  it 'for time don\'t have click handler if invalid', ->
+    $dataTimeLinksInvalid = $('.invalid[data-seek-to-time]')
+    expect($dataTimeLinksInvalid).not.toHandle 'click'
+    $('.links').foundationPlayer useSeekData: true
+    expect($dataTimeLinksInvalid).not.toHandle 'click'
+
+  it 'for position have click handler if valid', ->
+    $dataPosLinksValid = $('.valid[data-seek-to-percentage]')
+    expect($dataPosLinksValid).not.toHandle 'click'
+    $('.links').foundationPlayer useSeekData: true
+    expect($dataPosLinksValid).toHandle 'click'
+
+  it 'for position don\'t have click handler if invalid', ->
+    $dataPosLinksInvalid = $('.invalid[data-seek-to-percentage]')
+    expect($dataPosLinksInvalid).not.toHandle 'click'
+    $('.links').foundationPlayer useSeekData: true
+    expect($dataPosLinksInvalid).not.toHandle 'click'
 
   it 'are stored in object property', ->
     # This test requires full control over player behaviour
