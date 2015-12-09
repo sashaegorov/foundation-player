@@ -66,6 +66,3 @@ describe 'Data links', ->
       expect(player.options.useSeekData).toBe true
       expect(player.dataLinks.length).not.toBe []
       expect(player.dataLinks.length).toBe 4
-
-    xit 'TODO: handled by latest initilized player', ->
-      false

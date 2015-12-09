@@ -10,7 +10,7 @@ describe 'Data links', ->
     # These tests require loading of audio file
     # so they were moved here as separate suit.
 
-    player = null
+    playerPrimary = null
     LOADING_TIMEOUT = 100
     TEST_TIMEOUT = 250
 
@@ -32,39 +32,72 @@ describe 'Data links', ->
         'dist/foundation-player.css'
 
       $('.links-primary').foundationPlayer useSeekData: true
-      player = $('.links-primary').data 'FoundationPlayer'
-      player.audio.muted = true # Mute audio
+      playerPrimary = $('.links-primary').data 'FoundationPlayer'
+      playerPrimary.audio.muted = true # Mute audio
       done()
 
     afterEach (done) ->
-      player = null
+      playerPrimary = null
       $.removeData document.body, 'FoundationPlayers'
       done()
 
     it 'produce correct seek to time actions', (done) ->
-      spyOn player, 'seekToTime' # desirable
-      spyOn player, 'seekPercent' # undesirable
+      spyOn playerPrimary, 'seekToTime' # desirable
+      spyOn playerPrimary, 'seekPercent' # undesirable
       setTimeout ->
         $('#to01').click()
-        expect(player.seekToTime).toHaveBeenCalledWith 1
-        expect(player.seekPercent).not.toHaveBeenCalled()
+        expect(playerPrimary.seekToTime).toHaveBeenCalledWith 1
+        expect(playerPrimary.seekPercent).not.toHaveBeenCalled()
         $('#to02').click()
-        expect(player.seekToTime).toHaveBeenCalledWith 2
-        expect(player.seekPercent).not.toHaveBeenCalled()
+        expect(playerPrimary.seekToTime).toHaveBeenCalledWith 2
+        expect(playerPrimary.seekPercent).not.toHaveBeenCalled()
         done()
       , LOADING_TIMEOUT
     , TEST_TIMEOUT
 
     it 'produce correct percentage seek actions', (done) ->
-      spyOn player, 'seekPercent' # desirable
-      spyOn player, 'seekToTime' # undesirable
+      spyOn playerPrimary, 'seekPercent' # desirable
+      spyOn playerPrimary, 'seekToTime' # undesirable
       setTimeout ->
         $('#to25').click()
-        expect(player.seekPercent).toHaveBeenCalledWith 0.25
-        expect(player.seekToTime).not.toHaveBeenCalled()
+        expect(playerPrimary.seekPercent).toHaveBeenCalledWith 0.25
+        expect(playerPrimary.seekToTime).not.toHaveBeenCalled()
         $('#to50').click()
-        expect(player.seekPercent).toHaveBeenCalledWith 0.5
-        expect(player.seekToTime).not.toHaveBeenCalled()
+        expect(playerPrimary.seekPercent).toHaveBeenCalledWith 0.5
+        expect(playerPrimary.seekToTime).not.toHaveBeenCalled()
         done()
+      , LOADING_TIMEOUT
+    , TEST_TIMEOUT
+
+    it 'handled by latest initilized player', (done) ->
+      # Initialize second player in addition to first
+      # This player should handle all link events
+
+      $('.links-secondary').foundationPlayer useSeekData: true
+      playerSecondary = $('.links-secondary').data 'FoundationPlayer'
+      playerSecondary.audio.muted = true
+
+      spyOn playerPrimary, 'seekPercent'   # undesirable
+      spyOn playerPrimary, 'seekToTime'    # undesirable
+      spyOn playerSecondary, 'seekPercent' # desirable
+      spyOn playerSecondary, 'seekToTime'  # desirable
+
+      setTimeout ->
+        # Timestamp links
+        $('#to01').click()
+        expect(playerSecondary.seekToTime).toHaveBeenCalledWith 1
+        expect(playerPrimary.seekPercent).not.toHaveBeenCalled()
+        $('#to02').click()
+        expect(playerSecondary.seekToTime).toHaveBeenCalledWith 2
+        expect(playerPrimary.seekPercent).not.toHaveBeenCalled()
+        # Percentage links
+        $('#to25').click()
+        expect(playerSecondary.seekPercent).toHaveBeenCalledWith 0.25
+        expect(playerPrimary.seekToTime).not.toHaveBeenCalled()
+        $('#to50').click()
+        expect(playerSecondary.seekPercent).toHaveBeenCalledWith 0.5
+        expect(playerPrimary.seekToTime).not.toHaveBeenCalled()
+        playerSecondary = null # Clean up the second player
+        done() # We are finally done
       , LOADING_TIMEOUT
     , TEST_TIMEOUT
