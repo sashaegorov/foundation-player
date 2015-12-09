@@ -1,4 +1,3 @@
-#\ -s puma -p 8889
 # Require and configure LiveReload for static content server
 require 'rack-livereload'
 map '/' do
