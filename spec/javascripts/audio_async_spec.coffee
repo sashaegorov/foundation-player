@@ -28,7 +28,7 @@ describe 'Audio async tests', ->
     $('.no-1').foundationPlayer()
     no1 = $('.no-1').data 'FoundationPlayer'
     no1.audio.muted = true # Mute audio
-    no1.audio.play() # Start playing
+    no1.audio.load() # Start playing
     done()
 
   afterEach (done) ->
