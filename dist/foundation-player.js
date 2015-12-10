@@ -14,13 +14,13 @@
         dimmedVolume: 0.25,
         pauseOthersOnPlay: true,
         useSeekData: false,
-        buttonPlayDefaultClass: 'fi-music',
-        buttonPlayWaitClass: 'fi-clock',
-        buttonPlayPausedClass: 'fi-pause',
-        buttonPlayPlayingClass: 'fi-play',
-        buttonPlayErrorClass: 'fi-alert',
-        buttonVolumeUnmutedClass: 'fi-volume',
-        buttonVolumeMutedClass: 'fi-volume-strike'
+        classPlayDefault: 'fi-music',
+        classPlayWait: 'fi-clock',
+        classPlayPaused: 'fi-pause',
+        classPlayPlaying: 'fi-play',
+        classPlayError: 'fi-alert',
+        classVolumeOn: 'fi-volume',
+        classVolumeOff: 'fi-volume-strike'
       };
 
       function FoundationPlayer(el, opt) {
@@ -169,11 +169,11 @@
       };
 
       FoundationPlayer.prototype.updateButtonPlay = function() {
-        this.$play.toggleClass(this.options.buttonPlayWaitClass, !this.canPlayCurrent && !this.audioError);
-        this.$play.toggleClass(this.options.buttonPlayPausedClass, this.audio.paused && this.canPlayCurrent);
-        this.$play.toggleClass(this.options.buttonPlayPlayingClass, !this.audio.paused);
-        this.$play.toggleClass(this.options.buttonPlayErrorClass, this.audioError);
-        this.$play.removeClass(this.options.buttonPlayDefaultClass);
+        this.$play.toggleClass(this.options.classPlayWait, !this.canPlayCurrent && !this.audioError);
+        this.$play.toggleClass(this.options.classPlayPaused, this.audio.paused && this.canPlayCurrent);
+        this.$play.toggleClass(this.options.classPlayPlaying, !this.audio.paused);
+        this.$play.toggleClass(this.options.classPlayError, this.audioError);
+        this.$play.removeClass(this.options.classPlayDefault);
         return this;
       };
 
@@ -186,11 +186,8 @@
       };
 
       FoundationPlayer.prototype.updateButtonVolume = function() {
-        if (this.audio.muted) {
-          return switchClass(this.$volume, this.options.buttonVolumeMutedClass, this.options.buttonVolumeUnmutedClass);
-        } else {
-          return switchClass(this.$volume, this.options.buttonVolumeUnmutedClass, this.options.buttonVolumeMutedClass);
-        }
+        this.$volume.toggleClass(this.options.classVolumeOff, this.audio.muted);
+        return this.$volume.toggleClass(this.options.classVolumeOn, !this.audio.muted);
       };
 
       FoundationPlayer.prototype.buttonVolumeHandler = function() {

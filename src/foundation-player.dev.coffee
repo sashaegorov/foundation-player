@@ -13,13 +13,13 @@
       pauseOthersOnPlay: true # Pause other player instances
       useSeekData: false      # Parse seek data from links by default
 
-      buttonPlayDefaultClass: 'fi-music'
-      buttonPlayWaitClass: 'fi-clock'
-      buttonPlayPausedClass: 'fi-pause'
-      buttonPlayPlayingClass: 'fi-play'
-      buttonPlayErrorClass: 'fi-alert'
-      buttonVolumeUnmutedClass: 'fi-volume'
-      buttonVolumeMutedClass: 'fi-volume-strike'
+      classPlayDefault: 'fi-music'
+      classPlayWait: 'fi-clock'
+      classPlayPaused: 'fi-pause'
+      classPlayPlaying: 'fi-play'
+      classPlayError: 'fi-alert'
+      classVolumeOn: 'fi-volume'
+      classVolumeOff: 'fi-volume-strike'
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -126,15 +126,15 @@
     # Update Play/Pause
     updateButtonPlay: ->
       # TODO: Refactor to switch/when
-      @$play.toggleClass(@options.buttonPlayWaitClass,
+      @$play.toggleClass(@options.classPlayWait,
         !@canPlayCurrent && !@audioError)
-      @$play.toggleClass(@options.buttonPlayPausedClass,
+      @$play.toggleClass(@options.classPlayPaused,
         @audio.paused && @canPlayCurrent)
-      @$play.toggleClass(@options.buttonPlayPlayingClass,
+      @$play.toggleClass(@options.classPlayPlaying,
         !@audio.paused)
-      @$play.toggleClass(@options.buttonPlayErrorClass,
+      @$play.toggleClass(@options.classPlayError,
         @audioError)
-      @$play.removeClass @options.buttonPlayDefaultClass
+      @$play.removeClass @options.classPlayDefault
       @
     # Set up volume button
     setUpButtonVolume: ->
@@ -142,15 +142,8 @@
         @buttonVolumeHandler()
     # Update volume button
     updateButtonVolume: ->
-      # TODO: Refactor to toggleClass
-      if @audio.muted
-        switchClass @$volume,
-          @options.buttonVolumeMutedClass,
-          @options.buttonVolumeUnmutedClass
-      else
-        switchClass @$volume,
-        @options.buttonVolumeUnmutedClass,
-        @options.buttonVolumeMutedClass
+      @$volume.toggleClass(@options.classVolumeOff, @audio.muted)
+      @$volume.toggleClass(@options.classVolumeOn, !@audio.muted)
 
     # Volume button handler
     buttonVolumeHandler: ->
