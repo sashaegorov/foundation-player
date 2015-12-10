@@ -253,20 +253,19 @@
       @dataLinks = [] # Reset dataLinks before parsing
       timeLinks = $('[data-seek-to-time]')
       percentLinks = $('[data-seek-to-percentage]')
-      clсk = 'click.zf.player.seek'
-      #  TODO: DRY this up
-      $.each timeLinks, (index, el) =>
-        if parsedData = parseSeekTime $(el).data 'seek-to-time'
-          @dataLinks.push el
-          $(el).off(clсk).on clсk, @, (e) ->
-            e.preventDefault() # Prevent default action
-            e.data.seekToTime parsedData
-      $.each percentLinks, (index, el) =>
-        if parsedData = parseSeekPercent $(el).data 'seek-to-percentage'
-          @dataLinks.push el
-          $(el).off(clсk).on clсk, @, (e) ->
-            e.preventDefault() # Prevent default action
-            e.data.seekPercent parsedData
+
+      dataLinker = (links, parser, attr, action) =>
+        clk = 'click.zf.player.seek'
+        $.each links, (i, el) =>
+          if val = parser $(el).data attr
+            @dataLinks.push el
+            $(el).off(clk).on clk, @, (e) ->
+              e.data[action](val) and e.preventDefault()
+
+      dataLinker timeLinks, parseSeekTime,
+        'seek-to-time', 'seekToTime'
+      dataLinker percentLinks, parseSeekPercent,
+        'seek-to-percentage', 'seekPercent'
 
     # Errors' handling  ========================================================
     handleAudioError: ->

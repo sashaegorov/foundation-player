@@ -249,13 +249,13 @@
       };
 
       FoundationPlayer.prototype.redrawBufferizationBars = function() {
-        var b, e, i, range, ref, results, segments, w;
+        var b, e, j, range, ref, results, segments, w;
         this.$progress.find('.buffered').remove();
         segments = this.audio.buffered.length;
         if (segments > 0) {
           w = this.$progress.width();
           results = [];
-          for (range = i = 0, ref = segments; 0 <= ref ? i < ref : i > ref; range = 0 <= ref ? ++i : --i) {
+          for (range = j = 0, ref = segments; 0 <= ref ? j < ref : j > ref; range = 0 <= ref ? ++j : --j) {
             b = this.audio.buffered.start(range);
             e = this.audio.buffered.end(range);
             results.push(switchClass(this.$played.clone(), 'buffered', 'played').css('left', (w * (Math.floor(b / this.audio.duration))) + 'px').width(Math.floor(w * (e - b) / this.audio.duration)).appendTo(this.$progress));
@@ -329,35 +329,27 @@
       };
 
       FoundationPlayer.prototype.parseDataLinks = function() {
-        var clсk, percentLinks, timeLinks;
+        var dataLinker, percentLinks, timeLinks;
         this.dataLinks = [];
         timeLinks = $('[data-seek-to-time]');
         percentLinks = $('[data-seek-to-percentage]');
-        clсk = 'click.zf.player.seek';
-        $.each(timeLinks, (function(_this) {
-          return function(index, el) {
-            var parsedData;
-            if (parsedData = parseSeekTime($(el).data('seek-to-time'))) {
-              _this.dataLinks.push(el);
-              return $(el).off(clсk).on(clсk, _this, function(e) {
-                e.preventDefault();
-                return e.data.seekToTime(parsedData);
-              });
-            }
+        dataLinker = (function(_this) {
+          return function(links, parser, attr, action) {
+            var clk;
+            clk = 'click.zf.player.seek';
+            return $.each(links, function(i, el) {
+              var val;
+              if (val = parser($(el).data(attr))) {
+                _this.dataLinks.push(el);
+                return $(el).off(clk).on(clk, _this, function(e) {
+                  return e.data[action](val) && e.preventDefault();
+                });
+              }
+            });
           };
-        })(this));
-        return $.each(percentLinks, (function(_this) {
-          return function(index, el) {
-            var parsedData;
-            if (parsedData = parseSeekPercent($(el).data('seek-to-percentage'))) {
-              _this.dataLinks.push(el);
-              return $(el).off(clсk).on(clсk, _this, function(e) {
-                e.preventDefault();
-                return e.data.seekPercent(parsedData);
-              });
-            }
-          };
-        })(this));
+        })(this);
+        dataLinker(timeLinks, parseSeekTime, 'seek-to-time', 'seekToTime');
+        return dataLinker(percentLinks, parseSeekPercent, 'seek-to-percentage', 'seekPercent');
       };
 
       FoundationPlayer.prototype.handleAudioError = function() {
