@@ -12,8 +12,14 @@
       dimmedVolume: 0.25      # Reduced volume i.e. while seeking
       pauseOthersOnPlay: true # Pause other player instances
       useSeekData: false      # Parse seek data from links by default
-      # TODO: Refactor all classes
+
       buttonPlayDefaultClass: 'fi-music'
+      buttonPlayWaitClass: 'fi-clock'
+      buttonPlayPausedClass: 'fi-pause'
+      buttonPlayPlayingClass: 'fi-play'
+      buttonPlayErrorClass: 'fi-alert'
+      buttonVolumeUnmutedClass: 'fi-volume'
+      buttonVolumeMutedClass: 'fi-volume-strike'
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -120,10 +126,14 @@
     # Update Play/Pause
     updateButtonPlay: ->
       # TODO: Refactor to switch/when
-      @$play.toggleClass('fi-clock', !@canPlayCurrent && !@audioError)
-      @$play.toggleClass('fi-pause', @audio.paused && @canPlayCurrent)
-      @$play.toggleClass('fi-play', !@audio.paused)
-      @$play.toggleClass('fi-alert', @audioError)
+      @$play.toggleClass(@options.buttonPlayWaitClass,
+        !@canPlayCurrent && !@audioError)
+      @$play.toggleClass(@options.buttonPlayPausedClass,
+        @audio.paused && @canPlayCurrent)
+      @$play.toggleClass(@options.buttonPlayPlayingClass,
+        !@audio.paused)
+      @$play.toggleClass(@options.buttonPlayErrorClass,
+        @audioError)
       @$play.removeClass @options.buttonPlayDefaultClass
       @
     # Set up volume button
@@ -134,9 +144,14 @@
     updateButtonVolume: ->
       # TODO: Refactor to toggleClass
       if @audio.muted
-        switchClass @$volume, 'fi-volume-strike', 'fi-volume'
+        switchClass @$volume,
+          @options.buttonVolumeMutedClass,
+          @options.buttonVolumeUnmutedClass
       else
-        switchClass @$volume, 'fi-volume', 'fi-volume-strike'
+        switchClass @$volume,
+        @options.buttonVolumeUnmutedClass,
+        @options.buttonVolumeMutedClass
+
     # Volume button handler
     buttonVolumeHandler: ->
       @toggleMute()

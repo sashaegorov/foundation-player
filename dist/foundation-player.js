@@ -14,7 +14,13 @@
         dimmedVolume: 0.25,
         pauseOthersOnPlay: true,
         useSeekData: false,
-        buttonPlayDefaultClass: 'fi-music'
+        buttonPlayDefaultClass: 'fi-music',
+        buttonPlayWaitClass: 'fi-clock',
+        buttonPlayPausedClass: 'fi-pause',
+        buttonPlayPlayingClass: 'fi-play',
+        buttonPlayErrorClass: 'fi-alert',
+        buttonVolumeUnmutedClass: 'fi-volume',
+        buttonVolumeMutedClass: 'fi-volume-strike'
       };
 
       function FoundationPlayer(el, opt) {
@@ -163,10 +169,10 @@
       };
 
       FoundationPlayer.prototype.updateButtonPlay = function() {
-        this.$play.toggleClass('fi-clock', !this.canPlayCurrent && !this.audioError);
-        this.$play.toggleClass('fi-pause', this.audio.paused && this.canPlayCurrent);
-        this.$play.toggleClass('fi-play', !this.audio.paused);
-        this.$play.toggleClass('fi-alert', this.audioError);
+        this.$play.toggleClass(this.options.buttonPlayWaitClass, !this.canPlayCurrent && !this.audioError);
+        this.$play.toggleClass(this.options.buttonPlayPausedClass, this.audio.paused && this.canPlayCurrent);
+        this.$play.toggleClass(this.options.buttonPlayPlayingClass, !this.audio.paused);
+        this.$play.toggleClass(this.options.buttonPlayErrorClass, this.audioError);
         this.$play.removeClass(this.options.buttonPlayDefaultClass);
         return this;
       };
@@ -181,9 +187,9 @@
 
       FoundationPlayer.prototype.updateButtonVolume = function() {
         if (this.audio.muted) {
-          return switchClass(this.$volume, 'fi-volume-strike', 'fi-volume');
+          return switchClass(this.$volume, this.options.buttonVolumeMutedClass, this.options.buttonVolumeUnmutedClass);
         } else {
-          return switchClass(this.$volume, 'fi-volume', 'fi-volume-strike');
+          return switchClass(this.$volume, this.options.buttonVolumeUnmutedClass, this.options.buttonVolumeMutedClass);
         }
       };
 
