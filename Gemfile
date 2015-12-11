@@ -1,5 +1,9 @@
+# Custom Rails assets from Bower packages
+source 'https://rails-assets.org' do
+  gem 'rails-assets-foundation-sites', '6.0.5'
+end
+
 source 'https://rubygems.org'
-gem 'foundation-rails' # Sorry, about that :-/
 gem 'compass'
 gem 'guard-compass'
 gem 'guard-uglify'
@@ -8,7 +12,6 @@ gem 'guard-livereload'
 gem 'guard-haml'
 gem 'guard-shell'
 gem 'rack-livereload'
-gem 'scss_lint'
 gem 'jasmine'
 gem 'foreman'
 gem 'puma'
