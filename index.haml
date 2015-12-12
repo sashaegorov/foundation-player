@@ -18,6 +18,7 @@
 
   -# Long ULRs stored as local variables
   - project_url = 'https://github.com/sashaegorov/foundation-player'
+  - gh_url = 'https://sashaegorov.github.io/foundation-player'
   - read_me = '/blob/master/README.md'
   - index = '/blob/master/index.html'
 
@@ -233,7 +234,7 @@
               .foundation-player.no-1
                 = player
                 %audio
-                  - url = 'http://kolber.github.io/audiojs/demos/mp3/juicy.mp3'
+                  - url = "#{gh_url}/lib/audio/ukulele.m4a"
                   %source{ src: url }
 
             -# I know this is not good
@@ -257,7 +258,7 @@
             .foundation-player.no-3
               = player
               %audio{ preload: 'none' }
-                %source{ src: './lib/audio/ukulele.m4a' }
+                %source{ src: './lib/audio/acoustic-b.m4a' }
 
         %p.text-center
           %small
