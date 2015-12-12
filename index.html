@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset='utf-8'>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
     <title>HTML5 Audio Player for Zurb Foundation!</title>
     <link href='./lib/css/foundation.min.css' rel='stylesheet' type='text/css'>
     <link href='./lib/css/foundation-icons.css' rel='stylesheet' type='text/css'>
@@ -14,8 +15,8 @@
   </head>
   <body class='foundation-player-demo'>
     <div class='row'>
-      <div class='large-offset-2 large-8 columns'>
-        <h1 class='text-center'>Foundation-player.js</h1>
+      <div class='small-offset-0 small-12 medium-offset-2 medium-8 columns'>
+        <h2 class='text-center'>Foundation-player.js</h2>
         <ul class='tabs foundation-player-tab' data-tabs='' id='players'>
           <li class='tabs-title is-active'>
             <a href='#sandbox'>API Sandbox</a>
@@ -132,7 +133,7 @@
                         </td>
                         <td>
                           Seeks to exact position. Call
-                          <code>player.seekToTime('00:42')</code>
+                          <code class='nobr'>player.seekToTime('00:42')</code>
                           to move to
                           <a onclick="player.seekToTime('00:42')">00:42</a>.
                         </td>
@@ -146,7 +147,7 @@
                         </td>
                         <td>
                           Seeks to percentage. This code
-                          <code>player.seekPercent(0.5)</code>
+                          <code class='nobr'>player.seekPercent(0.5)</code>
                           moves to
                           <a onclick='player.seekPercent(0.5)'>50%</a>.
                         </td>
@@ -158,24 +159,24 @@
                   </table>
                   <p>
                     Is's possible to use
-                    <code>data-seek-to-percentage</code>
+                    <code class='nobr'>data-seek-to-percentage</code>
                     and
-                    <code>data-seek-to-time</code>
+                    <code class='nobr'>data-seek-to-time</code>
                     attibutes with links.
                     In order to enable feature just passed
-                    <code>{useSeekData: true}</code>
+                    <code class='nobr'>{useSeekData: true}</code>
                     option to player.class_selector
                     Player instance which was initialized
                     lastest will handle links in document.
                   </p>
                   <p>
-                    <code>&lt;a data-seek-to-percentage='0.5'&gt;50%&lt;/a&gt;</code>
+                    <code class='nobr'>&lt;a data-seek-to-percentage='0.5'&gt;50%&lt;/a&gt;</code>
                     will create link which moves playhead to
                     <a data-seek-to-percentage='0.5'>half</a>
                     position after clicking on it.
                   </p>
                   <p>
-                    <code>&lt;a data-seek-to-time='00:42'&gt;00:42&lt;/a&gt;</code>
+                    <code class='nobr'>&lt;a data-seek-to-time='00:42'&gt;00:42&lt;/a&gt;</code>
                     will create link which moves playhead to
                     <a data-seek-to-time='00:42'>00:42</a>
                     position after clicking.
@@ -224,13 +225,13 @@
                       </tr>
                       <tr>
                         <td>
-                          <code>setPlayerSize(size)</code>
+                          <code class='nobr'>setPlayerSize(size)</code>
                         </td>
                         <td>
                           This method sets player size to one of possible values:
-                          <code>'<a onclick="player.setPlayerSize('small')">small</a>'</code>
+                          <code class='nobr'>'<a onclick="player.setPlayerSize('small')">small</a>'</code>
                           or
-                          <code>'<a onclick="player.setPlayerSize('normal')">normal</a>'</code>
+                          <code class='nobr'>'<a onclick="player.setPlayerSize('normal')">normal</a>'</code>
                           .
                           Player has
                           <code>'normal'</code>
@@ -248,9 +249,9 @@
                 <a aria-controls='sources' class='accordion-title' href='#sources' id='sources' role='tab'>Audio sources</a>
                 <div aria-labelledby='sources' class='accordion-content' data-tab-content='' id='volume' role='tabpanel'>
                   <h4>Source via attribute</h4>
-                  <code>&lt;audio src=&quot;http://.../podcast.m4a&quot;&gt;&lt;/audio&gt;</code>
+                  <code class='nobr'>&lt;audio src=&quot;http://.../podcast.m4a&quot;&gt;&lt;/audio&gt;</code>
                   <h4>Source via source</h4>
-                  <code>&lt;audio&gt;&lt;source src=&quot;http://.../podcast.m4a&quot;&gt;&lt;/audio&gt;</code>
+                  <code class='nobr'>&lt;audio&gt;&lt;source src=&quot;http://.../podcast.m4a&quot;&gt;&lt;/audio&gt;</code>
                 </div>
               </li>
             </ul>
@@ -292,7 +293,7 @@
           <div class='tabs-panel' id='small'>
             <p>
               Small player setup:
-              <code>{ size: 'small' }</code>
+              <code class='nobr'>{ size: 'small' }</code>
             </p>
             <div class='foundation-player no-3'>
               <ul class='player menu simple noselect'>

@@ -2,6 +2,7 @@
 %html
   %head
     %meta{ charset: 'utf-8' }/
+    %meta{ content: 'width=device-width, initial-scale=1.0', name: 'viewport' }/
     %title HTML5 Audio Player for Zurb Foundation!
     %link{ href: './lib/css/foundation.min.css',
       rel: 'stylesheet', type: 'text/css' }/
@@ -106,7 +107,7 @@
                   %code seekToTime()
                 %td
                   Seeks to exact position. Call
-                  %code player.seekToTime('00:42')
+                  %code.nobr player.seekToTime('00:42')
                   to move to
                   = succeed '.' do
                     %a{ onclick: 'player.seekToTime(\'00:42\')' } 00:42
@@ -117,7 +118,7 @@
                   %code seekPercent()
                 %td
                   Seeks to percentage. This code
-                  %code player.seekPercent(0.5)
+                  %code.nobr player.seekPercent(0.5)
                   moves to
                   = succeed '.' do
                     %a{ onclick: 'player.seekPercent(0.5)' } 50%
@@ -125,22 +126,22 @@
                   player object
           %p
             Is's possible to use
-            %code data-seek-to-percentage
+            %code.nobr data-seek-to-percentage
             and
-            %code data-seek-to-time
+            %code.nobr data-seek-to-time
             attibutes with links.
             In order to enable feature just passed
-            %code {useSeekData: true}
+            %code.nobr {useSeekData: true}
             option to player.class_selector
             Player instance which was initialized
             lastest will handle links in document.
           %p
-            %code&= '<a data-seek-to-percentage=\'0.5\'>50%</a>'
+            %code.nobr&= '<a data-seek-to-percentage=\'0.5\'>50%</a>'
             will create link which moves playhead to
             %a{ 'data-seek-to-percentage' => '0.5' } half
             position after clicking on it.
           %p
-            %code&= '<a data-seek-to-time=\'00:42\'>00:42</a>'
+            %code.nobr&= '<a data-seek-to-time=\'00:42\'>00:42</a>'
             will create link which moves playhead to
             %a{ 'data-seek-to-time' => '00:42' } 00:42
             position after clicking.
@@ -184,14 +185,14 @@
                   %code 'normal'
               %tr
                 %td
-                  %code setPlayerSize(size)
+                  %code.nobr setPlayerSize(size)
                 %td
                   This method sets player size to one of possible values:
-                  %code
+                  %code.nobr
                     = surround '\'' do
                       %a{ onclick: 'player.setPlayerSize(\'small\')' } small
                   or
-                  %code
+                  %code.nobr
                     = surround '\'' do
                       %a{ onclick: 'player.setPlayerSize(\'normal\')' } normal
                   = '.'
@@ -208,18 +209,18 @@
         .accordion-content#volume{ 'aria-labelledby' => 'sources',
           'data-tab-content' => '', role: 'tabpanel' }
           %h4 Source via attribute
-          %code
+          %code.nobr
             :escaped
               <audio src="http://.../podcast.m4a"></audio>
           %h4 Source via source
-          %code
+          %code.nobr
             :escaped
               <audio><source src="http://.../podcast.m4a"></audio>
 
   %body.foundation-player-demo
     .row
-      .large-offset-2.large-8.columns
-        %h1.text-center Foundation-player.js
+      .small-offset-0.small-12.medium-offset-2.medium-8.columns
+        %h2.text-center Foundation-player.js
         %ul.tabs.foundation-player-tab#players{ 'data-tabs' => '' }
           %li.tabs-title.is-active
             %a{ href: '#sandbox' } API Sandbox
@@ -254,7 +255,7 @@
           .tabs-panel#small
             %p
               Small player setup:
-              %code { size: 'small' }
+              %code.nobr { size: 'small' }
             .foundation-player.no-3
               = player
               %audio{ preload: 'none' }

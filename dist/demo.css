@@ -2,18 +2,22 @@
 .player-wrapper {
   height: 62px; }
 
-/* line 10, ../src/demo.scss */
+/* line 6, ../src/demo.scss */
+.nobr {
+  white-space: nowrap; }
+
+/* line 14, ../src/demo.scss */
 .foundation-player-demo code {
   font-size: 0.75rem;
-  font-family: Monaco,Consolas,'Liberation Mono',Courier,monospace;
+  font-family: Monaco, Consolas, 'Liberation Mono', Courier, monospace;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 3px; }
-/* line 18, ../src/demo.scss */
+/* line 22, ../src/demo.scss */
 .foundation-player-demo .accordion-item.is-active .accordion-title {
   background-color: rgba(0, 0, 0, 0.1); }
-/* line 23, ../src/demo.scss */
+/* line 27, ../src/demo.scss */
 .foundation-player-demo .accordion-title {
-  font-size: 1.75rem; }
-  /* line 26, ../src/demo.scss */
+  font-size: 1.25rem; }
+  /* line 30, ../src/demo.scss */
   .foundation-player-demo .accordion-title::before {
     content: ''; }
