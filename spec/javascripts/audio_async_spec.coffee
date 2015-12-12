@@ -7,8 +7,8 @@
 
 describe 'Audio async tests', ->
   no1 = null
-  LOADING_TIMEOUT = 100
-  TEST_TIMEOUT = 250
+  LOADING_TIMEOUT = 200
+  TEST_TIMEOUT = 500
 
   beforeAll ->
     jasmine.getFixtures().fixturesPath = '.'
