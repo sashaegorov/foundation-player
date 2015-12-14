@@ -94,10 +94,10 @@
       # Start preload of audio file
       @audio.load()
       $audio = $(@audio)
+      # Bunch of <audio> events
       $audio.on 'timeupdate.zf.player', => # While playing
         @updatePlayedProgress()
         @updateTimeStatuses()
-      # Bunch of <audio> events
       $audio.on 'loadstart.zf.player', => # Loading is started
         @canPlayCurrent = false
         @updateDisabledStatus()

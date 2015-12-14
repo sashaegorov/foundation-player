@@ -17,7 +17,6 @@ describe 'Audio element', ->
   it 'has default preload state', ->
     expect(no1.audio.preload).toBe 'auto'
 
-  # TODO: Test handlers calls
   it 'has all handlers', ->
     $audio = $(no1.audio)
     expect($audio).toHandle 'loadstart'
@@ -26,6 +25,7 @@ describe 'Audio element', ->
     expect($audio).toHandle 'progress'
     expect($audio).toHandle 'canplay'
 
+  # TODO: Test handlers calls
   it 'handler `loadstart` works correctly', ->
     spyOn no1, 'updateDisabledStatus'
     spyOn no1, 'updateButtonPlay'
@@ -35,3 +35,12 @@ describe 'Audio element', ->
     $(no1.audio).trigger 'loadstart'
     expect(no1.updateButtonPlay).toHaveBeenCalled()
     expect(no1.updateDisabledStatus).toHaveBeenCalled()
+
+  it 'handler `timeupdate` works correctly', ->
+    spyOn no1, 'updatePlayedProgress'
+    spyOn no1, 'updateTimeStatuses'
+    expect(no1.updatePlayedProgress).not.toHaveBeenCalled()
+    expect(no1.updateTimeStatuses).not.toHaveBeenCalled()
+    $(no1.audio).trigger 'timeupdate'
+    expect(no1.updatePlayedProgress).toHaveBeenCalled()
+    expect(no1.updateTimeStatuses).toHaveBeenCalled()
