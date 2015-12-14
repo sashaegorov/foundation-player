@@ -1,5 +1,5 @@
 # Test suite related to audio loading
-describe 'Audio element tests suite', ->
+describe 'Audio element', ->
   no1 = null
 
   beforeEach ->
@@ -14,14 +14,24 @@ describe 'Audio element tests suite', ->
     no1 = null
     $.removeData(document.body, 'FoundationPlayers')
 
-  it 'audio has default preload state', ->
+  it 'has default preload state', ->
     expect(no1.audio.preload).toBe 'auto'
 
   # TODO: Test handlers calls
-  it 'audio element has all handlers', ->
+  it 'has all handlers', ->
     $audio = $(no1.audio)
     expect($audio).toHandle 'loadstart'
     expect($audio).toHandle 'timeupdate'
     expect($audio).toHandle 'durationchange'
     expect($audio).toHandle 'progress'
     expect($audio).toHandle 'canplay'
+
+  it 'handler `loadstart` works correctly', ->
+    spyOn no1, 'updateDisabledStatus'
+    spyOn no1, 'updateButtonPlay'
+    expect(no1.updateButtonPlay).not.toHaveBeenCalled()
+    expect(no1.updateDisabledStatus).not.toHaveBeenCalled()
+    expect(no1.canPlayCurrent).toBe false
+    $(no1.audio).trigger 'loadstart'
+    expect(no1.updateButtonPlay).toHaveBeenCalled()
+    expect(no1.updateDisabledStatus).toHaveBeenCalled()
