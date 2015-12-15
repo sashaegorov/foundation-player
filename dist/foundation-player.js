@@ -42,6 +42,7 @@
         this.canPlayCurrent = false;
         this.dataLinks = [];
         this.audioError = null;
+        this.iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         this.resetClassAndStyle();
         this.setUpCurrentAudio();
         this.setUpButtonPlayPause();
@@ -178,11 +179,15 @@
       };
 
       FoundationPlayer.prototype.setUpButtonVolume = function() {
-        return this.$volume.bind('click.zf.player', (function(_this) {
-          return function() {
-            return _this.buttonVolumeHandler();
-          };
-        })(this));
+        if (this.iOS) {
+          return this.$wrapper.find('.player-button.volume').hide();
+        } else {
+          return this.$volume.bind('click.zf.player', (function(_this) {
+            return function() {
+              return _this.buttonVolumeHandler();
+            };
+          })(this));
+        }
       };
 
       FoundationPlayer.prototype.updateButtonVolume = function() {

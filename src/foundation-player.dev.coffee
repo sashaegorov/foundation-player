@@ -44,6 +44,11 @@
       @canPlayCurrent = false
       @dataLinks = []
       @audioError = null      # Audio error state
+
+      # Is it iOS?
+      @iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) \
+      && !window.MSStream;
+
       # Init calls
       @resetClassAndStyle()   # Setup classes and styles
       @setUpCurrentAudio()    # Set up Play/Pause
@@ -138,8 +143,12 @@
       @
     # Set up volume button
     setUpButtonVolume: ->
-      @$volume.bind 'click.zf.player', =>
-        @buttonVolumeHandler()
+      # Hide volume button on iOS
+      if @iOS
+        @$wrapper.find('.player-button.volume').hide()
+      else
+        @$volume.bind 'click.zf.player', =>
+          @buttonVolumeHandler()
     # Update volume button
     updateButtonVolume: ->
       @$volume.toggleClass(@options.classVolumeOff, @audio.muted)
