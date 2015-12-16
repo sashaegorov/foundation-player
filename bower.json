@@ -22,9 +22,11 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
+    "dist/demo.*",
+    "src/demo.*",
     "node_modules",
     "bower_components",
-    "lib/*",
+    "lib",
     "spec",
     "index.*",
     "Rakefile",
@@ -32,6 +34,7 @@
     "Guardfile",
     "Gemfile*",
     "config.rb",
-    "config.ru"
+    "config.ru",
+    "coffeelint.json"
   ]
 }
