@@ -219,10 +219,12 @@
 
   %body.foundation-player-demo
     .row
+      %h2.text-center
+        %em.fi-play
+        Foundation-player.js
+
+    .row
       .small-offset-0.small-12.medium-offset-2.medium-8.columns
-        %h2.text-center
-          %em.fi-play
-          Foundation-player.js
         %ul.tabs.foundation-player-tab#players{ 'data-tabs' => '' }
           %li.tabs-title.is-active
             %a{ href: '#sandbox' } API Sandbox
@@ -263,7 +265,9 @@
               %audio{ preload: 'none' }
                 %source{ src: './lib/audio/acoustic-b.m4a' }
 
-        %p.text-center
+    .row
+      %footer.footer
+        %p.text-center.about
           %small
             Made with
             = succeed ',' do
