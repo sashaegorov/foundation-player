@@ -21,3 +21,9 @@
   /* line 30, ../src/demo.scss */
   .foundation-player-demo .accordion-title::before {
     content: ''; }
+/* line 35, ../src/demo.scss */
+.foundation-player-demo .fi-heart {
+  color: #e74c3c; }
+/* line 39, ../src/demo.scss */
+.foundation-player-demo .footer {
+  color: #7f8c8d; }
