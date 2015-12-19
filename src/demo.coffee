@@ -23,4 +23,4 @@ do (document, window) ->
       if activeTab == '#normal'
         $('.foundation-player.no-2').foundationPlayer()
       if activeTab == '#small'
-        $('.foundation-player.no-3').foundationPlayer size: 'small'
+        $('.foundation-player.no-3').foundationPlayer playerUISize: 'small'

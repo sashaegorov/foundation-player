@@ -6,13 +6,14 @@
   # Define the plugin class
   class FoundationPlayer
     defaults:
-      size: 'normal'          # Size of player <normal|small>
+      # How it behaves
       playOnLoad: false       # Play as soon as it's loaded
       skipSeconds: 10         # How many we want to skip
       dimmedVolume: 0.25      # Reduced volume i.e. while seeking
       pauseOthersOnPlay: true # Pause other player instances
       useSeekData: false      # Parse seek data from links by default
-
+      # How it looks
+      playerUISize: 'normal'  # Size of player <normal|small>
       classPlayDefault: 'fi-music'
       classPlayWait: 'fi-clock'
       classPlayPaused: 'fi-pause'
@@ -40,7 +41,7 @@
       # State
       @played =    0
       @nowdragging = false
-      @currentUISize = @options.size
+      @currentUISize = @options.playerUISize
       @canPlayCurrent = false
       @dataLinks = []
       @audioError = null      # Audio error state
@@ -90,7 +91,7 @@
     # Setup default class
     resetClassAndStyle: ->
       # Set initial size
-      @$wrapper.addClass(@options.size)
+      @$wrapper.addClass(@options.playerUISize)
       # Calculate player width
       @setPlayerSizeHandler()
 

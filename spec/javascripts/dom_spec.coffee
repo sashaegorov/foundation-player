@@ -17,9 +17,9 @@ describe 'One player', ->
     expect(no1).toBeDefined()
 
   it 'player has default size', ->
-    expect(no1.currentUISize).toEqual no1.options.size
-    expect(no1.options.size).toEqual 'normal'
-    expect(no1.options.size).not.toEqual 'small'
+    expect(no1.currentUISize).toEqual no1.options.playerUISize
+    expect(no1.options.playerUISize).toEqual 'normal'
+    expect(no1.options.playerUISize).not.toEqual 'small'
 
   it 'play() works', ->
     no1.play()

@@ -8,12 +8,12 @@
       var isNumber, parseSeekPercent, parseSeekTime, prettyTime, stringPadLeft, switchClass;
 
       FoundationPlayer.prototype.defaults = {
-        size: 'normal',
         playOnLoad: false,
         skipSeconds: 10,
         dimmedVolume: 0.25,
         pauseOthersOnPlay: true,
         useSeekData: false,
+        playerUISize: 'normal',
         classPlayDefault: 'fi-music',
         classPlayWait: 'fi-clock',
         classPlayPaused: 'fi-pause',
@@ -38,7 +38,7 @@
         this.audio = this.$sources.get(0);
         this.played = 0;
         this.nowdragging = false;
-        this.currentUISize = this.options.size;
+        this.currentUISize = this.options.playerUISize;
         this.canPlayCurrent = false;
         this.dataLinks = [];
         this.audioError = null;
@@ -104,7 +104,7 @@
       };
 
       FoundationPlayer.prototype.resetClassAndStyle = function() {
-        this.$wrapper.addClass(this.options.size);
+        this.$wrapper.addClass(this.options.playerUISize);
         return this.setPlayerSizeHandler();
       };
 

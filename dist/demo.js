@@ -29,7 +29,7 @@
         }
         if (activeTab === '#small') {
           return $('.foundation-player.no-3').foundationPlayer({
-            size: 'small'
+            playerUISize: 'small'
           });
         }
       });

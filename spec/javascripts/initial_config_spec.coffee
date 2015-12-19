@@ -15,7 +15,7 @@ describe 'Elements for Initialization', ->
   it 'Constructor defaults exists', ->
     expect(no1.canPlayCurrent).toBe false
     expect(no1.options.playOnLoad).toBe false
-    expect(no1.currentUISize).toEqual no1.options.size
+    expect(no1.currentUISize).toEqual no1.options.playerUISize
     expect(no1.played).toEqual 0
 
   it 'Initial elements found in DOM', ->
