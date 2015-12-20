@@ -167,12 +167,19 @@
                     <code class='nobr'>data-seek-to-percentage</code>
                     and
                     <code class='nobr'>data-seek-to-time</code>
-                    attibutes with links.
+                    attributes with links.
                     In order to enable feature just passed
                     <code class='nobr'>{useSeekData: true}</code>
-                    option to player.class_selector
-                    Player instance which was initialized
-                    lastest will handle links in document.
+                    option to player.
+                  </p>
+                  <p>
+                    <strong>NOTE:</strong>
+                    The player's instance which was initialized the
+                    latest will handle links in the document.
+                    Any player which was initialized before will
+                    not handle data links.
+                    This option is safer to use when there is
+                    only one player on the page.
                   </p>
                   <p>
                     <code class='nobr'>&lt;a data-seek-to-percentage='0.5'&gt;50%&lt;/a&gt;</code>

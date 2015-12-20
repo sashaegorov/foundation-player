@@ -129,12 +129,18 @@
             %code.nobr data-seek-to-percentage
             and
             %code.nobr data-seek-to-time
-            attibutes with links.
+            attributes with links.
             In order to enable feature just passed
             %code.nobr {useSeekData: true}
-            option to player.class_selector
-            Player instance which was initialized
-            lastest will handle links in document.
+            option to player.
+          %p
+            %strong NOTE:
+            The player's instance which was initialized the
+            latest will handle links in the document.
+            Any player which was initialized before will
+            not handle data links.
+            This option is safer to use when there is
+            only one player on the page.
           %p
             %code.nobr&= '<a data-seek-to-percentage=\'0.5\'>50%</a>'
             will create link which moves playhead to
