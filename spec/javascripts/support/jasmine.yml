@@ -14,3 +14,5 @@ spec_helper: spec/javascripts/support/jasmine_helper.rb
 
 rack_options:
   server: 'puma'
+
+random: true
