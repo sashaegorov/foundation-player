@@ -23,18 +23,18 @@
   "ignore": [
     "**/.*",
     "dist/demo.*",
-    "src/demo.*",
-    "node_modules",
-    "bower_components",
     "lib",
     "spec",
-    "index.*",
-    "Rakefile",
-    "Procfile",
-    "Guardfile",
-    "Gemfile*",
+    "src/demo.*",
+    "bower_components",
+    "coffeelint.json",
     "config.rb",
     "config.ru",
-    "coffeelint.json"
+    "Gemfile*",
+    "Guardfile",
+    "index.*",
+    "node_modules",
+    "Procfile",
+    "Rakefile"
   ]
 }
