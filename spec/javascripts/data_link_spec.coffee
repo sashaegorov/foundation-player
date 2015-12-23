@@ -10,7 +10,6 @@ describe 'Data links', ->
       $.removeData document.body, 'FoundationPlayers'
 
     it 'are disabled by default', ->
-      # TODO: Describe this behaviour in documentation
       spyOn FoundationPlayer.prototype, 'parseDataLinks'
       $('.links-primary').foundationPlayer()
       player = $('.links-primary').data 'FoundationPlayer'
