@@ -44,3 +44,9 @@ describe 'Audio element', ->
     $(no1.audio).trigger 'timeupdate'
     expect(no1.updatePlayedProgress).toHaveBeenCalled()
     expect(no1.updateTimeStatuses).toHaveBeenCalled()
+
+  it 'handler `durationchange` works correctly', ->
+    spyOn no1, 'updateTimeStatuses'
+    expect(no1.updateTimeStatuses).not.toHaveBeenCalled()
+    $(no1.audio).trigger 'timeupdate'
+    expect(no1.updateTimeStatuses).toHaveBeenCalled()
