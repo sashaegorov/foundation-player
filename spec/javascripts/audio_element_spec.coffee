@@ -25,7 +25,6 @@ describe 'Audio element', ->
     expect($audio).toHandle 'progress'
     expect($audio).toHandle 'canplay'
 
-  # TODO: Test handlers calls
   it 'handler `loadstart` works correctly', ->
     spyOn no1, 'updateDisabledStatus'
     spyOn no1, 'updateButtonPlay'
@@ -48,5 +47,35 @@ describe 'Audio element', ->
   it 'handler `durationchange` works correctly', ->
     spyOn no1, 'updateTimeStatuses'
     expect(no1.updateTimeStatuses).not.toHaveBeenCalled()
-    $(no1.audio).trigger 'timeupdate'
+    $(no1.audio).trigger 'durationchange'
     expect(no1.updateTimeStatuses).toHaveBeenCalled()
+
+  it 'handler `progress` works correctly', ->
+    spyOn no1, 'redrawBufferizationBars'
+    spyOn no1, 'updateDisabledStatus'
+    expect(no1.redrawBufferizationBars).not.toHaveBeenCalled()
+    expect(no1.updateDisabledStatus).not.toHaveBeenCalled()
+    $(no1.audio).trigger 'progress'
+    expect(no1.redrawBufferizationBars).toHaveBeenCalled()
+    expect(no1.updateDisabledStatus).toHaveBeenCalled()
+
+  it 'handler `canplay` works correctly', ->
+    spyOn no1, 'redrawBufferizationBars'
+    spyOn no1, 'updateDisabledStatus'
+    spyOn no1, 'updateButtonPlay'
+    expect(no1.redrawBufferizationBars).not.toHaveBeenCalled()
+    expect(no1.updateDisabledStatus).not.toHaveBeenCalled()
+    expect(no1.updateButtonPlay).not.toHaveBeenCalled()
+    $(no1.audio).trigger 'canplay'
+    expect(no1.redrawBufferizationBars).toHaveBeenCalled()
+    expect(no1.updateDisabledStatus).toHaveBeenCalled()
+    expect(no1.updateButtonPlay).toHaveBeenCalled()
+
+  it 'handler `canplay` condition works correctly', ->
+    spyOn no1, 'play'
+    no1.options.playOnLoad = false
+    $(no1.audio).trigger 'canplay'
+    expect(no1.play).not.toHaveBeenCalled()
+    no1.options.playOnLoad = true
+    $(no1.audio).trigger 'canplay'
+    expect(no1.play).toHaveBeenCalled()
