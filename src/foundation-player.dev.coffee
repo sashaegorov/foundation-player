@@ -131,7 +131,6 @@
         @playPause() if @canPlayCurrent
     # Update Play/Pause
     updateButtonPlay: ->
-      # TODO: Refactor to switch/when
       @$play.toggleClass(@options.classPlayWait,
         !@canPlayCurrent && !@audioError)
       @$play.toggleClass(@options.classPlayPaused,
