@@ -1,6 +1,6 @@
 # Custom Rails assets from Bower packages
 source 'https://rails-assets.org' do
-  gem 'rails-assets-foundation-sites', '6.0.5'
+  gem 'rails-assets-foundation-sites', '6.1.0'
 end
 
 source 'https://rubygems.org'
