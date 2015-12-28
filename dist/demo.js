@@ -14,11 +14,9 @@
         scroll = $(document).scrollTop();
         if (scroll >= playerOffset) {
           $player.addClass('sticky');
-          player.setPlayerSize('small');
         }
         if (scroll < playerOffset) {
-          $player.removeClass('sticky');
-          return player.setPlayerSize('normal');
+          return $player.removeClass('sticky');
         }
       });
       return $('#players').on('change.zf.tabs', function() {

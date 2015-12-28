@@ -12,10 +12,8 @@ do (document, window) ->
       scroll = $(document).scrollTop()
       if scroll >= playerOffset
         $player.addClass 'sticky'
-        player.setPlayerSize 'small'
       if scroll < playerOffset
         $player.removeClass 'sticky'
-        player.setPlayerSize 'normal'
 
     # Load when tab active
     $('#players').on 'change.zf.tabs', ->
