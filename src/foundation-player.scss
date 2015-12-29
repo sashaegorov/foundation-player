@@ -5,7 +5,7 @@
 
 // Main player colors
 $fp-color: $primary-color !default;
-$fp-color-hover: scale-color($fp-color, $lightness: 25%) !default;
+$fp-color-hover: scale-color($fp-color, $lightness: -25%) !default;
 
 // Font sizes
 $fp-font-size-normal: rem-calc(23) !default;
