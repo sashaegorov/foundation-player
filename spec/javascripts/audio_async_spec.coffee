@@ -7,8 +7,8 @@
 
 describe 'Audio async tests', ->
   no1 = null
-  LOADING_TIMEOUT = 200
-  TEST_TIMEOUT = 500
+  LOADING_TIMEOUT = 125
+  TEST_TIMEOUT = 250
 
   beforeAll ->
     jasmine.getFixtures().fixturesPath = '.'
@@ -77,6 +77,30 @@ describe 'Audio async tests', ->
       expect(no1.audio.currentTime // 1).toBe 3
       no1.seekToTime '1:10'
       expect(no1.audio.currentTime // 1).toBe 4
+      done()
+    , LOADING_TIMEOUT
+  , TEST_TIMEOUT
+
+  it 'seekToTime() calls and return', (done) ->
+    spyOn no1, 'updatePlayedProgress'
+    spyOn no1, 'updateTimeStatuses'
+    setTimeout ->
+      # Return value doesn't depend on canPlayCurrent
+      expect(no1.seekToTime('00:01').seekToTime '00:02').toBe no1
+      expect(no1.updatePlayedProgress).toHaveBeenCalledWith()
+      expect(no1.updateTimeStatuses).toHaveBeenCalledWith()
+      done()
+    , LOADING_TIMEOUT
+  , TEST_TIMEOUT
+
+  it 'seekPercent() calls and return', (done) ->
+    spyOn no1, 'updatePlayedProgress'
+    spyOn no1, 'updateTimeStatuses'
+    setTimeout ->
+      # Return value doesn't depend on canPlayCurrent
+      expect(no1.seekPercent(0.1).seekPercent 20).toBe no1
+      expect(no1.updatePlayedProgress).toHaveBeenCalledWith()
+      expect(no1.updateTimeStatuses).toHaveBeenCalledWith()
       done()
     , LOADING_TIMEOUT
   , TEST_TIMEOUT
