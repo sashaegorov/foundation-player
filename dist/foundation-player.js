@@ -96,10 +96,12 @@
 
       FoundationPlayer.prototype.seekPercent = function(p) {
         var timeToGo;
-        timeToGo = this.audio.duration * parseSeekPercent(p);
-        this.audio.currentTime = timeToGo || 0;
-        this.updatePlayedProgress();
-        this.updateTimeStatuses();
+        if (this.canPlayCurrent) {
+          timeToGo = this.audio.duration * parseSeekPercent(p);
+          this.audio.currentTime = timeToGo || 0;
+          this.updatePlayedProgress();
+          this.updateTimeStatuses();
+        }
         return this;
       };
 
@@ -111,6 +113,7 @@
       FoundationPlayer.prototype.setUpCurrentAudio = function() {
         var $audio;
         this.audio.load();
+        this.audio.preload = 'auto';
         $audio = $(this.audio);
         $audio.on('timeupdate.zf.player', (function(_this) {
           return function() {

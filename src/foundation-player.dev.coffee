@@ -81,10 +81,11 @@
       @
 
     seekPercent: (p) ->
-      timeToGo = @audio.duration * parseSeekPercent p
-      @audio.currentTime = timeToGo or 0
-      @updatePlayedProgress()
-      @updateTimeStatuses()
+      if @canPlayCurrent
+        timeToGo = @audio.duration * parseSeekPercent p
+        @audio.currentTime = timeToGo or 0
+        @updatePlayedProgress()
+        @updateTimeStatuses()
       @
 
     # Generic ==================================================================
@@ -99,6 +100,7 @@
     setUpCurrentAudio: ->
       # Start preload of audio file
       @audio.load()
+      @audio.preload = 'auto'
       $audio = $(@audio)
       # Bunch of <audio> events
       $audio.on 'timeupdate.zf.player', => # While playing
