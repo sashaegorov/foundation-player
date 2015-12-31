@@ -93,14 +93,19 @@ describe 'Audio async tests', ->
     , LOADING_TIMEOUT
   , TEST_TIMEOUT
 
-  it 'seekPercent() calls and return', (done) ->
-    spyOn no1, 'updatePlayedProgress'
-    spyOn no1, 'updateTimeStatuses'
-    setTimeout ->
-      # Return value doesn't depend on canPlayCurrent
-      expect(no1.seekPercent(0.1).seekPercent 20).toBe no1
-      expect(no1.updatePlayedProgress).toHaveBeenCalledWith()
-      expect(no1.updateTimeStatuses).toHaveBeenCalledWith()
+  it 'seekPercent() calls', (done) ->
+    spyOn(no1, 'updatePlayedProgress').and.callThrough()
+    spyOn(no1, 'updateTimeStatuses').and.callThrough()
+    no1.onCanPlay ->
+      no1.seekPercent 0.1
+      expect(no1.updatePlayedProgress.calls.count()).toEqual 1
+      expect(no1.updateTimeStatuses.calls.count()).toEqual 2
+      no1.seekPercent 20
+      expect(no1.updatePlayedProgress.calls.count()).toEqual 2
+      expect(no1.updateTimeStatuses.calls.count()).toEqual 3
       done()
-    , LOADING_TIMEOUT
-  , TEST_TIMEOUT
+
+  it 'seekPercent() return', (done) ->
+    no1.onCanPlay ->
+      expect(no1.seekPercent(0.1).seekPercent(20)).toBe no1
+      done()

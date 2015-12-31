@@ -21,6 +21,8 @@
       classPlayError: 'fi-alert'
       classVolumeOn: 'fi-volume'
       classVolumeOff: 'fi-volume-strike'
+      # Event handlers
+      canPlayCallback: -> true
 
     constructor: (el, opt) ->
       @options = $.extend({}, @defaults, opt)
@@ -80,12 +82,13 @@
         @updateTimeStatuses()
       @
 
-    seekPercent: (p) ->
+    seekPercent: (p, callback) ->
       if @canPlayCurrent
         timeToGo = @audio.duration * parseSeekPercent p
         @audio.currentTime = timeToGo or 0
         @updatePlayedProgress()
         @updateTimeStatuses()
+        callback() if typeof callback == 'function'
       @
 
     # Generic ==================================================================
@@ -117,6 +120,7 @@
         @updateDisabledStatus()
       $audio.on 'canplay.zf.player', => # Can be played
         @canPlayCurrent = true
+        @options.canPlayCallback()
         @play() if @options.playOnLoad
         @redrawBufferizationBars()
         @updateDisabledStatus()
@@ -283,6 +287,10 @@
       # Some error is happend ¯\_(ツ)_/¯
       @audioError = true
       @updateButtonPlay()
+
+    # Accessors ================================================================
+    onCanPlay: (callback) ->
+      @options.canPlayCallback = callback
 
     # Helpers ==================================================================
     # Some really internal stuff goes here

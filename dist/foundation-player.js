@@ -20,7 +20,10 @@
         classPlayPlaying: 'fi-play',
         classPlayError: 'fi-alert',
         classVolumeOn: 'fi-volume',
-        classVolumeOff: 'fi-volume-strike'
+        classVolumeOff: 'fi-volume-strike',
+        canPlayCallback: function() {
+          return true;
+        }
       };
 
       function FoundationPlayer(el, opt) {
@@ -94,13 +97,16 @@
         return this;
       };
 
-      FoundationPlayer.prototype.seekPercent = function(p) {
+      FoundationPlayer.prototype.seekPercent = function(p, callback) {
         var timeToGo;
         if (this.canPlayCurrent) {
           timeToGo = this.audio.duration * parseSeekPercent(p);
           this.audio.currentTime = timeToGo || 0;
           this.updatePlayedProgress();
           this.updateTimeStatuses();
+          if (typeof callback === 'function') {
+            callback();
+          }
         }
         return this;
       };
@@ -142,6 +148,7 @@
         $audio.on('canplay.zf.player', (function(_this) {
           return function() {
             _this.canPlayCurrent = true;
+            _this.options.canPlayCallback();
             if (_this.options.playOnLoad) {
               _this.play();
             }
@@ -363,6 +370,10 @@
       FoundationPlayer.prototype.handleAudioError = function() {
         this.audioError = true;
         return this.updateButtonPlay();
+      };
+
+      FoundationPlayer.prototype.onCanPlay = function(callback) {
+        return this.options.canPlayCallback = callback;
       };
 
       switchClass = function(element, p, n) {
