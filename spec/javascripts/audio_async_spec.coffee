@@ -37,22 +37,18 @@ describe 'Audio async tests', ->
     done()
 
   it 'has correct audio source', (done) ->
-    setTimeout ->
+    no1.onCanPlay ->
       expect(no1.audio.currentSrc).toMatch /lib\/audio\/acoustic-b\.m4a/
       expect(no1.audio.currentSrc).not.toBe ''
       done()
-    , LOADING_TIMEOUT
-  , TEST_TIMEOUT
 
   it 'has correct audio duration', (done) ->
-    setTimeout ->
+    no1.onCanPlay ->
       expect(no1.audio.duration // 1).toBe 4
       done()
-    , LOADING_TIMEOUT
-  , TEST_TIMEOUT
 
   it 'seekPercent() works', (done) ->
-    setTimeout ->
+    no1.onCanPlay ->
       no1.seekPercent 0
       expect(no1.audio.currentTime // 1).toBe 0
       no1.seekPercent 50
@@ -62,11 +58,9 @@ describe 'Audio async tests', ->
       no1.seekPercent 150
       expect(no1.audio.currentTime // 1).toBe 4
       done()
-    , LOADING_TIMEOUT
-  , TEST_TIMEOUT
 
   it 'seekToTime() works', (done) ->
-    setTimeout ->
+    no1.onCanPlay ->
       no1.seekToTime 0
       expect(no1.audio.currentTime // 1).toBe 0
       no1.seekToTime 3
@@ -78,20 +72,16 @@ describe 'Audio async tests', ->
       no1.seekToTime '1:10'
       expect(no1.audio.currentTime // 1).toBe 4
       done()
-    , LOADING_TIMEOUT
-  , TEST_TIMEOUT
 
   it 'seekToTime() calls and return', (done) ->
     spyOn no1, 'updatePlayedProgress'
     spyOn no1, 'updateTimeStatuses'
-    setTimeout ->
+    no1.onCanPlay ->
       # Return value doesn't depend on canPlayCurrent
       expect(no1.seekToTime('00:01').seekToTime '00:02').toBe no1
       expect(no1.updatePlayedProgress).toHaveBeenCalledWith()
       expect(no1.updateTimeStatuses).toHaveBeenCalledWith()
       done()
-    , LOADING_TIMEOUT
-  , TEST_TIMEOUT
 
   it 'seekPercent() calls', (done) ->
     spyOn(no1, 'updatePlayedProgress').and.callThrough()
