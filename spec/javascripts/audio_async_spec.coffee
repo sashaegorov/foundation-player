@@ -1,14 +1,5 @@
-#       _/      _/    _/_/      _/_/_/  _/_/_/    _/_/_/
-#      _/_/  _/_/  _/    _/  _/          _/    _/
-#     _/  _/  _/  _/_/_/_/  _/  _/_/    _/    _/
-#    _/      _/  _/    _/  _/    _/    _/    _/
-#   _/      _/  _/    _/    _/_/_/  _/_/_/    _/_/_/
-#
-
 describe 'Audio async tests', ->
   no1 = null
-  LOADING_TIMEOUT = 125
-  TEST_TIMEOUT = 250
 
   beforeAll ->
     jasmine.getFixtures().fixturesPath = '.'
