@@ -1,18 +1,9 @@
-#       _/      _/    _/_/      _/_/_/  _/_/_/    _/_/_/
-#      _/_/  _/_/  _/    _/  _/          _/    _/
-#     _/  _/  _/  _/_/_/_/  _/  _/_/    _/    _/
-#    _/      _/  _/    _/  _/    _/    _/    _/
-#   _/      _/  _/    _/    _/_/_/  _/_/_/    _/_/_/
-#
-
 describe 'Data links', ->
   describe 'async test with actual audio', ->
     # These tests require loading of audio file
     # so they were moved here as separate suit.
 
     playerPrimary = null
-    LOADING_TIMEOUT = 100
-    TEST_TIMEOUT = 250
 
     beforeAll ->
       jasmine.getFixtures().fixturesPath = '.'
@@ -44,7 +35,7 @@ describe 'Data links', ->
     it 'produce correct seek to time actions', (done) ->
       spyOn playerPrimary, 'seekToTime' # desirable
       spyOn playerPrimary, 'seekPercent' # undesirable
-      setTimeout ->
+      playerPrimary.onCanPlay ->
         $('#to01').click()
         expect(playerPrimary.seekToTime).toHaveBeenCalledWith 1
         expect(playerPrimary.seekPercent).not.toHaveBeenCalled()
@@ -52,13 +43,11 @@ describe 'Data links', ->
         expect(playerPrimary.seekToTime).toHaveBeenCalledWith 2
         expect(playerPrimary.seekPercent).not.toHaveBeenCalled()
         done()
-      , LOADING_TIMEOUT
-    , TEST_TIMEOUT
 
     it 'produce correct percentage seek actions', (done) ->
       spyOn playerPrimary, 'seekPercent' # desirable
       spyOn playerPrimary, 'seekToTime' # undesirable
-      setTimeout ->
+      playerPrimary.onCanPlay ->
         $('#to25').click()
         expect(playerPrimary.seekPercent).toHaveBeenCalledWith 0.25
         expect(playerPrimary.seekToTime).not.toHaveBeenCalled()
@@ -66,8 +55,6 @@ describe 'Data links', ->
         expect(playerPrimary.seekPercent).toHaveBeenCalledWith 0.5
         expect(playerPrimary.seekToTime).not.toHaveBeenCalled()
         done()
-      , LOADING_TIMEOUT
-    , TEST_TIMEOUT
 
     it 'handled by latest initilized player', (done) ->
       # Initialize second player in addition to first
@@ -82,7 +69,7 @@ describe 'Data links', ->
       spyOn playerSecondary, 'seekPercent' # desirable
       spyOn playerSecondary, 'seekToTime'  # desirable
 
-      setTimeout ->
+      playerSecondary.onCanPlay ->
         # Timestamp links
         $('#to01').click()
         expect(playerSecondary.seekToTime).toHaveBeenCalledWith 1
@@ -99,5 +86,3 @@ describe 'Data links', ->
         expect(playerPrimary.seekToTime).not.toHaveBeenCalled()
         playerSecondary = null # Clean up the second player
         done() # We are finally done
-      , LOADING_TIMEOUT
-    , TEST_TIMEOUT
